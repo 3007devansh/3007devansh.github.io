@@ -3,7 +3,7 @@ name: Computer Operator & Programming Assistant
 nameMr: कॉम्प्युटर ऑपरेटर अँड प्रोग्रामिंग असिस्टंट (कोपा)
 shortName: COPA
 order: 3
-icon: 💻
+icon: monitor
 eligibility: 10th pass
 eligibilityMr: १० वी उत्तीर्ण
 duration: null

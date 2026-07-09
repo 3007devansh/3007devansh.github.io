@@ -3,7 +3,7 @@ name: Welder
 nameMr: वेल्डर
 shortName: Welder
 order: 4
-icon: 🔥
+icon: flame
 eligibility: 8th pass
 eligibilityMr: ८ वी उत्तीर्ण
 duration: null

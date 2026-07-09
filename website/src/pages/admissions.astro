@@ -41,63 +41,63 @@ const steps = [
   </div>
 
   <div class="mx-auto max-w-4xl px-4 py-12">
-    <h1 class="text-4xl font-extrabold text-slate-900">Admissions {site.admission.year}</h1>
+    <h1 class="font-serif text-4xl font-bold text-stone-900">Admissions {site.admission.year}</h1>
 
     <!-- The "we are late" answer -->
-    <div class="mt-8 rounded-xl border-2 border-green-300 bg-green-50 p-6">
-      <h2 class="text-xl font-bold text-green-900">Missed the earlier round? You can still get admission.</h2>
+    <div class="mt-8 border-2 border-green-300 bg-green-50 p-6">
+      <h2 class="font-serif text-xl font-bold text-green-900">Missed the earlier round? You can still get admission.</h2>
       <p class="mt-3 text-green-900">
         Under Maharashtra's admission rules, <strong>{dvet.instituteLevelQuota}% of the seats in every course</strong>
         at a private ITI are filled directly by the institute. In addition, any seats left vacant after the
         5th round also become available at institute level.
       </p>
       <p class="mt-3 font-semibold text-green-900">
-        ⚠️ But you must still register on the DVET portal and pay the application fee first. There is no way around this.
+        But you must still register on the DVET portal and pay the application fee first. There is no way around this.
       </p>
-      <a href={`tel:${site.phonePrimary}`} class="mt-4 inline-block rounded-lg bg-green-700 px-5 py-2.5 font-semibold text-white hover:bg-green-800">
-        📞 Call us — we will guide you
+      <a href={`tel:${site.phonePrimary}`} class="mt-4 inline-block bg-green-700 px-5 py-2.5 font-semibold text-white hover:bg-green-800">
+        Call us — we will guide you
       </a>
     </div>
 
     <!-- Institute code -->
-    <div class="mt-10 rounded-xl border-2 border-maroon-200 bg-maroon-50 p-6 text-center">
+    <div class="mt-10 border-2 border-maroon-200 bg-maroon-50 p-6 text-center">
       <p class="text-sm font-semibold text-maroon-800 uppercase">Enter this code in your option form</p>
       <p class="mt-2 font-mono text-4xl font-extrabold break-all text-maroon-700">
         <Fact value={site.instituteCode} />
       </p>
-      <p class="mt-2 text-sm text-slate-600">
+      <p class="mt-2 text-sm text-stone-600">
         Institute Code for <Fact value={site.nameFull} fallback={site.name} />
       </p>
     </div>
 
     <!-- Steps -->
-    <h2 class="mt-14 text-2xl font-bold text-slate-900">How to apply — step by step</h2>
+    <h2 class="mt-14 font-serif text-2xl font-bold text-stone-900">How to apply — step by step</h2>
     <ol class="mt-6 space-y-5">
       {steps.map((s, i) => (
         <li class="flex gap-4">
-          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-maroon-700 font-bold text-white">
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center bg-maroon-700 font-bold text-white">
             {i + 1}
           </span>
           <div>
-            <h3 class="font-bold text-slate-900">{s.t}</h3>
-            <p class="mt-1 text-slate-600">{s.d}</p>
+            <h3 class="font-bold text-stone-900">{s.t}</h3>
+            <p class="mt-1 text-stone-600">{s.d}</p>
           </div>
         </li>
       ))}
     </ol>
 
-    <a href={dvet.portal} class="mt-8 inline-block rounded-lg bg-maroon-700 px-6 py-3 font-semibold text-white hover:bg-maroon-800">
+    <a href={dvet.portal} class="mt-8 inline-block bg-maroon-700 px-6 py-3 font-semibold text-white hover:bg-maroon-800">
       Go to admission.dvet.gov.in →
     </a>
 
     <!-- Documents -->
-    <h2 class="mt-14 text-2xl font-bold text-slate-900">Documents to bring</h2>
+    <h2 class="mt-14 font-serif text-2xl font-bold text-stone-900">Documents to bring</h2>
     <ul class="mt-4 space-y-2">
       {dvet.documentsAtAdmission.map((d) => (
-        <li class="flex gap-2 text-slate-700"><span class="text-maroon-700">✓</span>{d}</li>
+        <li class="flex gap-2 text-stone-700"><span class="text-maroon-700">·</span>{d}</li>
       ))}
     </ul>
-    <div class="mt-5 space-y-3 rounded-lg bg-amber-50 p-4 text-sm text-amber-900">
+    <div class="mt-5 space-y-3 bg-amber-50 p-4 text-sm text-amber-900">
       <p><strong>Please note:</strong> {dvet.documentsRetained}</p>
       <p>
         If your documents are not ready at the time of confirmation, you are given
@@ -107,14 +107,14 @@ const steps = [
     </div>
 
     <!-- Fees -->
-    <h2 class="mt-14 text-2xl font-bold text-slate-900">Fees</h2>
-    <p class="mt-3 text-slate-600">
+    <h2 class="mt-14 font-serif text-2xl font-bold text-stone-900">Fees</h2>
+    <p class="mt-3 text-stone-600">
       Fee details for each course are listed on the individual course pages. For the current fee structure, please
       <a href={`tel:${site.phonePrimary}`} class="font-semibold text-maroon-700 underline">call {site.phonePrimary}</a>.
     </p>
 
     <!-- Anti-fraud warning: important for this audience -->
-    <div class="mt-10 rounded-lg border-l-4 border-red-500 bg-red-50 p-5">
+    <div class="mt-10 border-l-4 border-red-500 bg-red-50 p-5">
       <h3 class="font-bold text-red-900">Beware of agents</h3>
       <p class="mt-2 text-sm text-red-900">
         DEKSON ITI does not work through any admission agent or middleman. Nobody is authorised to collect money
@@ -124,15 +124,15 @@ const steps = [
     </div>
 
     <!-- Help -->
-    <div class="mt-12 rounded-xl bg-slate-50 p-6 text-center">
-      <h3 class="text-xl font-bold text-slate-900">Need help with the portal?</h3>
-      <p class="mt-2 text-slate-600">Many students find the online process confusing. Call us — we will walk you through it.</p>
+    <div class="mt-12 bg-stone-50 p-6 text-center">
+      <h3 class="font-serif text-xl font-bold text-stone-900">Need help with the portal?</h3>
+      <p class="mt-2 text-stone-600">Many students find the online process confusing. Call us — we will walk you through it.</p>
       <div class="mt-5 flex flex-wrap justify-center gap-3">
-        <a href={`tel:${site.phonePrimary}`} class="rounded-lg bg-maroon-700 px-5 py-2.5 font-semibold text-white hover:bg-maroon-800">
-          📞 {site.phonePrimaryName} — {site.phonePrimary}
+        <a href={`tel:${site.phonePrimary}`} class="rounded-none bg-maroon-700 px-5 py-2.5 font-semibold text-white hover:bg-maroon-800">
+          {site.phonePrimaryName} — {site.phonePrimary}
         </a>
-        <a href={`https://wa.me/91${site.whatsapp}`} class="rounded-lg bg-green-600 px-5 py-2.5 font-semibold text-white hover:bg-green-700">
-          💬 WhatsApp
+        <a href={`https://wa.me/91${site.whatsapp}`} class="rounded-none bg-green-600 px-5 py-2.5 font-semibold text-white hover:bg-green-700">
+          WhatsApp
         </a>
       </div>
     </div>

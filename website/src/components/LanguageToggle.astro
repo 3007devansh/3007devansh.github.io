@@ -1,0 +1,110 @@
+---
+/**
+ * Google Translate — English ⇄ मराठी.
+ *
+ * ⚠️ READ THIS BEFORE CHANGING ANYTHING HERE.
+ *
+ * 1. This produces ZERO SEO value. Google Translate mutates the DOM in the
+ *    browser; no Marathi URL exists, so nothing is indexable, and <title>/meta
+ *    stay in English. Marathi search visibility requires real /mr/ routes with
+ *    hreflang. This widget is a convenience for visitors, not a strategy.
+ *
+ * 2. The widget is deprecated (closed to new signups since 2019, unmaintained,
+ *    no announced sunset). Academic institutions remain in the tolerated
+ *    category. Treat the endpoint as borrowed time.
+ *
+ * 3. Machine translation is unreliable for terse, high-stakes strings — it
+ *    drops negations ("not eligible" → "eligible") and mangles numerals.
+ *    Every fee, date, phone number and the Institute Code MUST be wrapped in
+ *    `notranslate` (see the .notranslate helper and <Protect> usage).
+ *
+ * We switch language via the `googtrans` cookie rather than poking the widget's
+ * <select>. The select-poke is a documented race condition ("Cannot set property
+ * 'selectedIndex' of null"); the cookie is read at init and survives navigation
+ * across the static pages.
+ */
+---
+
+<!-- Widget mounts here; its default UI is hidden and replaced by our own buttons. -->
+<div id="google_translate_element" aria-hidden="true"></div>
+
+<div class="flex items-center gap-1" role="group" aria-label="Website language">
+  <button
+    type="button"
+    data-lang="en"
+    class="lang-btn px-2.5 py-1.5 text-xs font-semibold tracking-wide text-white/60 transition hover:text-white"
+  >
+    English
+  </button>
+  <span class="text-white/25" aria-hidden="true">|</span>
+  <button
+    type="button"
+    data-lang="mr"
+    lang="mr"
+    class="lang-btn px-2.5 py-1.5 text-xs font-semibold tracking-wide text-white/60 transition hover:text-white"
+  >
+    मराठी
+  </button>
+</div>
+
+<script is:inline>
+  (function () {
+    // ---- Set the cookie BEFORE element.js initialises, so a Marathi visitor
+    // ---- lands already translated instead of seeing an English flash.
+    function setGoogTrans(value) {
+      var host = location.hostname;
+      document.cookie = 'googtrans=' + value + ';path=/';
+      document.cookie = 'googtrans=' + value + ';path=/;domain=.' + host;
+    }
+    function clearGoogTrans() {
+      var expire = ';path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      document.cookie = 'googtrans=' + expire;
+      document.cookie = 'googtrans=' + expire.replace(';path=/', ';path=/;domain=.' + location.hostname);
+    }
+
+    window.__setLang = function (lang) {
+      if (lang === 'en') clearGoogTrans();
+      else setGoogTrans('/en/' + lang);
+      try { localStorage.setItem('dekson-lang', lang); } catch (e) {}
+      location.reload();
+    };
+
+    window.googleTranslateElementInit = function () {
+      new google.translate.TranslateElement(
+        { pageLanguage: 'en', includedLanguages: 'en,mr', autoDisplay: false },
+        'google_translate_element'
+      );
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var current = document.cookie.indexOf('googtrans=/en/mr') > -1 ? 'mr' : 'en';
+
+      document.querySelectorAll('.lang-btn').forEach(function (b) {
+        var isActive = b.dataset.lang === current;
+        b.setAttribute('aria-pressed', String(isActive));
+        if (isActive) b.classList.remove('text-white/60'), b.classList.add('text-white', 'underline', 'underline-offset-4');
+        b.addEventListener('click', function () { window.__setLang(b.dataset.lang); });
+      });
+
+      // The widget injects a banner iframe and forces `body { top: 40px }`,
+      // which shifts the layout and breaks the sticky header. It re-applies
+      // this after mutation, so a one-off CSS rule is not enough.
+      var fixTop = function () {
+        if (document.body.style.top && document.body.style.top !== '0px') {
+          document.body.style.top = '0px';
+        }
+      };
+      new MutationObserver(fixTop).observe(document.body, {
+        attributes: true,
+        attributeFilter: ['style'],
+      });
+      fixTop();
+    });
+  })();
+</script>
+
+<!-- Loaded async: a dead third-party endpoint must never block our render. -->
+<script
+  is:inline
+  async
+  src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>

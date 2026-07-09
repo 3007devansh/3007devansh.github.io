@@ -3,7 +3,7 @@ name: Electrician
 nameMr: इलेक्ट्रीशियन
 shortName: Electrician
 order: 2
-icon: ⚡
+icon: bolt
 eligibility: 10th pass
 eligibilityMr: १० वी उत्तीर्ण
 duration: null

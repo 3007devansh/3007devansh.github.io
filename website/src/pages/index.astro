@@ -2,22 +2,20 @@
 import Base from '../layouts/Base.astro';
 import Fact from '../components/Fact.astro';
 import Picture from '../components/Picture.astro';
+import Icon from '../components/Icon.astro';
 import { site, dvet } from '../config/site';
 import { getCollection } from 'astro:content';
 
 const courses = (await getCollection('courses')).sort((a, b) => a.data.order - b.data.order);
 
-const facilities = [
-  ['🏫', 'Classrooms'], ['💻', 'Computer lab'], ['📚', 'Library'], ['🎭', 'Auditorium'],
-  ['🗣️', 'Seminar hall'], ['🚰', 'Drinking water'], ['🚻', 'Separate washrooms'], ['🍽️', 'Canteen'],
-  ['🅿️', 'Parking'], ['📹', 'CCTV'], ['💂', 'Security guard'], ['♿', 'Ramp access'],
-  ['🩹', 'First aid'], ['🧯', 'Fire safety'], ['🛋️', 'Reception'], ['👨‍🏫', 'Staff room'],
+const facilities: [Parameters<typeof Icon>[0]['name'], string][] = [
+  ['building', 'Classrooms'], ['monitor', 'Computer lab'], ['fileText', 'Library'],
+  ['users', 'Auditorium'], ['users', 'Seminar hall'], ['mapPin', 'Reception'],
+  ['check', 'Drinking water'], ['check', 'Separate washrooms'], ['check', 'Canteen'],
+  ['check', 'Parking'], ['shield', 'CCTV'], ['shield', 'Security guard'],
+  ['check', 'Ramp access'], ['alert', 'First aid'], ['flame', 'Fire safety'], ['users', 'Staff room'],
 ];
 
-/**
- * Course carousel schema. NOTE: the single-course "Course Info" rich result was
- * retired by Google in June 2025; the Course *List* carousel is still supported.
- */
 const schema = [
   {
     '@type': 'ItemList',
@@ -44,99 +42,138 @@ const fmt = (d: string) =>
   description={`${site.approval} ITI in Waghulgaon, Akola. Courses after 10th: Electrician, COPA, Solar Technician. Welder after 8th. Run by ${site.runBy}. Call ${site.phonePrimary}.`}
   schema={schema}
 >
-  <!-- Admissions strip -->
-  <div class="bg-green-700 px-4 py-2.5 text-center text-white">
-    <p class="text-sm font-bold">
-      🎓 Admissions Open {site.admission.year} —
-      <Fact value={site.admission.statusLine} fallback="institute-level seats available now" />
-      <a href="/admissions" class="ml-1 underline underline-offset-2">See how to apply →</a>
-    </p>
+  <!-- Admissions band. Gold reads as a seal; the traffic-light green it replaced
+       read as a chat notification. -->
+  <div class="border-b border-gold-300 bg-gold-100">
+    <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-2 gap-y-1 px-4 py-2.5 text-center">
+      <span class="kicker text-gold-800">Admissions {site.admission.year}</span>
+      <span class="text-sm text-stone-800">
+        <Fact value={site.admission.statusLine} fallback="Institute-level seats are open now." />
+      </span>
+      <a href="/admissions" class="text-sm font-semibold text-maroon-700 underline underline-offset-2">
+        How to apply
+      </a>
+    </div>
   </div>
 
-  <!-- HERO.
-       Information-forward, not a slogan. A cautious parent is verifying we are
-       real: recognition, courses, eligibility and a phone number, all visible
-       before any scroll. -->
-  <section class="relative overflow-hidden bg-slate-900">
-    <div class="absolute inset-0">
-      <Picture
-        src="campus-entrance"
-        alt="The main entrance building of DEKSON ITI, Waghulgaon, Akola"
-        priority={true}
-        sizes="100vw"
-        class="h-full w-full object-cover opacity-30"
-        width={1600}
-        height={1200}
-      />
-    </div>
+  <!--
+    HERO — split, not overlay.
+    The previous version dimmed the real campus photo to 30% opacity to float a
+    slogan over it. For a trust-first audience that is backwards: the building
+    is the evidence. Full brightness, hard edges, no rounding.
+  -->
+  <section class="border-b border-stone-200">
+    <div class="mx-auto grid max-w-6xl lg:grid-cols-12">
+      <div class="bg-clay-50 px-4 py-12 sm:px-8 lg:col-span-5 lg:py-20">
+        <p class="kicker">Waghulgaon · Akola · Maharashtra</p>
 
-    <div class="relative mx-auto max-w-6xl px-4 py-14 md:py-24">
-      <div class="max-w-2xl">
-        <p class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold tracking-wide text-white uppercase ring-1 ring-white/20">
-          🏛️ {site.approval}
-        </p>
-
-        <h1 class="mt-5 text-4xl leading-tight font-black tracking-tight text-white md:text-6xl">
-          Build a skilled career in Akola
+        <h1 class="mt-4 font-serif text-4xl leading-[1.1] font-bold text-stone-900 md:text-5xl">
+          Learn a skill.<br />Earn a living.
         </h1>
-        <p class="mt-3 mr text-lg text-clay-100">{site.nameMr}</p>
+        <p class="mr mt-3 text-lg text-stone-600">{site.nameMr}</p>
 
-        <p class="mt-5 text-lg leading-relaxed text-slate-200">
-          Government-recognised ITI courses at Waghulgaon, Akola. Learn a practical skill,
-          earn a certificate valid across India, and start earning.
+        <p class="mt-6 max-w-md leading-relaxed text-stone-700">
+          A government-recognised Industrial Training Institute run by {site.runBy}.
+          Practical training, a certificate valid across India, and a real trade in your hands.
         </p>
 
-        <!-- Eligibility answered before the scroll -->
-        <div class="mt-6 flex flex-wrap gap-2">
-          <span class="rounded-lg bg-white/10 px-3 py-2 text-sm font-semibold text-white ring-1 ring-white/20">
-            ✅ After 10th — Electrician, COPA, Solar
-          </span>
-          <span class="rounded-lg bg-green-500/20 px-3 py-2 text-sm font-semibold text-green-100 ring-1 ring-green-400/40">
-            ✅ After 8th — Welder
-          </span>
-        </div>
+        <!-- Eligibility as a labelled data list, not floating pills -->
+        <dl class="mt-8 border-t border-stone-200">
+          <div class="flex gap-4 border-b border-stone-200 py-3">
+            <dt class="w-28 shrink-0 text-xs font-semibold tracking-wide text-stone-500 uppercase">After 10th</dt>
+            <dd class="text-sm font-medium text-stone-800">Electrician · COPA · Solar Technician</dd>
+          </div>
+          <div class="flex gap-4 border-b border-stone-200 py-3">
+            <dt class="w-28 shrink-0 text-xs font-semibold tracking-wide text-stone-500 uppercase">After 8th</dt>
+            <dd class="text-sm font-medium text-stone-800">
+              Welder
+              <span class="ml-1 bg-gold-100 px-1.5 py-0.5 text-xs font-semibold text-gold-800">no 10th needed</span>
+            </dd>
+          </div>
+        </dl>
 
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-          <a href={`tel:${site.phonePrimary}`} class="inline-flex items-center justify-center gap-2 rounded-xl bg-maroon-700 px-7 py-4 text-base font-bold text-white shadow-lg transition hover:bg-maroon-600">
-            📞 Call {site.phonePrimary}
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a href={`tel:${site.phonePrimary}`} class="inline-flex items-center justify-center gap-2 bg-maroon-700 px-6 py-3.5 font-semibold text-white transition-colors hover:bg-maroon-800">
+            <Icon name="phone" size={17} />
+            <span class="tnum notranslate" translate="no">{site.phonePrimary}</span>
           </a>
-          <a href={`https://wa.me/91${site.whatsapp}`} rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-7 py-4 text-base font-bold text-white shadow-lg transition hover:brightness-110">
-            💬 WhatsApp us
-          </a>
-          <a href="/courses" class="inline-flex items-center justify-center gap-2 rounded-xl bg-white/10 px-7 py-4 text-base font-bold text-white ring-1 ring-white/30 transition hover:bg-white/20">
-            View courses →
+          <a href={`https://wa.me/91${site.whatsapp}`} rel="noopener" class="inline-flex items-center justify-center gap-2 border-2 border-stone-300 px-6 py-3.5 font-semibold text-stone-800 transition-colors hover:border-maroon-700 hover:text-maroon-700">
+            <Icon name="whatsapp" size={17} /> WhatsApp
           </a>
         </div>
+      </div>
+
+      <!-- The photograph, at full brightness. It is evidence, not wallpaper. -->
+      <div class="relative min-h-[280px] lg:col-span-7 lg:min-h-[520px]">
+        <Picture
+          src="campus-entrance"
+          alt="The main entrance building of DEKSON ITI at Waghulgaon, Akola"
+          priority={true}
+          sizes="(max-width: 1024px) 100vw, 58vw"
+          class="absolute inset-0 h-full w-full object-cover"
+          width={1600}
+          height={1200}
+        />
       </div>
     </div>
   </section>
 
-  <!-- ⭐ Institute Code + notice board -->
-  <section class="border-b border-slate-200 bg-slate-50">
-    <div class="mx-auto grid max-w-6xl gap-6 px-4 py-10 lg:grid-cols-5">
-      <div class="rounded-2xl border-2 border-maroon-200 bg-white p-6 lg:col-span-2">
-        <p class="text-xs font-bold tracking-wide text-slate-500 uppercase">Our Institute Code</p>
-        <p class="mt-2 font-mono text-3xl font-black break-all text-maroon-700">
-          <Fact value={site.instituteCode} />
-        </p>
-        <p class="mt-3 text-sm leading-relaxed text-slate-600">
+  <!--
+    Accreditation strip. Research: this is the single most important trust
+    device on an Indian ITI site, and it belongs near the fold, not the footer.
+
+    ⚠️ These are TEXT placeholders. The real NCVT / DGT / Skill India marks are on
+    the institute pamphlet and must be supplied as SVG/PNG. We will not redraw or
+    approximate an official government mark.
+  -->
+  <section aria-label="Recognitions" class="border-b border-stone-200 bg-white">
+    <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-10 gap-y-4 px-4 py-6">
+      <p class="kicker text-stone-400">Recognised by</p>
+      {['NCVT', 'DGT', 'Skill India'].map((mark) => (
+        <span class="border border-stone-300 px-4 py-2 font-serif text-lg font-bold tracking-wide text-stone-700">
+          {mark}
+        </span>
+      ))}
+      <p class="text-xs text-stone-400">Official logos to be added</p>
+    </div>
+  </section>
+
+  <!-- Credential plaque + notice ledger.
+       The institute code is the most important datum on the site; it gets the
+       serif display face, not font-mono (monospace-as-decoration is a dev tell). -->
+  <section class="bg-stone-50">
+    <div class="mx-auto grid max-w-6xl gap-px bg-stone-200 lg:grid-cols-5">
+      <div class="bg-stone-50 p-8 lg:col-span-2">
+        <p class="kicker">Our Institute Code</p>
+        <div class="mt-3 border-2 border-maroon-700 bg-white px-5 py-6 text-center">
+          <p class="notranslate font-serif text-3xl font-bold break-all text-maroon-700 tnum" translate="no">
+            <Fact value={site.instituteCode} />
+          </p>
+        </div>
+        <p class="mt-4 text-sm leading-relaxed text-stone-600">
           Enter this code in your option form at
-          <a href={dvet.portal} rel="noopener" class="font-bold text-maroon-700 underline">admission.dvet.gov.in</a>
+          <a href={dvet.portal} rel="noopener" class="font-semibold text-maroon-700 underline">admission.dvet.gov.in</a>
           to choose {site.name}.
         </p>
       </div>
 
-      <!-- Notice board: dated, plain, 3 items. No marquee, no blinking gif. -->
-      <div class="rounded-2xl border border-slate-200 bg-white p-6 lg:col-span-3">
-        <h2 class="flex items-center gap-2 text-sm font-bold tracking-wide text-slate-500 uppercase">
-          📌 Latest Notices
-        </h2>
-        <ul class="mt-4 divide-y divide-slate-100">
-          {site.notices.slice(0, 3).map((n) => (
-            <li class="py-2.5">
-              <a href={n.href} class="group flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-3">
-                <time datetime={n.date} class="shrink-0 font-mono text-xs text-slate-400">{fmt(n.date)}</time>
-                <span class="text-sm text-slate-700 group-hover:text-maroon-700 group-hover:underline">{n.text}</span>
+      <!-- A notice board should look like a notice board: a ledger of dated
+           rows. Not a rounded card with a drop shadow. -->
+      <div class="bg-white p-8 lg:col-span-3">
+        <div class="flex items-baseline justify-between border-b-2 border-maroon-700 pb-2">
+          <p class="kicker">Latest Notices</p>
+          <span class="text-xs text-stone-400">Updated {fmt(site.notices[0].date)}</span>
+        </div>
+        <ul>
+          {site.notices.map((n) => (
+            <li class="border-b border-stone-200">
+              <a href={n.href} class="group flex flex-col gap-1 py-3 sm:flex-row sm:items-baseline sm:gap-5">
+                <time datetime={n.date} class="tnum notranslate w-24 shrink-0 text-xs font-semibold text-stone-400" translate="no">
+                  {fmt(n.date)}
+                </time>
+                <span class="text-sm leading-relaxed text-stone-700 group-hover:text-maroon-700 group-hover:underline">
+                  {n.text}
+                </span>
               </a>
             </li>
           ))}
@@ -145,78 +182,88 @@ const fmt = (d: string) =>
     </div>
   </section>
 
-  <!-- COURSES — outcome-led. "Become an Electrician", not "Trade: Electrician". -->
-  <section class="mx-auto max-w-6xl px-4 py-16">
-    <div class="flex flex-wrap items-end justify-between gap-4">
-      <div>
-        <h2 class="text-3xl font-black tracking-tight text-slate-900 md:text-4xl">Our Courses</h2>
-        <p class="mt-2 mr text-slate-500">आमचे अभ्यासक्रम</p>
-        <p class="mt-3 max-w-xl text-slate-600">
-          Four government-recognised courses. Learn a real skill, get a certificate valid all over India.
+  <!-- COURSES -->
+  <section class="mx-auto max-w-6xl px-4 py-20">
+    <div class="grid gap-6 lg:grid-cols-12">
+      <div class="hangs lg:col-span-8">
+        <p class="kicker">What you can study</p>
+        <h2 class="mt-2 font-serif text-3xl font-bold text-stone-900 md:text-4xl">Our Courses</h2>
+        <p class="mt-3 max-w-xl leading-relaxed text-stone-600">
+          Four government-recognised courses. Each one teaches a practical trade and ends in a
+          certificate recognised across India.
         </p>
       </div>
-      <a href="/courses" class="text-sm font-bold text-maroon-700 hover:underline">All courses →</a>
+      <div class="flex items-end lg:col-span-4 lg:justify-end">
+        <a href="/courses" class="inline-flex items-center gap-2 text-sm font-semibold text-maroon-700 hover:underline">
+          All courses <Icon name="arrowRight" size={15} />
+        </a>
+      </div>
     </div>
 
-    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="mt-10 grid gap-px border border-stone-200 bg-stone-200 sm:grid-cols-2 lg:grid-cols-4">
       {courses.map((c) => (
-        <a
-          href={`/courses/${c.id}`}
-          class="group flex flex-col rounded-2xl border border-slate-200 bg-white p-6 transition hover:-translate-y-0.5 hover:border-maroon-300 hover:shadow-lg"
-        >
-          <span class="text-3xl" aria-hidden="true">{c.data.icon}</span>
-          <h3 class="mt-4 text-lg leading-snug font-bold text-slate-900 group-hover:text-maroon-700">
+        <a href={`/courses/${c.id}`} class="group flex flex-col bg-white p-6 transition-colors hover:bg-clay-50">
+          <span class="flex h-11 w-11 items-center justify-center border border-stone-300 text-maroon-700 transition-colors group-hover:border-maroon-700">
+            <Icon name={c.data.icon as any} size={20} />
+          </span>
+          <h3 class="mt-5 font-serif text-xl leading-snug font-bold text-stone-900 group-hover:text-maroon-700">
             Become a {c.data.shortName}
           </h3>
-          <p class="mt-1 mr text-sm text-slate-500">{c.data.nameMr}</p>
-          <p class="mt-3 text-sm leading-relaxed text-slate-600">{c.data.summary}</p>
+          <p class="mr mt-1 text-xs text-stone-500">{c.data.nameMr}</p>
+          <p class="mt-3 text-sm leading-relaxed text-stone-600">{c.data.summary}</p>
 
-          <div class="mt-4 flex flex-wrap gap-1.5">
-            <span class="rounded-md bg-slate-100 px-2 py-1 text-xs font-bold text-slate-700">
-              {c.data.eligibility}
-            </span>
-            {c.data.highlight && (
-              <span class="rounded-md bg-green-100 px-2 py-1 text-xs font-bold text-green-800">
-                ★ {c.data.highlight}
-              </span>
-            )}
+          <div class="mt-5 border-t border-stone-200 pt-3">
+            <span class="text-xs font-semibold tracking-wide text-stone-500 uppercase">Eligibility</span>
+            <p class="mt-0.5 text-sm font-semibold text-stone-800">{c.data.eligibility}</p>
           </div>
-          <span class="mt-auto pt-5 text-sm font-bold text-maroon-700">Learn more →</span>
+          {c.data.highlight && (
+            <p class="mt-3 bg-gold-100 px-2 py-1 text-xs font-semibold text-gold-800">{c.data.highlight}</p>
+          )}
         </a>
       ))}
     </div>
   </section>
 
-  <!-- TRUST — what a new institute can honestly claim -->
-  <section class="bg-slate-50 py-16">
+  <!-- TRUST. Not three equal cards: "government recognised" is the load-bearing
+       claim and gets a wide band; the other two sit beneath it. -->
+  <section class="border-y border-stone-200 bg-stone-50 py-20">
     <div class="mx-auto max-w-6xl px-4">
-      <h2 class="text-3xl font-black tracking-tight text-slate-900 md:text-4xl">Why DEKSON</h2>
-      <p class="mt-3 max-w-2xl text-slate-600">
-        We are a new institute. We have no past results to show you — so here is what we can prove instead.
-      </p>
+      <div class="hangs">
+        <p class="kicker">Why DEKSON</p>
+        <h2 class="mt-2 font-serif text-3xl font-bold text-stone-900 md:text-4xl">
+          We are new. Here is what we can prove.
+        </h2>
+        <p class="mt-3 max-w-2xl leading-relaxed text-stone-600">
+          We have no past results and no placement record, and we will not pretend otherwise.
+          Instead, judge us on what can be checked.
+        </p>
+      </div>
 
-      <div class="mt-10 grid gap-6 md:grid-cols-3">
-        <div class="rounded-2xl bg-white p-7 shadow-sm ring-1 ring-slate-100">
-          <p class="text-3xl" aria-hidden="true">🏛️</p>
-          <h3 class="mt-4 text-lg font-bold text-slate-900">Government recognised</h3>
-          <p class="mt-2 text-sm leading-relaxed text-slate-600">
-            {site.approval}. Your certificate is valid across India — and you can verify our
-            approval yourself before you join.
+      <div class="mt-10 flex flex-col gap-6 border-l-4 border-verified-700 bg-white p-8 md:flex-row md:items-center md:gap-10">
+        <Icon name="shield" size={44} class="shrink-0 text-verified-700" stroke={1.5} />
+        <div>
+          <h3 class="font-serif text-2xl font-bold text-stone-900">Government recognised</h3>
+          <p class="mt-2 max-w-2xl leading-relaxed text-stone-600">
+            DEKSON ITI is <strong class="text-stone-900">{site.approval}</strong>. Your certificate is
+            valid across India. You do not have to take our word for it —
+            <strong class="text-stone-900">verify our approval yourself</strong> on the NCVT MIS portal
+            before you pay a rupee.
           </p>
         </div>
-        <div class="rounded-2xl bg-white p-7 shadow-sm ring-1 ring-slate-100">
-          <p class="text-3xl" aria-hidden="true">🏗️</p>
-          <h3 class="mt-4 text-lg font-bold text-slate-900">A brand-new campus</h3>
-          <p class="mt-2 text-sm leading-relaxed text-slate-600">
-            Fully built and ready. New classrooms, workshops, computer lab, library and auditorium.
-            Come and see it before you decide.
+      </div>
+
+      <div class="mt-6 grid gap-6 md:grid-cols-2">
+        <div class="border-l-4 border-maroon-700 bg-white p-8">
+          <h3 class="font-serif text-xl font-bold text-stone-900">A campus that already exists</h3>
+          <p class="mt-2 leading-relaxed text-stone-600">
+            Fully built and ready — classrooms, workshops, a computer lab, library and auditorium.
+            Come and walk through it before you decide. That offer is open to anyone.
           </p>
         </div>
-        <div class="rounded-2xl bg-white p-7 shadow-sm ring-1 ring-slate-100">
-          <p class="text-3xl" aria-hidden="true">🤝</p>
-          <h3 class="mt-4 text-lg font-bold text-slate-900">Backed by {site.runBy}</h3>
-          <p class="mt-2 text-sm leading-relaxed text-slate-600">
-            Established by a Samaj that has served Akola since
+        <div class="border-l-4 border-maroon-700 bg-white p-8">
+          <h3 class="font-serif text-xl font-bold text-stone-900">Backed by {site.runBy}</h3>
+          <p class="mt-2 leading-relaxed text-stone-600">
+            The institute was established by a Samaj that has served Akola since
             <Fact value={site.samajFounded} fallback="many years" />.
           </p>
         </div>
@@ -224,51 +271,68 @@ const fmt = (d: string) =>
     </div>
   </section>
 
-  <!-- CAMPUS — real photographs, no stock imagery -->
-  <section class="mx-auto max-w-6xl px-4 py-16">
-    <h2 class="text-3xl font-black tracking-tight text-slate-900 md:text-4xl">Our Campus</h2>
-    <p class="mt-3 max-w-xl text-slate-600">Real photographs of the institute at Waghulgaon, Akola.</p>
+  <!-- Full-bleed photo band. Architecture wants right angles and room to breathe. -->
+  <section aria-label="Campus" class="bleed">
+    <Picture
+      src="campus-building"
+      alt="The main academic building of DEKSON ITI, Akola"
+      sizes="100vw"
+      class="h-[280px] w-full object-cover md:h-[440px]"
+      width={1600}
+      height={1200}
+    />
+  </section>
 
-    <div class="mt-10 grid gap-4 md:grid-cols-3">
-      <div class="overflow-hidden rounded-2xl md:col-span-2 md:row-span-2">
-        <Picture src="campus-building" alt="The main academic building of DEKSON ITI, Akola" class="h-full w-full object-cover" sizes="(max-width:768px) 100vw, 66vw" width={1024} height={768} />
-      </div>
-      <div class="overflow-hidden rounded-2xl">
-        <Picture src="workshop-arch" alt="The workshop entrance archway at DEKSON ITI" class="h-full w-full object-cover" widths={[640, 1024]} sizes="(max-width:768px) 100vw, 33vw" width={640} height={480} />
-      </div>
-      <div class="overflow-hidden rounded-2xl">
-        <Picture src="main-gate" alt="The main gate of DEKSON ITI, Waghulgaon" class="h-full w-full object-cover" widths={[640, 1024]} sizes="(max-width:768px) 100vw, 33vw" width={640} height={480} />
-      </div>
+  <section class="mx-auto max-w-6xl px-4 py-20">
+    <div class="hangs">
+      <p class="kicker">On campus</p>
+      <h2 class="mt-2 font-serif text-3xl font-bold text-stone-900 md:text-4xl">Facilities</h2>
     </div>
 
-    <h3 class="mt-12 text-xl font-bold text-slate-900">On campus</h3>
-    <ul class="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
-      {facilities.map(([icon, f]) => (
-        <li class="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700">
-          <span aria-hidden="true">{icon}</span>{f}
+    <ul class="mt-10 grid grid-cols-2 gap-px border border-stone-200 bg-stone-200 sm:grid-cols-3 lg:grid-cols-4">
+      {facilities.map(([icon, label]) => (
+        <li class="flex items-center gap-3 bg-white px-4 py-3.5 text-sm text-stone-700">
+          <Icon name={icon} size={17} class="shrink-0 text-stone-400" />
+          {label}
         </li>
       ))}
     </ul>
-    <p class="mt-4 text-sm text-slate-500">The institute does not have a hostel.</p>
+    <p class="mt-4 text-sm text-stone-500">The institute does not have a hostel.</p>
+
+    <div class="mt-10 grid gap-4 sm:grid-cols-2">
+      <Picture src="workshop-arch" alt="The workshop entrance archway at DEKSON ITI" widths={[640, 1024]} sizes="(max-width:640px) 100vw, 50vw" class="h-64 w-full object-cover" width={1024} height={768} />
+      <Picture src="main-gate" alt="The main gate of DEKSON ITI, Waghulgaon" widths={[640, 1024]} sizes="(max-width:640px) 100vw, 50vw" class="h-64 w-full object-cover" width={1024} height={768} />
+    </div>
   </section>
 
   <!-- FINAL CTA -->
   <section class="bg-maroon-800">
-    <div class="mx-auto max-w-4xl px-4 py-16 text-center">
-      <h2 class="text-3xl font-black tracking-tight text-white md:text-4xl">Have a question about admission?</h2>
-      <p class="mt-4 text-lg text-maroon-100">
-        Talk to us directly. We will guide you through the DVET portal, step by step — in Marathi.
+    <div class="mx-auto max-w-4xl px-4 py-20 text-center">
+      <p class="kicker text-gold-300">Talk to us</p>
+      <h2 class="mt-3 font-serif text-3xl font-bold text-white md:text-4xl">
+        Have a question about admission?
+      </h2>
+      <p class="mx-auto mt-4 max-w-xl leading-relaxed text-clay-100">
+        The online process confuses most students. Call us and we will take you through it,
+        step by step, in Marathi.
       </p>
-      <div class="mt-9 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
-        <a href={`tel:${site.phonePrimary}`} class="rounded-xl bg-white px-7 py-4 font-bold text-maroon-800 shadow-lg transition hover:bg-maroon-50">
-          📞 {site.phonePrimaryName} — {site.phonePrimary}
-        </a>
-        <a href={`tel:${site.phoneSecondary}`} class="rounded-xl bg-maroon-700 px-7 py-4 font-bold text-white ring-1 ring-white/30 transition hover:bg-maroon-600">
-          📞 {site.phoneSecondaryName} — {site.phoneSecondary}
-        </a>
+
+      <div class="mt-10 grid gap-px bg-maroon-700 sm:grid-cols-2">
+        {[
+          { name: site.phonePrimaryName, num: site.phonePrimary },
+          { name: site.phoneSecondaryName, num: site.phoneSecondary },
+        ].map((p) => (
+          <a href={`tel:${p.num}`} class="flex flex-col items-center gap-1 bg-maroon-800 px-6 py-6 transition-colors hover:bg-maroon-900">
+            <Icon name="phone" size={18} class="text-gold-300" />
+            <span class="tnum notranslate mt-1 font-serif text-2xl font-bold text-white" translate="no">{p.num}</span>
+            <span class="text-sm text-clay-300">{p.name}</span>
+          </a>
+        ))}
       </div>
-      <p class="mt-6 text-sm text-maroon-200">
-        Or <a href="/contact" class="font-semibold text-white underline">visit the campus</a> — you are welcome any working day.
+
+      <p class="mt-8 text-sm text-clay-300">
+        Or <a href="/contact" class="font-semibold text-white underline underline-offset-2">visit the campus</a> —
+        you are welcome on any working day.
       </p>
     </div>
   </section>

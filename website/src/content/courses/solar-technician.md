@@ -3,7 +3,7 @@ name: Solar Technician (Electrical)
 nameMr: सोलर टेक्निशियन (इलेक्ट्रिकल)
 shortName: Solar Technician
 order: 1
-icon: ☀️
+icon: sun
 eligibility: 10th pass
 eligibilityMr: १० वी उत्तीर्ण
 duration: null

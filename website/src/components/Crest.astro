@@ -1,0 +1,28 @@
+---
+/**
+ * Placeholder institute crest.
+ *
+ * A "D" in a rounded coloured box is the generic first-letter-placeholder tell,
+ * and on an institution it actively undermines legitimacy — every real Indian
+ * institute leads with an emblem. This is a squared, ruled mark that reads as a
+ * seal until the real logo arrives.
+ *
+ * ⚠️ REPLACE with the official logo. Requested as P0 in the Documents Checklist.
+ */
+interface Props { class?: string; size?: number }
+const { class: className = '', size = 44 } = Astro.props;
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 48 48"
+  class={className}
+  role="img"
+  aria-label="DEKSON ITI emblem"
+>
+  <rect x="1" y="1" width="46" height="46" fill="#8e1b2e" />
+  <rect x="4" y="4" width="40" height="40" fill="none" stroke="#e0c185" stroke-width="1" />
+  <path d="M14 15 h9 a9 9 0 0 1 0 18 h-9 z" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="miter" />
+  <rect x="14" y="36" width="20" height="2" fill="#e0c185" />
+</svg>
