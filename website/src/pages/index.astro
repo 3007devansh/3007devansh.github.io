@@ -1,0 +1,275 @@
+---
+import Base from '../layouts/Base.astro';
+import Fact from '../components/Fact.astro';
+import Picture from '../components/Picture.astro';
+import { site, dvet } from '../config/site';
+import { getCollection } from 'astro:content';
+
+const courses = (await getCollection('courses')).sort((a, b) => a.data.order - b.data.order);
+
+const facilities = [
+  ['🏫', 'Classrooms'], ['💻', 'Computer lab'], ['📚', 'Library'], ['🎭', 'Auditorium'],
+  ['🗣️', 'Seminar hall'], ['🚰', 'Drinking water'], ['🚻', 'Separate washrooms'], ['🍽️', 'Canteen'],
+  ['🅿️', 'Parking'], ['📹', 'CCTV'], ['💂', 'Security guard'], ['♿', 'Ramp access'],
+  ['🩹', 'First aid'], ['🧯', 'Fire safety'], ['🛋️', 'Reception'], ['👨‍🏫', 'Staff room'],
+];
+
+/**
+ * Course carousel schema. NOTE: the single-course "Course Info" rich result was
+ * retired by Google in June 2025; the Course *List* carousel is still supported.
+ */
+const schema = [
+  {
+    '@type': 'ItemList',
+    itemListElement: courses.map((c, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'Course',
+        name: `${c.data.name} — ITI Course`,
+        description: c.data.summary,
+        url: new URL(`/courses/${c.id}`, Astro.site).href,
+        provider: { '@type': 'EducationalOrganization', name: site.name, sameAs: Astro.site?.href },
+      },
+    })),
+  },
+];
+
+const fmt = (d: string) =>
+  new Date(d).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+---
+
+<Base
+  title={`${site.name}, Akola — ${site.approval} ITI | Admissions ${site.admission.year} Open`}
+  description={`${site.approval} ITI in Waghulgaon, Akola. Courses after 10th: Electrician, COPA, Solar Technician. Welder after 8th. Run by ${site.runBy}. Call ${site.phonePrimary}.`}
+  schema={schema}
+>
+  <!-- Admissions strip -->
+  <div class="bg-green-700 px-4 py-2.5 text-center text-white">
+    <p class="text-sm font-bold">
+      🎓 Admissions Open {site.admission.year} —
+      <Fact value={site.admission.statusLine} fallback="institute-level seats available now" />
+      <a href="/admissions" class="ml-1 underline underline-offset-2">See how to apply →</a>
+    </p>
+  </div>
+
+  <!-- HERO.
+       Information-forward, not a slogan. A cautious parent is verifying we are
+       real: recognition, courses, eligibility and a phone number, all visible
+       before any scroll. -->
+  <section class="relative overflow-hidden bg-slate-900">
+    <div class="absolute inset-0">
+      <Picture
+        src="campus-entrance"
+        alt="The main entrance building of DEKSON ITI, Waghulgaon, Akola"
+        priority={true}
+        sizes="100vw"
+        class="h-full w-full object-cover opacity-30"
+        width={1600}
+        height={1200}
+      />
+    </div>
+
+    <div class="relative mx-auto max-w-6xl px-4 py-14 md:py-24">
+      <div class="max-w-2xl">
+        <p class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold tracking-wide text-white uppercase ring-1 ring-white/20">
+          🏛️ {site.approval}
+        </p>
+
+        <h1 class="mt-5 text-4xl leading-tight font-black tracking-tight text-white md:text-6xl">
+          Build a skilled career in Akola
+        </h1>
+        <p class="mt-3 mr text-lg text-clay-100">{site.nameMr}</p>
+
+        <p class="mt-5 text-lg leading-relaxed text-slate-200">
+          Government-recognised ITI courses at Waghulgaon, Akola. Learn a practical skill,
+          earn a certificate valid across India, and start earning.
+        </p>
+
+        <!-- Eligibility answered before the scroll -->
+        <div class="mt-6 flex flex-wrap gap-2">
+          <span class="rounded-lg bg-white/10 px-3 py-2 text-sm font-semibold text-white ring-1 ring-white/20">
+            ✅ After 10th — Electrician, COPA, Solar
+          </span>
+          <span class="rounded-lg bg-green-500/20 px-3 py-2 text-sm font-semibold text-green-100 ring-1 ring-green-400/40">
+            ✅ After 8th — Welder
+          </span>
+        </div>
+
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <a href={`tel:${site.phonePrimary}`} class="inline-flex items-center justify-center gap-2 rounded-xl bg-maroon-700 px-7 py-4 text-base font-bold text-white shadow-lg transition hover:bg-maroon-600">
+            📞 Call {site.phonePrimary}
+          </a>
+          <a href={`https://wa.me/91${site.whatsapp}`} rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-7 py-4 text-base font-bold text-white shadow-lg transition hover:brightness-110">
+            💬 WhatsApp us
+          </a>
+          <a href="/courses" class="inline-flex items-center justify-center gap-2 rounded-xl bg-white/10 px-7 py-4 text-base font-bold text-white ring-1 ring-white/30 transition hover:bg-white/20">
+            View courses →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⭐ Institute Code + notice board -->
+  <section class="border-b border-slate-200 bg-slate-50">
+    <div class="mx-auto grid max-w-6xl gap-6 px-4 py-10 lg:grid-cols-5">
+      <div class="rounded-2xl border-2 border-maroon-200 bg-white p-6 lg:col-span-2">
+        <p class="text-xs font-bold tracking-wide text-slate-500 uppercase">Our Institute Code</p>
+        <p class="mt-2 font-mono text-3xl font-black break-all text-maroon-700">
+          <Fact value={site.instituteCode} />
+        </p>
+        <p class="mt-3 text-sm leading-relaxed text-slate-600">
+          Enter this code in your option form at
+          <a href={dvet.portal} rel="noopener" class="font-bold text-maroon-700 underline">admission.dvet.gov.in</a>
+          to choose {site.name}.
+        </p>
+      </div>
+
+      <!-- Notice board: dated, plain, 3 items. No marquee, no blinking gif. -->
+      <div class="rounded-2xl border border-slate-200 bg-white p-6 lg:col-span-3">
+        <h2 class="flex items-center gap-2 text-sm font-bold tracking-wide text-slate-500 uppercase">
+          📌 Latest Notices
+        </h2>
+        <ul class="mt-4 divide-y divide-slate-100">
+          {site.notices.slice(0, 3).map((n) => (
+            <li class="py-2.5">
+              <a href={n.href} class="group flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-3">
+                <time datetime={n.date} class="shrink-0 font-mono text-xs text-slate-400">{fmt(n.date)}</time>
+                <span class="text-sm text-slate-700 group-hover:text-maroon-700 group-hover:underline">{n.text}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- COURSES — outcome-led. "Become an Electrician", not "Trade: Electrician". -->
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <h2 class="text-3xl font-black tracking-tight text-slate-900 md:text-4xl">Our Courses</h2>
+        <p class="mt-2 mr text-slate-500">आमचे अभ्यासक्रम</p>
+        <p class="mt-3 max-w-xl text-slate-600">
+          Four government-recognised courses. Learn a real skill, get a certificate valid all over India.
+        </p>
+      </div>
+      <a href="/courses" class="text-sm font-bold text-maroon-700 hover:underline">All courses →</a>
+    </div>
+
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {courses.map((c) => (
+        <a
+          href={`/courses/${c.id}`}
+          class="group flex flex-col rounded-2xl border border-slate-200 bg-white p-6 transition hover:-translate-y-0.5 hover:border-maroon-300 hover:shadow-lg"
+        >
+          <span class="text-3xl" aria-hidden="true">{c.data.icon}</span>
+          <h3 class="mt-4 text-lg leading-snug font-bold text-slate-900 group-hover:text-maroon-700">
+            Become a {c.data.shortName}
+          </h3>
+          <p class="mt-1 mr text-sm text-slate-500">{c.data.nameMr}</p>
+          <p class="mt-3 text-sm leading-relaxed text-slate-600">{c.data.summary}</p>
+
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span class="rounded-md bg-slate-100 px-2 py-1 text-xs font-bold text-slate-700">
+              {c.data.eligibility}
+            </span>
+            {c.data.highlight && (
+              <span class="rounded-md bg-green-100 px-2 py-1 text-xs font-bold text-green-800">
+                ★ {c.data.highlight}
+              </span>
+            )}
+          </div>
+          <span class="mt-auto pt-5 text-sm font-bold text-maroon-700">Learn more →</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- TRUST — what a new institute can honestly claim -->
+  <section class="bg-slate-50 py-16">
+    <div class="mx-auto max-w-6xl px-4">
+      <h2 class="text-3xl font-black tracking-tight text-slate-900 md:text-4xl">Why DEKSON</h2>
+      <p class="mt-3 max-w-2xl text-slate-600">
+        We are a new institute. We have no past results to show you — so here is what we can prove instead.
+      </p>
+
+      <div class="mt-10 grid gap-6 md:grid-cols-3">
+        <div class="rounded-2xl bg-white p-7 shadow-sm ring-1 ring-slate-100">
+          <p class="text-3xl" aria-hidden="true">🏛️</p>
+          <h3 class="mt-4 text-lg font-bold text-slate-900">Government recognised</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">
+            {site.approval}. Your certificate is valid across India — and you can verify our
+            approval yourself before you join.
+          </p>
+        </div>
+        <div class="rounded-2xl bg-white p-7 shadow-sm ring-1 ring-slate-100">
+          <p class="text-3xl" aria-hidden="true">🏗️</p>
+          <h3 class="mt-4 text-lg font-bold text-slate-900">A brand-new campus</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">
+            Fully built and ready. New classrooms, workshops, computer lab, library and auditorium.
+            Come and see it before you decide.
+          </p>
+        </div>
+        <div class="rounded-2xl bg-white p-7 shadow-sm ring-1 ring-slate-100">
+          <p class="text-3xl" aria-hidden="true">🤝</p>
+          <h3 class="mt-4 text-lg font-bold text-slate-900">Backed by {site.runBy}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">
+            Established by a Samaj that has served Akola since
+            <Fact value={site.samajFounded} fallback="many years" />.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAMPUS — real photographs, no stock imagery -->
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <h2 class="text-3xl font-black tracking-tight text-slate-900 md:text-4xl">Our Campus</h2>
+    <p class="mt-3 max-w-xl text-slate-600">Real photographs of the institute at Waghulgaon, Akola.</p>
+
+    <div class="mt-10 grid gap-4 md:grid-cols-3">
+      <div class="overflow-hidden rounded-2xl md:col-span-2 md:row-span-2">
+        <Picture src="campus-building" alt="The main academic building of DEKSON ITI, Akola" class="h-full w-full object-cover" sizes="(max-width:768px) 100vw, 66vw" width={1024} height={768} />
+      </div>
+      <div class="overflow-hidden rounded-2xl">
+        <Picture src="workshop-arch" alt="The workshop entrance archway at DEKSON ITI" class="h-full w-full object-cover" widths={[640, 1024]} sizes="(max-width:768px) 100vw, 33vw" width={640} height={480} />
+      </div>
+      <div class="overflow-hidden rounded-2xl">
+        <Picture src="main-gate" alt="The main gate of DEKSON ITI, Waghulgaon" class="h-full w-full object-cover" widths={[640, 1024]} sizes="(max-width:768px) 100vw, 33vw" width={640} height={480} />
+      </div>
+    </div>
+
+    <h3 class="mt-12 text-xl font-bold text-slate-900">On campus</h3>
+    <ul class="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
+      {facilities.map(([icon, f]) => (
+        <li class="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700">
+          <span aria-hidden="true">{icon}</span>{f}
+        </li>
+      ))}
+    </ul>
+    <p class="mt-4 text-sm text-slate-500">The institute does not have a hostel.</p>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="bg-maroon-800">
+    <div class="mx-auto max-w-4xl px-4 py-16 text-center">
+      <h2 class="text-3xl font-black tracking-tight text-white md:text-4xl">Have a question about admission?</h2>
+      <p class="mt-4 text-lg text-maroon-100">
+        Talk to us directly. We will guide you through the DVET portal, step by step — in Marathi.
+      </p>
+      <div class="mt-9 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
+        <a href={`tel:${site.phonePrimary}`} class="rounded-xl bg-white px-7 py-4 font-bold text-maroon-800 shadow-lg transition hover:bg-maroon-50">
+          📞 {site.phonePrimaryName} — {site.phonePrimary}
+        </a>
+        <a href={`tel:${site.phoneSecondary}`} class="rounded-xl bg-maroon-700 px-7 py-4 font-bold text-white ring-1 ring-white/30 transition hover:bg-maroon-600">
+          📞 {site.phoneSecondaryName} — {site.phoneSecondary}
+        </a>
+      </div>
+      <p class="mt-6 text-sm text-maroon-200">
+        Or <a href="/contact" class="font-semibold text-white underline">visit the campus</a> — you are welcome any working day.
+      </p>
+    </div>
+  </section>
+</Base>

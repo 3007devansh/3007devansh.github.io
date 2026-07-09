@@ -1,0 +1,81 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Sampled from the campus building: maroon signage, dusty-pink facade, grey stone */
+  --color-maroon-50: #fdf4f5;
+  --color-maroon-100: #fbe5e8;
+  --color-maroon-200: #f5c9cf;
+  --color-maroon-300: #e79aa5;
+  --color-maroon-600: #a8213a;
+  --color-maroon-700: #8e1b2e;
+  --color-maroon-800: #741626;
+  --color-maroon-900: #5c1220;
+
+  --color-clay-100: #f7eceb;
+  --color-clay-400: #d08a94;
+
+  /* Latin + Devanagari in one stack. Noto Sans Devanagari is loaded in <head>. */
+  --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-deva: 'Noto Sans Devanagari', 'Nirmala UI', 'Mangal', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+body {
+  /* Clearance for the sticky mobile Call/WhatsApp bar */
+  padding-bottom: 4.25rem;
+}
+@media (min-width: 768px) {
+  body { padding-bottom: 0; }
+}
+
+/*
+ * Devanagari typography.
+ * Matras sit above and below the baseline, so Marathi text needs a larger
+ * size and looser leading than Latin — reusing English 1.4 line-height clips
+ * vowel marks on low-end Android renderers.
+ */
+.mr,
+[lang='mr'] {
+  font-family: var(--font-deva);
+  font-size: 1.0625em;   /* ~17px at a 16px base */
+  line-height: 1.75;
+}
+
+/* Minimum body size — never below 16px for this audience */
+body { font-size: 16px; }
+
+/* High-contrast, always-visible focus ring (WCAG 2.2 AA, 2.4.11) */
+:focus-visible {
+  outline: 3px solid var(--color-maroon-700);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Unfilled facts render loudly so they can never ship silently */
+.todo {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px dashed #dc2626;
+  padding: 0.1em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-weight: 600;
+}
+
+/* Tap targets: 48x48 minimum on touch devices */
+@media (pointer: coarse) {
+  a[href^='tel:'],
+  a[href*='wa.me'],
+  button {
+    min-height: 48px;
+  }
+}

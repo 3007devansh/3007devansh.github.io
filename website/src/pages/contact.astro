@@ -1,0 +1,83 @@
+---
+import Base from '../layouts/Base.astro';
+import Fact from '../components/Fact.astro';
+import { site, isTodo } from '../config/site';
+---
+
+<Base
+  title={`Contact | ${site.name}, Akola`}
+  description={`Contact DEKSON ITI, Waghulgaon, Akola. Call ${site.phonePrimary} for admission enquiries.`}
+>
+  <div class="mx-auto max-w-4xl px-4 py-12">
+    <h1 class="text-4xl font-extrabold text-slate-900">Contact us</h1>
+    <p class="mt-3 text-slate-600">For admission enquiries, call or message us. We will answer your questions directly.</p>
+
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
+      <a href={`tel:${site.phonePrimary}`} class="rounded-xl border-2 border-maroon-200 p-6 hover:bg-maroon-50">
+        <p class="text-sm font-semibold text-slate-500 uppercase">Admission enquiries</p>
+        <p class="mt-2 text-2xl font-extrabold text-maroon-700">{site.phonePrimary}</p>
+        <p class="mt-1 text-sm text-slate-600">{site.phonePrimaryName}</p>
+      </a>
+      <a href={`tel:${site.phoneSecondary}`} class="rounded-xl border-2 border-maroon-200 p-6 hover:bg-maroon-50">
+        <p class="text-sm font-semibold text-slate-500 uppercase">Admission enquiries</p>
+        <p class="mt-2 text-2xl font-extrabold text-maroon-700">{site.phoneSecondary}</p>
+        <p class="mt-1 text-sm text-slate-600">{site.phoneSecondaryName}</p>
+      </a>
+    </div>
+
+    <a
+      href={`https://wa.me/91${site.whatsapp}`}
+      class="mt-6 flex items-center justify-center gap-2 rounded-xl bg-green-600 px-6 py-4 text-lg font-semibold text-white hover:bg-green-700"
+    >
+      💬 Message us on WhatsApp
+    </a>
+
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
+      <div class="rounded-xl bg-slate-50 p-6">
+        <h2 class="font-bold text-slate-900">Address</h2>
+        <p class="mt-2 text-slate-700"><Fact value={site.addressFull} fallback={site.addressShort} /></p>
+        <p class="mt-1 text-sm text-slate-500">{site.addressMr}</p>
+        {!isTodo(site.mapsUrl) && (
+          <a href={site.mapsUrl} class="mt-3 inline-block font-semibold text-maroon-700 hover:underline">
+            Open in Google Maps →
+          </a>
+        )}
+      </div>
+      <div class="rounded-xl bg-slate-50 p-6">
+        <h2 class="font-bold text-slate-900">Office hours</h2>
+        <p class="mt-2 text-slate-700"><Fact value={site.officeHours} /></p>
+        <h2 class="mt-5 font-bold text-slate-900">Email</h2>
+        <p class="mt-2 text-slate-700"><Fact value={site.email} /></p>
+      </div>
+    </div>
+
+    <!--
+      Enquiry form intentionally NOT included in this first build.
+      Reason: it needs a working handler + a person who checks it. Until then,
+      a form that silently drops leads is worse than no form. Call and WhatsApp
+      buttons convert far better in this audience anyway.
+      Next step: Cloudflare Function → Google Sheet + WhatsApp notification.
+    -->
+
+    <!-- Legally required contacts -->
+    <section class="mt-12 rounded-xl border border-slate-200 p-6">
+      <h2 class="text-xl font-bold text-slate-900">Grievance & Anti-Ragging</h2>
+      <p class="mt-2 text-sm text-slate-600">
+        Any student or parent may raise a complaint directly with the officers below.
+      </p>
+      <dl class="mt-4 space-y-3 text-sm">
+        <div>
+          <dt class="font-semibold text-slate-900">Grievance Redressal Officer</dt>
+          <dd class="text-slate-700"><Fact value={site.grievanceOfficer} /></dd>
+        </div>
+        <div>
+          <dt class="font-semibold text-slate-900">Anti-Ragging Contact</dt>
+          <dd class="text-slate-700"><Fact value={site.antiRaggingContact} /></dd>
+        </div>
+      </dl>
+      <p class="mt-4 text-sm text-slate-600">
+        Ragging is a criminal offence and is strictly prohibited at {site.name}.
+      </p>
+    </section>
+  </div>
+</Base>

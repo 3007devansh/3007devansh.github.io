@@ -1,0 +1,18 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.*
+
+# Source photographs (large binaries, ~107 MB).
+# Keep these backed up on Google Drive / pen drive, NOT in git.
+# The web-optimised derivatives in website/public/images/ ARE committed,
+# because the site cannot build without them.
+/IMG_*.jpeg
+/AI/*.jpeg
+/edit/
+/pamphlet.jpeg
+/document.pdf

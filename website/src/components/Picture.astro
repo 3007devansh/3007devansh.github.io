@@ -1,0 +1,47 @@
+---
+/**
+ * Responsive campus photo. Serves WebP with a JPEG fallback.
+ *
+ * Rural users on low-end Android over 4G are the target: a 640px WebP is ~60 KB.
+ * The hero must NOT be lazy-loaded (it is the LCP element); everything else must be.
+ */
+interface Props {
+  /** Base slug, e.g. "campus-entrance" — matches /public/images/<slug>-<w>.webp */
+  src: string;
+  alt: string;
+  widths?: number[];
+  /** Set true ONLY for the above-the-fold hero image. */
+  priority?: boolean;
+  sizes?: string;
+  class?: string;
+  width?: number;
+  height?: number;
+}
+
+const {
+  src,
+  alt,
+  widths = [640, 1024, 1600],
+  priority = false,
+  sizes = '(max-width: 768px) 100vw, 50vw',
+  class: className = '',
+  width = 1024,
+  height = 768,
+} = Astro.props;
+
+const srcset = widths.map((w) => `/images/${src}-${w}.webp ${w}w`).join(', ');
+---
+
+<picture>
+  <source type="image/webp" srcset={srcset} sizes={sizes} />
+  <img
+    src={`/images/${src}.jpg`}
+    alt={alt}
+    width={width}
+    height={height}
+    class={className}
+    loading={priority ? 'eager' : 'lazy'}
+    fetchpriority={priority ? 'high' : 'auto'}
+    decoding={priority ? 'sync' : 'async'}
+  />
+</picture>

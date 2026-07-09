@@ -1,0 +1,86 @@
+---
+import Base from '../layouts/Base.astro';
+import Fact from '../components/Fact.astro';
+import { site } from '../config/site';
+---
+
+<Base
+  title={`About | ${site.name}, Akola`}
+  description={`About DEKSON ITI, Akola — an NCVT approved industrial training institute run by ${site.runBy}.`}
+>
+  <div class="mx-auto max-w-4xl px-4 py-12">
+    <h1 class="text-4xl font-extrabold text-slate-900">About {site.name}</h1>
+    <p class="mt-3 text-lg text-slate-600">{site.nameMr}</p>
+
+    <div class="mt-8 space-y-4 text-slate-700">
+      <p>
+        {site.name} is an NCVT-approved Industrial Training Institute at Waghulgaon, Akola, established by
+        <strong>{site.runBy}</strong> ({site.runByMr}).
+      </p>
+      <p>
+        The institute offers four courses — Solar Technician (Electrical), Electrician, Computer Operator &
+        Programming Assistant, and Welder — on a newly built, fully constructed campus.
+      </p>
+    </div>
+
+    <!-- Honesty section. This is the single most important block on the site. -->
+    <section class="mt-12 rounded-xl border-l-4 border-maroon-700 bg-maroon-50 p-6">
+      <h2 class="text-2xl font-bold text-slate-900">We are a new institute</h2>
+      <div class="mt-4 space-y-3 text-slate-700">
+        <p>
+          DEKSON ITI has just begun. Our first batch of students is joining now. That means we have no past results
+          and no placement record to show you — and we will not pretend otherwise.
+        </p>
+        <p>What we can show you is this:</p>
+        <ul class="ml-5 list-disc space-y-2">
+          <li>
+            <strong>Our NCVT approval is real and you can verify it yourself.</strong> The certificate you earn here
+            is a national certificate, valid across India.
+          </li>
+          <li>
+            <strong>Our campus is built and ready.</strong> New classrooms, workshops, a computer lab, library,
+            auditorium and seminar hall. Come and see it before you decide.
+          </li>
+          <li>
+            <strong>We are backed by {site.runBy}</strong>, which has served Akola since
+            <Fact value={site.samajFounded} fallback="many years" />.
+            <Fact value={site.samajOtherInstitutions} fallback="" />
+          </li>
+        </ul>
+        <p class="font-semibold">
+          Visit the campus. Ask us hard questions. Verify our approval. Then decide.
+        </p>
+      </div>
+    </section>
+
+    <!-- Messages — names only, no photographs (decided) -->
+    <section class="mt-12 grid gap-6 md:grid-cols-2">
+      <div class="rounded-xl border border-slate-200 p-6">
+        <h2 class="text-xl font-bold text-slate-900">Chairman's Message</h2>
+        <p class="mt-1 text-sm text-slate-500"><Fact value={site.chairmanName} /></p>
+        <div class="mt-4 text-slate-700"><Fact value={site.chairmanMessage} /></div>
+      </div>
+      <div class="rounded-xl border border-slate-200 p-6">
+        <h2 class="text-xl font-bold text-slate-900">Principal's Message</h2>
+        <p class="mt-1 text-sm text-slate-500"><Fact value={site.principalName} /></p>
+        <div class="mt-4 text-slate-700"><Fact value={site.principalMessage} /></div>
+      </div>
+    </section>
+
+    <!-- Career support: future tense, clearly a commitment not a record -->
+    <section class="mt-12">
+      <h2 class="text-2xl font-bold text-slate-900">Career support</h2>
+      <p class="mt-3 text-slate-700">
+        No institute can guarantee anyone a job, and we will never claim to. Since our first batch has not yet
+        completed the course, we have no placement statistics to publish.
+      </p>
+      <p class="mt-3 text-slate-700">What we commit to providing:</p>
+      <ul class="mt-3 ml-5 list-disc space-y-1 text-slate-700">
+        <li>Practical, hands-on training on real equipment</li>
+        <li>Help with apprenticeship registration, including under NAPS</li>
+        <li>Guidance on further study after ITI</li>
+        <li>Support in approaching local industry for work</li>
+      </ul>
+    </section>
+  </div>
+</Base>
