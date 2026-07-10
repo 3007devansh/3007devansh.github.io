@@ -17,6 +17,7 @@ jobs:
   - Accounts assistant
   - Start your own computer centre or online services shop
 image: null
+illustration: true
 ---
 
 Learn computer operation, office software, data entry, internet use and the basics of programming. COPA is one of the most popular ITI courses because the skills apply to almost every office, shop, bank and government scheme centre.

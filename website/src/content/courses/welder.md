@@ -17,6 +17,7 @@ jobs:
   - Workshop welder
   - Start your own welding workshop
 image: null
+illustration: true
 highlight: Only 8th pass needed
 ---
 

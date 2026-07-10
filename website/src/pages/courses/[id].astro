@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Fact from '../../components/Fact.astro';
 import Picture from '../../components/Picture.astro';
 import Icon from '../../components/Icon.astro';
+import Illustration from '../../components/Illustration.astro';
 import { site, dvet } from '../../config/site';
 import { getCollection, render } from 'astro:content';
 
@@ -71,6 +72,12 @@ const facts = [
       <p class="mt-6 border-l-4 border-gold-700 bg-gold-50 px-4 py-3 text-sm font-semibold text-gold-800">
         {d.highlight}
       </p>
+    )}
+
+    <!-- Illustrative trade photo. The caption is baked into the component and
+         states plainly that this is not DEKSON's campus. -->
+    {d.illustration && (
+      <Illustration course={course.id} variant="full" class="mt-8" sizes="(max-width: 896px) 100vw, 896px" />
     )}
 
     <!-- Key facts. Unknowns say "Please call" — never a plausible guess. -->

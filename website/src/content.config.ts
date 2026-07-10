@@ -23,8 +23,11 @@ const courses = defineCollection({
     seats: z.number().nullable().default(null),
     annualFee: z.string().nullable().default(null),
     jobs: z.array(z.string()).default([]),
-    /** Real workshop photo. null = honest placeholder, never a stock image. */
+    /** DEKSON's OWN workshop photo. null = honest placeholder. Never a stock image. */
     image: z.string().nullable().default(null),
+    /** Illustrative trade photo (licensed, captioned 'not DEKSON'). Credit must
+     *  exist in src/config/credits.ts or the build throws. */
+    illustration: z.boolean().default(false),
     highlight: z.string().nullable().default(null),
     summary: z.string(),
   }),

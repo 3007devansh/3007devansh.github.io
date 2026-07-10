@@ -17,6 +17,7 @@ jobs:
   - Solar service engineer assistant
   - Start your own solar installation and servicing business
 image: null
+illustration: true
 highlight: A fast-growing field
 ---
 
