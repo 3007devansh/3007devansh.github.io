@@ -6,9 +6,9 @@ order: 3
 icon: monitor
 eligibility: 10th pass
 eligibilityMr: १० वी उत्तीर्ण
-duration: null
-seats: null
-annualFee: null
+duration: "1 year"
+seats: 48
+annualFee: "As per Government norms"
 summary: Computers, office software and data entry. For students who want office work.
 jobs:
   - Computer operator

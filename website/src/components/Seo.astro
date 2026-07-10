@@ -27,24 +27,30 @@ const ogImageAbs = new URL(ogImage, origin).href;
 
 const orgId = `${origin}/#organization`;
 
-/** Only publish an address block once the real address exists. Never a partial one. */
 const address = {
   '@type': 'PostalAddress',
-  streetAddress: 'Waghulgaon',
+  streetAddress: 'Babhulgaon, Near Shivaji Engineering College',
   addressLocality: 'Akola',
   addressRegion: 'Maharashtra',
+  postalCode: site.pincode,
   addressCountry: 'IN',
-  ...(isTodo(site.addressFull) ? {} : { name: site.addressFull }),
 };
 
 const organization = {
   '@type': ['EducationalOrganization', 'LocalBusiness'],
   '@id': orgId,
-  name: site.name,
-  alternateName: [site.nameMr, 'DEKSON Industrial Training Institute', 'DEKSON ITI Akola'],
-  description: `${site.approval} Industrial Training Institute in Waghulgaon, Akola, offering Electrician, Welder, COPA and Solar Technician courses. Run by ${site.runBy}.`,
+  name: site.nameFull,
+  alternateName: [
+    'Dekson ITI',
+    'Dekson ITI Akola',
+    'Deksons Institute',
+    'Deksons ITI Akola',
+    site.nameMr,
+  ],
+  description: `${site.approval} Industrial Training Institute in Babhulgaon, Akola, offering Electrician, Welder, COPA and Solar Technician courses. Run by ${site.runBy}. Institute Code ${site.instituteCode}.`,
   url: origin,
   telephone: `+91${site.phonePrimary}`,
+  email: site.email,
   address,
   areaServed: [
     { '@type': 'City', name: 'Akola' },

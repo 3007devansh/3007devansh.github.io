@@ -9,12 +9,16 @@ import { site, dvet } from '../config/site';
  */
 const faqs = [
   {
-    q: 'Round 1 is over. Can I still get admission?',
-    a: `Yes. ${dvet.instituteLevelQuota}% of the seats in every course at a private ITI are filled directly by the institute, and seats left vacant after the 5th round also become available at institute level. You must still register on the DVET portal and pay the application fee first. Call ${site.phonePrimary} and we will guide you.`,
+    q: 'Are admissions still open? Can I join now?',
+    a: `Yes. Admissions are open now — CAP Round 2 and Management Quota seats are available. The easiest first step is to call ${site.phonePrimary} or visit the campus; we will tell you which courses have seats and guide you through the process.`,
   },
   {
-    q: 'Which courses does DEKSON ITI offer?',
-    a: 'Four government-recognised courses: Solar Technician (Electrical), Electrician, Computer Operator & Programming Assistant (COPA), and Welder.',
+    q: 'Which courses does Dekson ITI offer?',
+    a: 'Four government-recognised courses: Solar Technician (Electrical) — 40 seats, Electrician — 20 seats, Computer Operator & Programming Assistant (COPA) — 48 seats, and Welder — 40 seats.',
+  },
+  {
+    q: 'How long is each course?',
+    a: 'Electrician is a 2-year course. Solar Technician, COPA and Welder are each 1-year courses.',
   },
   {
     q: 'What is the minimum qualification to join?',
@@ -26,11 +30,15 @@ const faqs = [
   },
   {
     q: 'How do I apply?',
-    a: `Admission is through the Maharashtra DVET portal at admission.dvet.gov.in. Register, fill the application, pay the application fee, and enter our Institute Code in your option form. See our Admissions page for the full step-by-step process.`,
+    a: `You can apply through the Maharashtra DVET portal at admission.dvet.gov.in — register, fill the option form and enter our Institute Code ${site.instituteCode}. Or simply call ${site.phonePrimary} or visit the campus, and we will help you with every step, including the Management Quota. See our Admissions page for details.`,
   },
   {
-    q: 'Do I apply online or in person?',
-    a: 'You must first register and apply online at admission.dvet.gov.in. This is compulsory, even for institute-level seats. After you are allotted a seat, you come to the institute in person with your original documents.',
+    q: 'What is the Institute Code for Dekson ITI?',
+    a: `Our Institute Code is ${site.instituteCode}. Enter this in your DVET option form to choose Dekson ITI.`,
+  },
+  {
+    q: 'Do I have to apply online, or can I come in person?',
+    a: 'Both. Many students apply through the DVET portal online. You are also welcome to come to the campus directly — we will look at your marks and explain your options, including Management Quota seats. Either way, you visit the institute in person with your documents to confirm the admission.',
   },
   {
     q: 'Which documents must I bring?',
@@ -46,15 +54,15 @@ const faqs = [
   },
   {
     q: 'Is the certificate valid all over India?',
-    a: 'Yes. DEKSON ITI is NCVT approved, and an NCVT certificate is recognised across India.',
+    a: 'Yes. Dekson ITI is NCVT approved, and an NCVT certificate is recognised across India.',
   },
   {
-    q: 'How can I verify that DEKSON ITI is government approved?',
+    q: 'How can I verify that Dekson ITI is government approved?',
     a: 'You can check our affiliation yourself on the NCVT MIS portal, and you will find us listed on the Maharashtra DVET admission portal. Please ask us for our approval documents at any time — we will show them to you.',
   },
   {
     q: 'Is there a hostel?',
-    a: 'No. DEKSON ITI does not have a hostel at present. Please call us to discuss accommodation options nearby.',
+    a: 'No. Dekson ITI does not have a hostel at present. Please call us to discuss accommodation options nearby.',
   },
   {
     q: 'What facilities are there on campus?',
@@ -74,7 +82,7 @@ const faqs = [
   },
   {
     q: 'Do you work through admission agents?',
-    a: `No. DEKSON ITI does not work through any agent or middleman, and nobody is authorised to collect money on our behalf. Pay fees only at the institute and always take a receipt. If anyone asks you for money to arrange a seat, please call ${site.phonePrimary}.`,
+    a: `No. Dekson ITI does not work through any agent or middleman, and nobody is authorised to collect money on our behalf. Pay fees only at the institute and always take a receipt. If anyone asks you for money to arrange a seat, please call ${site.phonePrimary}.`,
   },
   {
     q: 'Can I visit the campus before deciding?',
@@ -109,7 +117,7 @@ const schema = [
 
 <Base
   title={`ITI Admission FAQ — Akola | ${site.name}`}
-  description="Answers about ITI admission in Akola: eligibility after 10th and 8th, DVET portal process, documents, fees, and facilities at DEKSON ITI."
+  description="Answers about ITI admission in Akola: eligibility after 10th and 8th, DVET portal process, documents, fees, and facilities at Dekson ITI."
   schema={schema}
 >
   <div class="mx-auto max-w-3xl px-4 py-12">

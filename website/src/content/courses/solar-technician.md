@@ -6,9 +6,9 @@ order: 1
 icon: sun
 eligibility: 10th pass
 eligibilityMr: १० वी उत्तीर्ण
-duration: null
-seats: null
-annualFee: null
+duration: "1 year"
+seats: 40
+annualFee: "As per Government norms"
 summary: Install and maintain solar panels — a fast-growing field across Maharashtra.
 jobs:
   - Solar panel installation technician

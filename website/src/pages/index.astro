@@ -9,10 +9,11 @@ import { getCollection } from 'astro:content';
 const courses = (await getCollection('courses')).sort((a, b) => a.data.order - b.data.order);
 
 const facilities = [
-  'Classrooms', 'Computer lab', 'Library', 'Auditorium',
-  'Seminar hall', 'Reception', 'Drinking water', 'Separate washrooms',
-  'Canteen', 'Parking', 'CCTV', 'Security guard',
-  'Ramp access', 'First aid', 'Fire safety', 'Staff room',
+  'Well-equipped workshops', 'Classrooms', 'Computer lab', 'Library',
+  'Auditorium', 'Amphitheatre', 'Seminar hall', 'Reception',
+  'Staff room', 'Drinking water', 'Separate washrooms', 'Canteen',
+  'Parking', 'CCTV', 'Security guard', 'Ramp access',
+  'First aid', 'Fire safety',
 ];
 
 const schema = [
@@ -38,7 +39,7 @@ const fmt = (d: string) =>
 
 <Base
   title={`${site.name}, Akola — ${site.approval} ITI | Admissions ${site.admission.year} Open`}
-  description={`${site.approval} ITI in Waghulgaon, Akola. Courses after 10th: Electrician, COPA, Solar Technician. Welder after 8th. Run by ${site.runBy}. Call ${site.phonePrimary}.`}
+  description={`${site.approval} ITI in Babhulgaon, Akola. Courses after 10th: Electrician, COPA, Solar Technician. Welder after 8th. Run by ${site.runBy}. Call ${site.phonePrimary}.`}
   schema={schema}
 >
   <!-- Admissions band. Gold reads as a seal; the traffic-light green it replaced
@@ -64,7 +65,7 @@ const fmt = (d: string) =>
   <section class="border-b border-stone-200">
     <div class="mx-auto grid max-w-6xl lg:grid-cols-12">
       <div class="bg-clay-50 px-4 py-12 sm:px-8 lg:col-span-5 lg:py-20">
-        <p class="kicker">Waghulgaon · Akola · Maharashtra</p>
+        <p class="kicker">Babhulgaon · Akola · Maharashtra</p>
 
         <h1 class="mt-4 font-serif text-4xl leading-[1.1] font-bold text-stone-900 md:text-5xl">
           Learn a skill.<br />Earn a living.
@@ -105,7 +106,7 @@ const fmt = (d: string) =>
       <div class="relative min-h-[280px] lg:col-span-7 lg:min-h-[520px]">
         <Picture
           src="campus-entrance"
-          alt="The main entrance building of DEKSON ITI at Waghulgaon, Akola"
+          alt="The main entrance building of Dekson ITI at Babhulgaon, Akola"
           priority={true}
           sizes="(max-width: 1024px) 100vw, 58vw"
           class="absolute inset-0 h-full w-full object-cover"
@@ -224,7 +225,7 @@ const fmt = (d: string) =>
     </div>
 
     <p class="mt-4 text-xs text-stone-400">
-      Course photographs above illustrate each trade and are not photographs of DEKSON ITI.
+      Course photographs above illustrate each trade and are not photographs of Dekson ITI.
       <a href="/credits" class="underline hover:text-maroon-700">Photo credits</a>.
     </p>
   </section>
@@ -248,7 +249,7 @@ const fmt = (d: string) =>
         <p class="text-xs font-semibold tracking-[0.12em] text-verified-700 uppercase">The load-bearing fact</p>
         <h3 class="mt-2 font-serif text-2xl font-bold text-stone-900">Government recognised</h3>
         <p class="mt-2 max-w-2xl leading-relaxed text-stone-600">
-          DEKSON ITI is <strong class="text-stone-900">{site.approval}</strong>. Your certificate is
+          Dekson ITI is <strong class="text-stone-900">{site.approval}</strong>. Your certificate is
           valid across India. You do not have to take our word for it —
           <strong class="text-stone-900">verify our approval yourself</strong> on the NCVT MIS portal
           before you pay a rupee.
@@ -278,7 +279,7 @@ const fmt = (d: string) =>
   <section aria-label="Campus" class="bleed">
     <Picture
       src="campus-building"
-      alt="The main academic building of DEKSON ITI, Akola"
+      alt="The main academic building of Dekson ITI, Akola"
       sizes="100vw"
       class="h-[280px] w-full object-cover md:h-[440px]"
       width={1600}
@@ -304,8 +305,8 @@ const fmt = (d: string) =>
     <p class="mt-4 text-sm text-stone-500">The institute does not have a hostel.</p>
 
     <div class="mt-10 grid gap-4 sm:grid-cols-2">
-      <Picture src="workshop-arch" alt="The workshop entrance archway at DEKSON ITI" widths={[640, 1024]} sizes="(max-width:640px) 100vw, 50vw" class="h-64 w-full object-cover" width={1024} height={768} />
-      <Picture src="main-gate" alt="The main gate of DEKSON ITI, Waghulgaon" widths={[640, 1024]} sizes="(max-width:640px) 100vw, 50vw" class="h-64 w-full object-cover" width={1024} height={768} />
+      <Picture src="workshop-arch" alt="The workshop entrance archway at Dekson ITI" widths={[640, 1024]} sizes="(max-width:640px) 100vw, 50vw" class="h-64 w-full object-cover" width={1024} height={768} />
+      <Picture src="main-gate" alt="The main gate of Dekson ITI, Babhulgaon" widths={[640, 1024]} sizes="(max-width:640px) 100vw, 50vw" class="h-64 w-full object-cover" width={1024} height={768} />
     </div>
   </section>
 

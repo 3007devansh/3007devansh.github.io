@@ -6,9 +6,9 @@ order: 4
 icon: flame
 eligibility: 8th pass
 eligibilityMr: ८ वी उत्तीर्ण
-duration: null
-seats: null
-annualFee: null
+duration: "1 year"
+seats: 40
+annualFee: "As per Government norms"
 summary: Join metal, build structures. Open to students who have passed 8th standard.
 jobs:
   - Welder (arc, gas, MIG/TIG)

@@ -3,7 +3,7 @@
  *
  * ⚠️ These are ILLUSTRATIVE photographs of each trade, sourced from Wikimedia
  * Commons under licences permitting commercial use. They are NOT photographs of
- * DEKSON ITI. Every page that shows one captions it as illustrative, and the
+ * Dekson ITI. Every page that shows one captions it as illustrative, and the
  * real workshop sections still say plainly that we have no photo yet.
  *
  * The institute's own printed pamphlet uses generic trade imagery the same way.
@@ -60,4 +60,4 @@ export const courseImageCredits: Record<string, Credit> = {
 };
 
 /** Shown on every illustrative image, everywhere. Non-negotiable. */
-export const ILLUSTRATIVE_NOTE = 'Illustrative photograph — not DEKSON ITI';
+export const ILLUSTRATIVE_NOTE = 'Illustrative photograph — not Dekson ITI';

@@ -6,9 +6,9 @@ order: 2
 icon: bolt
 eligibility: 10th pass
 eligibilityMr: १० वी उत्तीर्ण
-duration: null
-seats: null
-annualFee: null
+duration: "2 years"
+seats: 20
+annualFee: "As per Government norms"
 summary: Wiring, motors and electrical maintenance — one of the most in-demand skills in India.
 jobs:
   - Electrician (industrial and domestic)
