@@ -56,14 +56,14 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
     <div class="bg-maroon-900 text-white">
       <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-1.5">
         <p class="flex items-center gap-2 text-xs">
-          <Icon name="shield" size={14} class="shrink-0 text-gold-300" />
+          <span class="h-3 w-0.5 shrink-0 bg-gold-300" aria-hidden="true"></span>
           <span class="font-semibold">{site.approval}</span>
           <span class="hidden text-white/50 sm:inline">· {site.runBy}</span>
         </p>
         <div class="flex items-center gap-3">
           <LanguageToggle />
           <a href={`tel:${site.phonePrimary}`} class="hidden items-center gap-1.5 text-xs font-semibold sm:flex">
-            <Icon name="phone" size={13} />
+            <span class="text-white/60">Call</span>
             <span class="tnum notranslate" translate="no">{site.phonePrimary}</span>
           </a>
         </div>
@@ -105,7 +105,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
             href={`tel:${site.phonePrimary}`}
             class="ml-4 inline-flex items-center gap-2 bg-maroon-700 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-maroon-800"
           >
-            <Icon name="phone" size={15} /> Call Now
+            Call Now
           </a>
         </nav>
       </div>
@@ -142,7 +142,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
           </div>
           <p class="mt-4 text-sm text-stone-600">Run by {site.runBy}</p>
           <p class="mt-4 inline-flex items-center gap-2 border border-maroon-700 px-3 py-1.5 text-xs font-semibold tracking-wide text-maroon-800">
-            <Icon name="shield" size={13} />{site.approval}
+            <span class="h-3 w-0.5 bg-maroon-700" aria-hidden="true"></span>{site.approval}
           </p>
         </div>
 

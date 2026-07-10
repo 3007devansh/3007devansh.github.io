@@ -32,7 +32,14 @@ const {
 const srcset = widths.map((w) => `/images/${src}-${w}.webp ${w}w`).join(', ');
 ---
 
-<picture>
+<!--
+  `display: contents` removes <picture> from the layout box tree, so the <img>
+  becomes the direct layout child of whatever wraps it. Without this, an
+  absolutely-positioned or h-full <img> resolves its height against the inline
+  <picture>, not the sized container — and the image renders at natural height
+  and gets chopped by overflow-hidden.
+-->
+<picture class="contents">
   <source type="image/webp" srcset={srcset} sizes={sizes} />
   <img
     src={`/images/${src}.jpg`}

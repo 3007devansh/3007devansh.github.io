@@ -5,6 +5,10 @@
  * The caption is part of the component, not something a page opts into, so it
  * cannot be forgotten. A parent must never mistake a stock photo of a computer
  * lab for DEKSON's computer lab.
+ *
+ * Framing: the image is absolutely positioned inside a fixed aspect-ratio box.
+ * Every photo therefore fills its placeholder exactly, whatever its native
+ * dimensions — no letterboxing, no arbitrary crop from overflow-hidden.
  */
 import Picture from './Picture.astro';
 import { courseImageCredits, ILLUSTRATIVE_NOTE } from '../config/credits';
@@ -13,30 +17,41 @@ interface Props {
   /** Course id — must exist in courseImageCredits */
   course: string;
   class?: string;
-  /** Compact card variant hides the author line; full shows it */
+  /** Tailwind aspect-ratio utility for the frame */
+  ratio?: string;
   variant?: 'card' | 'full';
   priority?: boolean;
   sizes?: string;
 }
-const { course, class: className = '', variant = 'card', priority = false, sizes } = Astro.props;
+const {
+  course,
+  class: className = '',
+  ratio = 'aspect-[4/3]',
+  variant = 'card',
+  priority = false,
+  sizes,
+} = Astro.props;
+
 const credit = courseImageCredits[course];
-if (!credit) throw new Error(`No image credit registered for course "${course}" — refusing to render an uncredited photo.`);
+if (!credit) {
+  throw new Error(`No image credit registered for course "${course}" — refusing to render an uncredited photo.`);
+}
 ---
 
 <figure class={className}>
-  <div class="relative">
+  <div class={`relative w-full overflow-hidden bg-stone-100 ${ratio}`}>
     <Picture
       src={`course-${course}`}
       alt={credit.caption}
       widths={[640, 1024]}
       sizes={sizes ?? '(max-width: 768px) 100vw, 33vw'}
       priority={priority}
-      class="h-full w-full object-cover"
+      class="absolute inset-0 h-full w-full object-cover object-center"
       width={1024}
       height={768}
     />
-    <!-- Overlay label: visible on the image itself, so it travels with a screenshot too. -->
-    <span class="absolute right-0 bottom-0 bg-stone-900/75 px-2 py-1 text-[10px] font-medium tracking-wide text-white">
+    <!-- Burned onto the image, so the disclaimer survives a screenshot. -->
+    <span class="absolute right-0 bottom-0 z-10 bg-stone-900/75 px-2 py-1 text-[10px] font-medium tracking-wide text-white">
       {ILLUSTRATIVE_NOTE}
     </span>
   </div>

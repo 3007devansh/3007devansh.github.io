@@ -59,7 +59,7 @@ const schema = [
       {courses.map((c) => (
         <a href={`/courses/${c.id}`} class="group flex flex-col bg-white transition-colors hover:bg-clay-50">
           {c.data.illustration && (
-            <Illustration course={c.id} class="block h-52 overflow-hidden" sizes="(max-width: 768px) 100vw, 50vw" />
+            <Illustration course={c.id} ratio="aspect-[16/9]" class="block" sizes="(max-width: 768px) 100vw, 50vw" />
           )}
 
           <div class="flex flex-col p-8">
