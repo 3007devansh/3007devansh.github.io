@@ -22,6 +22,12 @@
  * <select>. The select-poke is a documented race condition ("Cannot set property
  * 'selectedIndex' of null"); the cookie is read at init and survives navigation
  * across the static pages.
+ *
+ * 4. element.js registers a `beforeunload` handler, which makes the browser show
+ *    "Leave site? Changes you made may not be saved" on every navigation. We
+ *    block beforeunload registration before element.js loads (we never use that
+ *    event ourselves). If this widget is ever replaced by real /mr/ routes, this
+ *    guard — and all the CSS/observer hacks below — can go with it.
  */
 ---
 
@@ -49,6 +55,24 @@
 
 <script is:inline>
   (function () {
+    // ---- Neutralise the spurious "Leave site? Changes you may not be saved"
+    // ---- dialog. Google Translate's element.js registers a `beforeunload`
+    // ---- handler, so any navigation (or our own language reload) pops the
+    // ---- browser's leave-site prompt. We never use beforeunload ourselves, so
+    // ---- we block its registration outright — before element.js loads.
+    try {
+      var _add = window.addEventListener;
+      window.addEventListener = function (type) {
+        if (type === 'beforeunload') return; // drop it
+        return _add.apply(this, arguments);
+      };
+      Object.defineProperty(window, 'onbeforeunload', {
+        configurable: true,
+        get: function () { return null; },
+        set: function () { /* ignore */ },
+      });
+    } catch (e) {}
+
     // ---- Set the cookie BEFORE element.js initialises, so a Marathi visitor
     // ---- lands already translated instead of seeing an English flash.
     function setGoogTrans(value) {
