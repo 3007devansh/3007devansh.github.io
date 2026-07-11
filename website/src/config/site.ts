@@ -72,15 +72,17 @@ export const site = {
   nameOrigin: 'Devkaran Keshavji Shah & Sons',
 
   /**
-   * The person whose vision established the institute. The About page renders
-   * this section only once a photo is supplied: save the image at
-   * /public/images/founder.jpg, then set photo to 'founder' and fill the name.
+   * The visionary behind the institute. Shown on the About page now, with
+   * placeholders until the assets arrive:
+   *   photo   — a photo of his statue; save as /public/images/founder.jpg,
+   *             then set `photo` to 'founder'.
+   *   message — his thought / vision, in his words.
    */
   founder: {
-    name: TODO('Founder / visionary — full name'),
-    title: TODO('Founder title, e.g. "Founder" or "President, Shri Akola Gujarati Samaj Trust"'),
-    photo: TODO('Founder photo — save as /public/images/founder.jpg, then set to "founder"'),
-    message: TODO('Founder message / vision, 3-5 sentences (optional)'),
+    name: 'Suresh Devkaran Shah',
+    title: 'The visionary behind Dekson ITI',
+    photo: TODO('Statue photo of Suresh Devkaran Shah — save as /public/images/founder.jpg, then set to "founder"'),
+    message: TODO('Suresh Devkaran Shah — his vision / thought, 3-5 sentences'),
   },
 
   samajFounded: '1967',

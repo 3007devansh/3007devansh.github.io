@@ -16,6 +16,8 @@ interface Props {
   class?: string;
   width?: number;
   height?: number;
+  /** Make the image open in the click-to-enlarge lightbox (see Lightbox.astro). */
+  zoom?: boolean;
 }
 
 const {
@@ -27,6 +29,7 @@ const {
   class: className = '',
   width = 1024,
   height = 768,
+  zoom = false,
 } = Astro.props;
 
 const srcset = widths.map((w) => `/images/${src}-${w}.webp ${w}w`).join(', ');
@@ -50,5 +53,7 @@ const srcset = widths.map((w) => `/images/${src}-${w}.webp ${w}w`).join(', ');
     loading={priority ? 'eager' : 'lazy'}
     fetchpriority={priority ? 'high' : 'auto'}
     decoding={priority ? 'sync' : 'async'}
+    data-zoom={zoom ? '' : undefined}
+    data-full={zoom ? `/images/${src}.jpg` : undefined}
   />
 </picture>

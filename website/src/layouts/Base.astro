@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Seo from '../components/Seo.astro';
 import Icon from '../components/Icon.astro';
 import LanguageToggle from '../components/LanguageToggle.astro';
+import Lightbox from '../components/Lightbox.astro';
 import { site } from '../config/site';
 
 interface Props {
@@ -19,7 +20,6 @@ const nav = [
   { href: '/admissions', label: 'Admissions' },
   { href: '/facilities', label: 'Facilities' },
   { href: '/about', label: 'About' },
-  { href: '/faq', label: 'FAQ' },
   { href: '/contact', label: 'Contact' },
 ];
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -130,6 +130,8 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 
     <main id="main"><slot /></main>
 
+    <Lightbox />
+
     <footer class="mt-24 border-t-[3px] border-navy-700 bg-stone-50">
       <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div class="sm:col-span-2 lg:col-span-1">
@@ -167,8 +169,10 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
         <div class="text-sm">
           <p class="kicker">Information</p>
           <ul class="mt-4 space-y-2">
+            <li><a href="/faq" class="text-stone-600 hover:text-navy-700 hover:underline">FAQ</a></li>
+            <li><a href="/gallery" class="text-stone-600 hover:text-navy-700 hover:underline">Gallery</a></li>
             <li><a href="/privacy" class="text-stone-600 hover:text-navy-700 hover:underline">Privacy Policy</a></li>
-            <li><a href="/credits" class="text-stone-600 hover:text-navy-700 hover:underline">Photo Credits</a></li>
+            <li><a href="/credits" class="text-stone-600 hover:text-navy-700 hover:underline">Photo & Logo Credits</a></li>
             <li><a href="/contact#grievance" class="text-stone-600 hover:text-navy-700 hover:underline">Grievance & Anti-Ragging</a></li>
             <li><a href={site.admission.portal} rel="noopener" class="text-stone-600 hover:text-navy-700 hover:underline">DVET Admission Portal ↗</a></li>
           </ul>
@@ -180,10 +184,10 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
         </div>
       </div>
 
-      <div class="border-t border-stone-200 px-4 py-5 text-center text-xs text-stone-500">
+      <div class="flex flex-col items-center gap-2 border-t border-stone-200 px-4 py-5 text-xs text-stone-500 sm:flex-row sm:justify-between">
         <p>© {new Date().getFullYear()} {site.name}, Babhulgaon, Akola. Run by {site.runBy}.</p>
-        <p class="mt-1.5">
-          Website designed &amp; developed by <span class="font-semibold text-navy-700">Devansh Shah</span>.
+        <p class="sm:text-right">
+          Website by <span class="font-semibold text-navy-700">Devansh Shah</span>
         </p>
       </div>
     </footer>
