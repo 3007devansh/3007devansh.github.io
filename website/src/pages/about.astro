@@ -2,58 +2,106 @@
 import Base from '../layouts/Base.astro';
 import Fact from '../components/Fact.astro';
 import { site, isTodo } from '../config/site';
+
+const stats = [
+  { n: '1967', l: 'Trust serving Akola since' },
+  { n: '4', l: 'Government-recognised courses' },
+  { n: '148', l: 'Sanctioned seats' },
+  { n: 'DGT / NCVT', l: 'Approved & affiliated' },
+];
+
+const trustRuns = [
+  'G.S. Convent & Smt. L.D. Patel High School, Akola',
+  'Smt. Maherbanu College of Science & Commerce, Akola',
+  'Dekson Private Industrial Training Institute, Akola',
+];
 ---
 
 <Base
   title={`About | ${site.name}, Akola`}
-  description={`About Dekson ITI, Akola — a DGT/NCVT approved industrial training institute run by ${site.runBy}, serving Akola since 1967.`}
+  description={`About Dekson ITI, Akola — a DGT/NCVT approved industrial training institute run by ${site.runBy}, serving Akola since 1967. The name honours donor Devkaran Keshavji Shah & Sons.`}
 >
-  <div class="mx-auto max-w-4xl px-4 py-12">
+  <div class="mx-auto max-w-5xl px-4 py-12">
     <div class="hangs">
       <p class="kicker">About us</p>
       <h1 class="mt-2 font-serif text-4xl font-bold text-stone-900 md:text-5xl">About {site.name}</h1>
       <p class="mr mt-2 text-lg text-stone-500">{site.nameMr}</p>
     </div>
 
-    <div class="mt-8 space-y-4 text-lg leading-relaxed text-stone-700">
-      <p>
-        {site.nameFull} is a <strong class="text-stone-900">{site.approval}</strong> Industrial Training
-        Institute at Babhulgaon, near Shivaji Engineering College, Akola. It is run by
-        <strong class="text-stone-900">{site.runBy}</strong> ({site.runByMr}).
-      </p>
-      <p>
-        The institute offers four government-recognised courses — Solar Technician (Electrical),
-        Electrician, Computer Operator &amp; Programming Assistant (COPA), and Welder — on a newly
-        built, fully constructed campus with well-equipped workshops.
-      </p>
-    </div>
+    <p class="mt-6 max-w-3xl text-lg leading-relaxed text-stone-700">
+      {site.nameFull} is a <strong class="text-stone-900">{site.approval}</strong> Industrial Training
+      Institute at Babhulgaon, near Shivaji Engineering College, Akola, run by
+      <strong class="text-stone-900">{site.runBy}</strong>. It offers four government-recognised
+      courses on a newly built campus with well-equipped workshops.
+    </p>
 
-    <!-- The founding Trust: this is the credibility a new institute stands on. -->
-    <section class="mt-12 border-l-4 border-navy-700 bg-stone-50 p-8">
-      <p class="kicker">Our foundation</p>
-      <h2 class="mt-2 font-serif text-2xl font-bold text-stone-900">Backed by {site.runBy}</h2>
-      <div class="mt-4 space-y-3 leading-relaxed text-stone-700">
-        <p>
-          Shri Akola Gujarati Samaj Trust has served the Akola community since
-          <strong class="text-stone-900">1967</strong> — more than five decades of social and
-          educational work.
+    <!-- Stat row -->
+    <dl class="mt-10 grid grid-cols-2 gap-px border border-stone-200 bg-stone-200 md:grid-cols-4">
+      {stats.map((s) => (
+        <div class="bg-white p-5 text-center">
+          <dt class="font-serif text-2xl font-bold text-navy-700">{s.n}</dt>
+          <dd class="mt-1 text-xs leading-snug text-stone-500">{s.l}</dd>
+        </div>
+      ))}
+    </dl>
+
+    <!-- Name origin — highlighted -->
+    <section class="mt-12 grid gap-px border border-stone-200 bg-stone-200 md:grid-cols-5">
+      <div class="flex items-center justify-center bg-navy-800 p-8 md:col-span-2">
+        <p class="text-center font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
+          DEKSON
         </p>
-        <p>
-          {site.samajOtherInstitutions} With Dekson ITI, the Trust extends that work into skill
-          training, helping young people in and around Akola learn a trade and earn a living.
+      </div>
+      <div class="bg-white p-8 md:col-span-3">
+        <p class="kicker">What the name means</p>
+        <h2 class="mt-2 font-serif text-2xl font-bold text-stone-900">
+          In honour of <span class="text-navy-700">Devkaran Keshavji Shah &amp; Sons</span>
+        </h2>
+        <p class="mt-3 leading-relaxed text-stone-600">
+          The name <strong class="text-stone-900">DEKSON</strong> is drawn from
+          <strong class="text-stone-900">De</strong>vkaran <strong class="text-stone-900">K</strong>eshavji
+          <strong class="text-stone-900"> S</strong>hah &amp; <strong class="text-stone-900">Son</strong>s —
+          the principal donor whose generosity made the institute possible. The institute carries the
+          name as a lasting mark of gratitude.
         </p>
       </div>
     </section>
 
-    <!-- Principal's message. Names only, no photographs (decided). -->
+    <!-- Founding Trust -->
+    <section class="mt-12">
+      <div class="hangs">
+        <p class="kicker">Our foundation</p>
+        <h2 class="mt-2 font-serif text-2xl font-bold text-stone-900">Backed by {site.runBy}</h2>
+      </div>
+      <div class="mt-6 grid gap-8 md:grid-cols-2">
+        <p class="leading-relaxed text-stone-700">
+          Shri Akola Gujarati Samaj Trust has served the Akola community since
+          <strong class="text-stone-900">1967</strong> — more than five decades of social and
+          educational work. With Dekson ITI, the Trust extends that work into skill training, helping
+          young people in and around Akola learn a trade and earn a living.
+        </p>
+        <div class="border-l-4 border-navy-700 bg-stone-50 p-6">
+          <p class="text-sm font-semibold text-stone-900">Institutions run by the Trust</p>
+          <ul class="mt-3 space-y-2.5">
+            {trustRuns.map((t) => (
+              <li class="flex items-start gap-3 text-sm text-stone-700">
+                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 bg-navy-700" aria-hidden="true"></span>{t}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Principal's message -->
     <section class="mt-12">
       <div class="hangs">
         <p class="kicker">From the Principal</p>
         <h2 class="mt-2 font-serif text-2xl font-bold text-stone-900">Principal's Message</h2>
       </div>
-      <figure class="mt-6 border border-stone-200 p-8">
-        <blockquote class="text-lg leading-relaxed text-stone-700">
-          "{site.principalMessage}"
+      <figure class="mt-6 border-l-4 border-gold-500 bg-stone-50 p-8">
+        <blockquote class="font-serif text-lg leading-relaxed text-stone-800">
+          “{site.principalMessage}”
         </blockquote>
         <figcaption class="mt-5 border-t border-stone-200 pt-4">
           <span class="font-semibold text-stone-900">{site.principalName}</span>
@@ -62,13 +110,12 @@ import { site, isTodo } from '../config/site';
       </figure>
     </section>
 
-    {/* Chairman's message hidden until supplied — no red placeholder on a public page. */}
     {!isTodo(site.chairmanMessage) && (
       <section class="mt-8">
-        <figure class="border border-stone-200 p-8">
+        <figure class="border-l-4 border-gold-500 bg-stone-50 p-8">
           <p class="kicker">From the Chairman</p>
-          <blockquote class="mt-4 text-lg leading-relaxed text-stone-700">
-            "<Fact value={site.chairmanMessage} />"
+          <blockquote class="mt-4 font-serif text-lg leading-relaxed text-stone-800">
+            “<Fact value={site.chairmanMessage} />”
           </blockquote>
           <figcaption class="mt-5 border-t border-stone-200 pt-4 font-semibold text-stone-900">
             <Fact value={site.chairmanName} />
@@ -77,15 +124,15 @@ import { site, isTodo } from '../config/site';
       </section>
     )}
 
-    <!-- Career support: future tense, clearly a commitment not a record. -->
+    <!-- Career support -->
     <section class="mt-12">
       <div class="hangs">
         <p class="kicker">After the course</p>
         <h2 class="mt-2 font-serif text-2xl font-bold text-stone-900">Career support</h2>
       </div>
-      <p class="mt-4 leading-relaxed text-stone-700">
+      <p class="mt-4 max-w-3xl leading-relaxed text-stone-700">
         No institute can honestly guarantee a job, and we will not claim to. Dekson ITI is a new
-        institute, so we have no placement record yet and we publish no placement figures. What we do
+        institute, so we have no placement record yet and publish no placement figures. What we do
         commit to:
       </p>
       <ul class="mt-4 grid gap-px border border-stone-200 bg-stone-200 sm:grid-cols-2">
@@ -102,19 +149,19 @@ import { site, isTodo } from '../config/site';
       </ul>
     </section>
 
-    <!-- Verify-us invitation: a trust signal a scam site never offers. -->
-    <section class="mt-12 border-2 border-navy-700 p-8 text-center">
-      <h2 class="font-serif text-2xl font-bold text-stone-900">Don't just take our word for it</h2>
-      <p class="mx-auto mt-3 max-w-xl leading-relaxed text-stone-600">
+    <!-- Verify / visit -->
+    <section class="mt-12 bg-navy-800 p-8 text-center">
+      <h2 class="font-serif text-2xl font-bold text-white">Don't just take our word for it</h2>
+      <p class="mx-auto mt-3 max-w-xl leading-relaxed text-clay-100">
         Our approval is real and you can check it yourself on the NCVT MIS portal. Better still, visit
         the campus, meet us, and ask anything you like before you decide.
       </p>
       <div class="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
-        <a href={`tel:${site.phonePrimary}`} class="bg-navy-700 px-6 py-3 font-semibold text-white hover:bg-navy-800">
+        <a href={`tel:${site.phonePrimary}`} class="bg-white px-6 py-3 font-semibold text-navy-800 hover:bg-clay-50">
           Call <span class="tnum notranslate ml-1" translate="no">{site.phonePrimary}</span>
         </a>
-        <a href="/contact" class="border-2 border-stone-300 px-6 py-3 font-semibold text-stone-800 hover:border-navy-700 hover:text-navy-700">
-          Visit the campus
+        <a href="/facilities" class="border border-white/40 px-6 py-3 font-semibold text-white hover:bg-navy-700">
+          See our facilities
         </a>
       </div>
     </section>

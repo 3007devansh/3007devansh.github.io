@@ -1,0 +1,118 @@
+---
+import Base from '../layouts/Base.astro';
+import Picture from '../components/Picture.astro';
+import Carousel from '../components/Carousel.astro';
+import { site } from '../config/site';
+
+const groups = [
+  {
+    title: 'Learning spaces',
+    items: ['Well-equipped workshops', 'Classrooms', 'Computer lab', 'Library', 'Auditorium', 'Amphitheatre', 'Seminar hall'],
+  },
+  {
+    title: 'Student amenities',
+    items: ['Reception', 'Staff room', 'Canteen', 'Drinking water', 'Separate washrooms', 'Parking'],
+  },
+  {
+    title: 'Safety & access',
+    items: ['CCTV surveillance', 'Security guard', 'Fire safety equipment', 'First aid', 'Ramp access for the differently-abled'],
+  },
+];
+
+const slides = [
+  { src: 'gallery-electrical-1', cap: 'Electrical machines lab' },
+  { src: 'gallery-computer-1', cap: 'Computer lab' },
+  { src: 'gallery-auditorium-1', cap: 'Auditorium' },
+  { src: 'gallery-welding-1', cap: 'Welding workshop' },
+  { src: 'gallery-solar-1', cap: 'Solar technician lab' },
+  { src: 'gallery-hall', cap: 'Seminar hall' },
+];
+
+const tiles = [
+  { src: 'gallery-computer-2', cap: 'Computer lab & classroom' },
+  { src: 'gallery-electrical-2', cap: 'Motor & control panels' },
+  { src: 'gallery-auditorium-2', cap: 'Assembly hall & stage' },
+  { src: 'gallery-workshop-hall', cap: 'Main workshop hall' },
+  { src: 'gallery-arch', cap: 'ITI workshop entrance' },
+  { src: 'gallery-safety', cap: 'Fire safety equipment' },
+];
+
+const schema = [
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', Astro.site).href },
+      { '@type': 'ListItem', position: 2, name: 'Facilities', item: new URL('/facilities', Astro.site).href },
+    ],
+  },
+];
+---
+
+<Base
+  title={`Campus & Facilities | ${site.name}, Akola`}
+  description="Facilities at Dekson ITI, Babhulgaon, Akola — well-equipped workshops, computer lab, library, auditorium, amphitheatre, canteen, CCTV, ramp access and more."
+  schema={schema}
+>
+  <div class="mx-auto max-w-6xl px-4 py-12 md:py-16">
+    <nav aria-label="Breadcrumb" class="text-sm text-stone-500">
+      <a href="/" class="hover:text-navy-700 hover:underline">Home</a>
+      <span class="mx-2 text-stone-300">/</span><span class="text-stone-700">Facilities</span>
+    </nav>
+
+    <div class="hangs mt-8">
+      <p class="kicker">Our campus</p>
+      <h1 class="mt-2 font-serif text-4xl font-bold text-stone-900 md:text-5xl">Campus &amp; Facilities</h1>
+      <p class="mt-3 max-w-2xl text-lg leading-relaxed text-stone-700">
+        Dekson ITI is newly built and fully in use — real workshops with real machines, plus every
+        facility a student needs. Here is what you will find on campus.
+      </p>
+    </div>
+
+    <Carousel class="mt-8" slides={slides} ratio="aspect-[16/9] sm:aspect-[5/2]" />
+
+    <!-- Complete facilities list -->
+    <div class="mt-12 grid gap-px border border-stone-200 bg-stone-200 md:grid-cols-3">
+      {groups.map((g) => (
+        <div class="bg-white p-6">
+          <h2 class="font-serif text-xl font-bold text-stone-900">{g.title}</h2>
+          <ul class="mt-4 space-y-2.5">
+            {g.items.map((item) => (
+              <li class="flex items-start gap-3 text-stone-700">
+                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 bg-navy-700" aria-hidden="true"></span>{item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <!-- Photo tiles -->
+    <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {tiles.map((t) => (
+        <figure class="group">
+          <div class="relative aspect-[4/3] overflow-hidden bg-stone-100">
+            <Picture
+              src={t.src}
+              alt={`${t.cap} — Dekson ITI, Babhulgaon`}
+              widths={[640, 1024]}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              width={1024}
+              height={768}
+            />
+          </div>
+          <figcaption class="mt-2 text-sm text-stone-600">{t.cap}</figcaption>
+        </figure>
+      ))}
+    </div>
+
+    <div class="mt-10 flex flex-wrap items-center gap-4">
+      <a href="/gallery" class="inline-block border-2 border-stone-300 px-5 py-2.5 text-sm font-semibold text-stone-800 hover:border-navy-700 hover:text-navy-700">
+        See the full gallery &rarr;
+      </a>
+      <a href={`tel:${site.phonePrimary}`} class="inline-flex items-center bg-navy-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-navy-800">
+        Call to arrange a visit — <span class="tnum notranslate ml-1" translate="no">{site.phonePrimary}</span>
+      </a>
+    </div>
+  </div>
+</Base>

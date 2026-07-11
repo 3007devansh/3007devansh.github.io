@@ -17,8 +17,8 @@ const nav = [
   { href: '/', label: 'Home' },
   { href: '/courses', label: 'Courses' },
   { href: '/admissions', label: 'Admissions' },
+  { href: '/facilities', label: 'Facilities' },
   { href: '/about', label: 'About' },
-  { href: '/gallery', label: 'Gallery' },
   { href: '/faq', label: 'FAQ' },
   { href: '/contact', label: 'Contact' },
 ];
@@ -181,7 +181,10 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
       </div>
 
       <div class="border-t border-stone-200 px-4 py-5 text-center text-xs text-stone-500">
-        © {new Date().getFullYear()} {site.name}, Babhulgaon, Akola. Run by {site.runBy}.
+        <p>© {new Date().getFullYear()} {site.name}, Babhulgaon, Akola. Run by {site.runBy}.</p>
+        <p class="mt-1.5">
+          Website designed &amp; developed by <span class="font-semibold text-navy-700">Devansh Shah</span>.
+        </p>
       </div>
     </footer>
 

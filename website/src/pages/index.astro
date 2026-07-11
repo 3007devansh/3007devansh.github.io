@@ -2,17 +2,26 @@
 import Base from '../layouts/Base.astro';
 import Fact from '../components/Fact.astro';
 import Picture from '../components/Picture.astro';
+import Carousel from '../components/Carousel.astro';
 import { site, dvet } from '../config/site';
 import { getCollection } from 'astro:content';
 
 const courses = (await getCollection('courses')).sort((a, b) => a.data.order - b.data.order);
 
-const facilities = [
-  'Well-equipped workshops', 'Classrooms', 'Computer lab', 'Library',
-  'Auditorium', 'Amphitheatre', 'Seminar hall', 'Reception',
-  'Staff room', 'Drinking water', 'Separate washrooms', 'Canteen',
-  'Parking', 'CCTV', 'Security guard', 'Ramp access',
-  'First aid', 'Fire safety',
+/** Rotating campus carousel on the home page. */
+const facilitySlides = [
+  { src: 'gallery-electrical-1', cap: 'Electrical machines lab' },
+  { src: 'gallery-computer-1', cap: 'Computer lab for the COPA course' },
+  { src: 'gallery-auditorium-1', cap: 'Auditorium' },
+  { src: 'gallery-solar-1', cap: 'Solar technician lab' },
+  { src: 'gallery-hall', cap: 'Seminar hall' },
+  { src: 'gallery-workshop-hall', cap: 'Main workshop hall' },
+];
+
+/** A few highlights on the home page; the full list is on /facilities. */
+const facilityHighlights = [
+  'Well-equipped workshops', 'Computer lab', 'Library', 'Auditorium',
+  'Amphitheatre', 'CCTV & security', 'Ramp access',
 ];
 
 const schema = [
@@ -56,62 +65,62 @@ const fmt = (d: string) =>
   </div>
 
   <!--
-    HERO — split, not overlay.
-    The previous version dimmed the real campus photo to 30% opacity to float a
-    slogan over it. For a trust-first audience that is backwards: the building
-    is the evidence. Full brightness, hard edges, no rounding.
+    HERO — full-width building banner, then an info panel beneath it.
+    The image fills a wide banner (object-cover, full brightness) so the real
+    campus reads as evidence; the decision facts sit immediately below, above
+    the fold on desktop.
   -->
-  <section class="border-b border-stone-200">
-    <div class="mx-auto grid max-w-6xl lg:grid-cols-12">
-      <div class="bg-clay-50 px-4 py-12 sm:px-8 lg:col-span-5 lg:py-20">
-        <p class="kicker">Babhulgaon · Akola · Maharashtra</p>
+  <section>
+    <div class="relative bg-stone-900">
+      <Picture
+        src="campus-entrance"
+        alt="Dekson ITI campus at Babhulgaon, near Shivaji Engineering College, Akola"
+        priority={true}
+        sizes="100vw"
+        class="h-[300px] w-full object-cover object-center sm:h-[380px] md:h-[460px]"
+        width={1600}
+        height={900}
+      />
+    </div>
 
-        <h1 class="mt-4 font-serif text-4xl leading-[1.1] font-bold text-stone-900 md:text-5xl">
-          Learn a skill.<br />Earn a living.
-        </h1>
-        <p class="mr mt-3 text-lg text-stone-600">{site.nameMr}</p>
-
-        <p class="mt-6 max-w-md leading-relaxed text-stone-700">
-          A government-recognised Industrial Training Institute run by {site.runBy}.
-          Practical training, a certificate valid across India, and a real trade in your hands.
-        </p>
-
-        <!-- Eligibility as a labelled data list, not floating pills -->
-        <dl class="mt-8 border-t border-stone-200">
-          <div class="flex gap-4 border-b border-stone-200 py-3">
-            <dt class="w-28 shrink-0 text-xs font-semibold tracking-wide text-stone-500 uppercase">After 10th</dt>
-            <dd class="text-sm font-medium text-stone-800">Electrician · COPA · Solar Technician</dd>
+    <div class="border-b border-stone-200 bg-clay-50">
+      <div class="mx-auto grid max-w-6xl gap-8 px-4 py-10 lg:grid-cols-12 lg:py-12">
+        <div class="lg:col-span-7">
+          <p class="kicker">Babhulgaon · Akola · Maharashtra</p>
+          <h1 class="mt-3 font-serif text-4xl leading-[1.1] font-bold text-stone-900 md:text-5xl">
+            Learn a skill. Earn a living.
+          </h1>
+          <p class="mr mt-2 text-lg text-stone-600">{site.nameMr}</p>
+          <p class="mt-5 max-w-xl leading-relaxed text-stone-700">
+            A government-recognised Industrial Training Institute run by {site.runBy}.
+            Practical training, a certificate valid across India, and a real trade in your hands.
+          </p>
+          <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+            <a href={`tel:${site.phonePrimary}`} class="inline-flex items-center justify-center bg-navy-700 px-6 py-3.5 font-semibold text-white transition-colors hover:bg-navy-800">
+              Call <span class="tnum notranslate ml-1.5" translate="no">{site.phonePrimary}</span>
+            </a>
+            <a href={`https://wa.me/91${site.whatsapp}`} rel="noopener" class="inline-flex items-center justify-center border-2 border-stone-300 px-6 py-3.5 font-semibold text-stone-800 transition-colors hover:border-navy-700 hover:text-navy-700">
+              Message on WhatsApp
+            </a>
           </div>
-          <div class="flex gap-4 border-b border-stone-200 py-3">
-            <dt class="w-28 shrink-0 text-xs font-semibold tracking-wide text-stone-500 uppercase">After 8th</dt>
-            <dd class="text-sm font-medium text-stone-800">
-              Welder
-              <span class="ml-1 bg-gold-100 px-1.5 py-0.5 text-xs font-semibold text-gold-800">no 10th needed</span>
-            </dd>
-          </div>
-        </dl>
-
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-          <a href={`tel:${site.phonePrimary}`} class="inline-flex items-center justify-center bg-navy-700 px-6 py-3.5 font-semibold text-white transition-colors hover:bg-navy-800">
-            Call <span class="tnum notranslate ml-1.5" translate="no">{site.phonePrimary}</span>
-          </a>
-          <a href={`https://wa.me/91${site.whatsapp}`} rel="noopener" class="inline-flex items-center justify-center border-2 border-stone-300 px-6 py-3.5 font-semibold text-stone-800 transition-colors hover:border-navy-700 hover:text-navy-700">
-            Message on WhatsApp
-          </a>
         </div>
-      </div>
 
-      <!-- The photograph, at full brightness. It is evidence, not wallpaper. -->
-      <div class="relative min-h-[280px] lg:col-span-7 lg:min-h-[520px]">
-        <Picture
-          src="campus-entrance"
-          alt="The main entrance building of Dekson ITI at Babhulgaon, Akola"
-          priority={true}
-          sizes="(max-width: 1024px) 100vw, 58vw"
-          class="absolute inset-0 h-full w-full object-cover"
-          width={1600}
-          height={1200}
-        />
+        <!-- Eligibility as a labelled data list, not floating pills. -->
+        <div class="lg:col-span-5">
+          <dl class="border-t border-stone-200">
+            <div class="flex gap-4 border-b border-stone-200 py-3">
+              <dt class="w-24 shrink-0 text-xs font-semibold tracking-wide text-stone-500 uppercase">After 10th</dt>
+              <dd class="text-sm font-medium text-stone-800">Electrician · COPA · Solar Technician</dd>
+            </div>
+            <div class="flex gap-4 py-3">
+              <dt class="w-24 shrink-0 text-xs font-semibold tracking-wide text-stone-500 uppercase">After 8th</dt>
+              <dd class="text-sm font-medium text-stone-800">
+                Welder
+                <span class="ml-1 bg-gold-100 px-1.5 py-0.5 text-xs font-semibold text-gold-800">no 10th needed</span>
+              </dd>
+            </div>
+          </dl>
+        </div>
       </div>
     </div>
   </section>
@@ -234,115 +243,105 @@ const fmt = (d: string) =>
     </p>
   </section>
 
-  <!-- TRUST. Not three equal cards: "government recognised" is the load-bearing
-       claim and gets a wide band; the other two sit beneath it. -->
-  <section class="border-y border-stone-200 bg-stone-50 py-20">
+  <!-- WHY DEKSON — highlighted as a dark navy band so it stands apart from the
+       white sections around it. "Government recognised" is the load-bearing claim. -->
+  <section class="bg-navy-800 py-16 md:py-20">
     <div class="mx-auto max-w-6xl px-4">
-      <div class="hangs">
-        <p class="kicker">Why DEKSON</p>
-        <h2 class="mt-2 font-serif text-3xl font-bold text-stone-900 md:text-4xl">
+      <div class="border-l-4 border-gold-500 pl-5">
+        <p class="text-xs font-semibold tracking-[0.14em] text-gold-300 uppercase">Why Dekson</p>
+        <h2 class="mt-2 font-serif text-3xl font-bold text-white md:text-4xl">
           We are new. Here is what we can prove.
         </h2>
-        <p class="mt-3 max-w-2xl leading-relaxed text-stone-600">
-          We have no past results and no placement record, and we will not pretend otherwise.
-          Instead, judge us on what can be checked.
+        <p class="mt-3 max-w-2xl leading-relaxed text-clay-100">
+          We have no past results and no placement record yet, and we will not pretend otherwise.
+          Instead, judge us on what can be checked today.
         </p>
       </div>
 
-      <div class="mt-10 border-l-4 border-verified-700 bg-white p-8">
-        <p class="text-xs font-semibold tracking-[0.12em] text-verified-700 uppercase">The load-bearing fact</p>
-        <h3 class="mt-2 font-serif text-2xl font-bold text-stone-900">Government recognised</h3>
+      <!-- Load-bearing fact, called out with a gold seal-edge. -->
+      <div class="mt-10 border-l-4 border-gold-500 bg-white p-8">
+        <p class="text-xs font-semibold tracking-[0.12em] text-verified-700 uppercase">Government recognised</p>
+        <h3 class="mt-2 font-serif text-2xl font-bold text-stone-900">
+          {site.approval} — and you can verify it yourself
+        </h3>
         <p class="mt-2 max-w-2xl leading-relaxed text-stone-600">
-          Dekson ITI is <strong class="text-stone-900">{site.approval}</strong>. Your certificate is
-          valid across India. You do not have to take our word for it —
-          <strong class="text-stone-900">verify our approval yourself</strong> on the NCVT MIS portal
-          before you pay a rupee.
+          Your certificate is valid across India. You do not have to take our word for it —
+          <strong class="text-stone-900">check our approval on the NCVT MIS portal</strong> before you
+          pay a single rupee.
         </p>
       </div>
 
       <div class="mt-6 grid gap-6 md:grid-cols-2">
-        <div class="border-l-4 border-navy-700 bg-white p-8">
-          <h3 class="font-serif text-xl font-bold text-stone-900">A campus that already exists</h3>
-          <p class="mt-2 leading-relaxed text-stone-600">
-            Fully built and ready — classrooms, workshops, a computer lab, library and auditorium.
-            Come and walk through it before you decide. That offer is open to anyone.
+        <div class="bg-navy-900 p-8 ring-1 ring-white/10">
+          <h3 class="font-serif text-xl font-bold text-white">A campus that already exists</h3>
+          <p class="mt-2 leading-relaxed text-clay-100">
+            Fully built and ready — classrooms, well-equipped workshops, a computer lab, library and
+            auditorium. Walk through it before you decide. That offer is open to anyone.
           </p>
+          <a href="/facilities" class="mt-4 inline-block text-sm font-semibold text-gold-300 hover:underline">See our facilities &rarr;</a>
         </div>
-        <div class="border-l-4 border-navy-700 bg-white p-8">
-          <h3 class="font-serif text-xl font-bold text-stone-900">Backed by {site.runBy}</h3>
-          <p class="mt-2 leading-relaxed text-stone-600">
-            The institute was established by a Samaj that has served Akola since
-            <Fact value={site.samajFounded} fallback="many years" />.
+        <div class="bg-navy-900 p-8 ring-1 ring-white/10">
+          <h3 class="font-serif text-xl font-bold text-white">Backed by {site.runBy}</h3>
+          <p class="mt-2 leading-relaxed text-clay-100">
+            Established by a Trust that has served Akola since
+            <Fact value={site.samajFounded} fallback="many years" />, and already runs two
+            schools and a college in the district.
           </p>
+          <a href="/about" class="mt-4 inline-block text-sm font-semibold text-gold-300 hover:underline">About the institute &rarr;</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Full-bleed photo band. Architecture wants right angles and room to breathe. -->
-  <section aria-label="Campus" class="bleed">
-    <Picture
-      src="campus-building"
-      alt="The main academic building of Dekson ITI, Akola"
-      sizes="100vw"
-      class="h-[280px] w-full object-cover md:h-[440px]"
-      width={1600}
-      height={1200}
-    />
-  </section>
-
-  <section class="mx-auto max-w-6xl px-4 py-20">
-    <div class="hangs">
-      <p class="kicker">On campus</p>
-      <h2 class="mt-2 font-serif text-3xl font-bold text-stone-900 md:text-4xl">Facilities</h2>
+  <!-- FACILITIES — a rotating campus carousel + a few highlights. The complete
+       list lives on the Facilities page to keep the home page uncluttered. -->
+  <section class="mx-auto max-w-6xl px-4 py-16 md:py-20">
+    <div class="grid gap-6 lg:grid-cols-12">
+      <div class="hangs lg:col-span-8">
+        <p class="kicker">On campus</p>
+        <h2 class="mt-2 font-serif text-3xl font-bold text-stone-900 md:text-4xl">A campus built and ready</h2>
+        <p class="mt-3 max-w-xl leading-relaxed text-stone-600">
+          Well-equipped workshops, a computer lab, library, auditorium and more — newly built and
+          in use now.
+        </p>
+      </div>
+      <div class="flex items-end lg:col-span-4 lg:justify-end">
+        <a href="/facilities" class="text-sm font-semibold text-navy-700 hover:underline">See all facilities &rarr;</a>
+      </div>
     </div>
 
-    <!-- A small navy rule instead of an icon: a spec sheet, not a feature grid. -->
-    <ul class="mt-10 grid grid-cols-2 gap-px border border-stone-200 bg-stone-200 sm:grid-cols-3 lg:grid-cols-4">
-      {facilities.map((label) => (
-        <li class="flex items-center gap-3 bg-white px-4 py-3.5 text-sm text-stone-700">
-          <span class="h-3 w-0.5 shrink-0 bg-navy-700" aria-hidden="true"></span>
-          {label}
-        </li>
+    <Carousel class="mt-8" slides={facilitySlides} ratio="aspect-[16/9] sm:aspect-[2/1]" />
+
+    <ul class="mt-6 flex flex-wrap gap-2">
+      {facilityHighlights.map((f) => (
+        <li class="border border-stone-200 bg-white px-3 py-1.5 text-sm text-stone-700">{f}</li>
       ))}
+      <li>
+        <a href="/facilities" class="inline-block bg-navy-50 px-3 py-1.5 text-sm font-semibold text-navy-700 hover:bg-navy-100">
+          + more &rarr;
+        </a>
+      </li>
     </ul>
-    <p class="mt-4 text-sm text-stone-500">The institute does not have a hostel.</p>
-
-    <div class="mt-10 grid gap-4 sm:grid-cols-2">
-      <Picture src="workshop-arch" alt="The workshop entrance archway at Dekson ITI" widths={[640, 1024]} sizes="(max-width:640px) 100vw, 50vw" class="h-64 w-full object-cover" width={1024} height={768} />
-      <Picture src="main-gate" alt="The main gate of Dekson ITI, Babhulgaon" widths={[640, 1024]} sizes="(max-width:640px) 100vw, 50vw" class="h-64 w-full object-cover" width={1024} height={768} />
-    </div>
   </section>
 
-  <!-- FINAL CTA -->
-  <section class="bg-navy-800">
-    <div class="mx-auto max-w-4xl px-4 py-20 text-center">
-      <p class="kicker text-gold-300">Talk to us</p>
-      <h2 class="mt-3 font-serif text-3xl font-bold text-white md:text-4xl">
-        Have a question about admission?
-      </h2>
-      <p class="mx-auto mt-4 max-w-xl leading-relaxed text-clay-100">
-        The online process confuses most students. Call us and we will take you through it,
-        step by step, in Marathi.
-      </p>
-
-      <div class="mt-10 grid gap-px bg-navy-700 sm:grid-cols-2">
-        {[
-          { name: site.phonePrimaryName, num: site.phonePrimary },
-          { name: site.phoneSecondaryName, num: site.phoneSecondary },
-        ].map((p) => (
-          <a href={`tel:${p.num}`} class="flex flex-col items-center bg-navy-800 px-6 py-7 transition-colors hover:bg-navy-900">
-            <span class="text-xs font-semibold tracking-[0.12em] text-gold-300 uppercase">Call</span>
-            <span class="tnum notranslate mt-2 font-serif text-2xl font-bold text-white" translate="no">{p.num}</span>
-            <span class="mt-1 text-sm text-clay-300">{p.name}</span>
-          </a>
-        ))}
+  <!-- Final CTA — compact and quiet. A closing prompt, not a second hero. -->
+  <section class="border-t border-stone-200 bg-stone-50">
+    <div class="mx-auto flex max-w-5xl flex-col items-center gap-5 px-4 py-10 text-center sm:flex-row sm:justify-between sm:text-left">
+      <div>
+        <h2 class="font-serif text-xl font-bold text-stone-900">Have a question about admission?</h2>
+        <p class="mt-1 text-sm text-stone-600">
+          Call us and we will guide you, step by step, in Marathi — or
+          <a href="/contact" class="font-semibold text-navy-700 underline">visit the campus</a>.
+        </p>
       </div>
-
-      <p class="mt-8 text-sm text-clay-300">
-        Or <a href="/contact" class="font-semibold text-white underline underline-offset-2">visit the campus</a> —
-        you are welcome on any working day.
-      </p>
+      <div class="flex shrink-0 flex-col gap-2 sm:flex-row">
+        <a href={`tel:${site.phonePrimary}`} class="inline-flex items-center justify-center bg-navy-700 px-5 py-3 text-sm font-semibold text-white hover:bg-navy-800">
+          Call <span class="tnum notranslate ml-1.5" translate="no">{site.phonePrimary}</span>
+        </a>
+        <a href={`https://wa.me/91${site.whatsapp}`} rel="noopener" class="inline-flex items-center justify-center bg-whatsapp px-5 py-3 text-sm font-semibold text-white hover:brightness-110">
+          WhatsApp
+        </a>
+      </div>
     </div>
   </section>
 </Base>
