@@ -1,3 +1,4 @@
+# ── Astro / Node (build artefacts & deps) ──────────────────────
 node_modules/
 dist/
 .astro/
@@ -7,16 +8,12 @@ Thumbs.db
 .env
 .env.*
 
-# Source photographs (large binaries, ~107 MB).
-# Keep these backed up on Google Drive / pen drive, NOT in git.
-# The web-optimised derivatives in website/public/images/ ARE committed,
-# because the site cannot build without them.
-/IMG_*.jpeg
-/AI/*.jpeg
-/edit/
-/pamphlet.jpeg
-/document.pdf
+# Stray empty dir left behind by a locked preview process (restructure)
+/website/
 
-# New infrastructure source photos (originals live on Drive; web-optimised
-# derivatives + extracted logos are committed under website/public/images/)
-/new_images/
+# ── Large source assets kept locally / on Google Drive ─────────
+# The web-optimised images the site actually uses ARE committed, under
+# public/images/. These folders hold the heavy originals and are archival only.
+/other-information/original-photos/
+/other-information/enhanced-photos/
+/other-information/college-shared/

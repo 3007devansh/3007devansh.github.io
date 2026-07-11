@@ -1,0 +1,29 @@
+---
+/**
+ * Renders a config value — or a loud red placeholder if the college
+ * has not supplied it yet. Guarantees we never publish an empty or
+ * invented fact.
+ */
+import { isTodo, todoLabel } from '../config/site';
+
+interface Props {
+  value: string;
+  /** Text to show instead of the red badge, when a graceful fallback is fine. */
+  fallback?: string;
+}
+const { value, fallback } = Astro.props;
+---
+
+{
+  isTodo(value) ? (
+    fallback ? (
+      <span>{fallback}</span>
+    ) : (
+      <span class="todo" title={todoLabel(value)}>
+        NEEDED: {todoLabel(value)}
+      </span>
+    )
+  ) : (
+    <span>{value}</span>
+  )
+}

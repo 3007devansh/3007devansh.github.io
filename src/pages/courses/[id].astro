@@ -1,0 +1,154 @@
+---
+import Base from '../../layouts/Base.astro';
+import Fact from '../../components/Fact.astro';
+import Picture from '../../components/Picture.astro';
+import Icon from '../../components/Icon.astro';
+import { site, dvet } from '../../config/site';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const courses = await getCollection('courses');
+  return courses.map((c) => ({ params: { id: c.id }, props: { course: c } }));
+}
+
+const { course } = Astro.props;
+const { Content } = await render(course);
+const d = course.data;
+
+const schema = [
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', Astro.site).href },
+      { '@type': 'ListItem', position: 2, name: 'Courses', item: new URL('/courses', Astro.site).href },
+      { '@type': 'ListItem', position: 3, name: d.name, item: new URL(`/courses/${course.id}`, Astro.site).href },
+    ],
+  },
+  {
+    '@type': 'Course',
+    name: `${d.name} — ITI Course`,
+    description: d.summary,
+    provider: { '@type': 'EducationalOrganization', name: site.name, sameAs: Astro.site?.href },
+    educationalCredentialAwarded: 'NCVT National Trade Certificate',
+    ...(d.duration ? { timeRequired: d.duration } : {}),
+  },
+];
+
+const facts = [
+  { label: 'Eligibility', value: d.eligibility, sub: d.eligibilityMr },
+  { label: 'Duration', value: d.duration },
+  { label: 'Seats', value: d.seats?.toString() ?? null },
+  { label: 'Yearly fee', value: d.annualFee },
+];
+---
+
+<Base
+  title={`${d.name} Course in Akola — ${d.eligibility} | ${site.name}`}
+  description={`${d.name} ITI course at Dekson ITI, Akola. Eligibility: ${d.eligibility}. ${d.summary} NCVT approved. Call ${site.phonePrimary}.`}
+  schema={schema}
+>
+  <div class="mx-auto max-w-4xl px-4 py-12">
+    <nav aria-label="Breadcrumb" class="text-sm text-stone-500">
+      <a href="/" class="hover:text-navy-700 hover:underline">Home</a>
+      <span class="mx-2 text-stone-300">/</span>
+      <a href="/courses" class="hover:text-navy-700 hover:underline">Courses</a>
+      <span class="mx-2 text-stone-300">/</span><span class="text-stone-700">{d.shortName}</span>
+    </nav>
+
+    <header class="mt-8 flex flex-col gap-6 sm:flex-row sm:items-start">
+      <span class="flex h-16 w-16 shrink-0 items-center justify-center border-2 border-navy-700 text-navy-700">
+        <Icon name={d.icon as any} size={28} />
+      </span>
+      <div class="hangs">
+        <p class="kicker">{d.eligibility} · Government recognised</p>
+        <h1 class="mt-2 font-serif text-4xl font-bold text-stone-900 md:text-5xl">Become a{/^[aeiouAEIOU]/.test(d.shortName) ? "n" : ""} {d.shortName}</h1>
+        <p class="mt-2 font-medium text-stone-600">{d.name}</p>
+        <p class="mr mt-1 text-stone-500">{d.nameMr}</p>
+      </div>
+    </header>
+
+    {d.highlight && (
+      <p class="mt-6 border-l-4 border-gold-700 bg-gold-50 px-4 py-3 text-sm font-semibold text-gold-800">
+        {d.highlight}
+      </p>
+    )}
+
+    <!-- Real workshop photo, framed. This is Dekson's own lab — no disclaimer. -->
+    {d.image && (
+      <figure class="mt-8">
+        <div class="relative aspect-[16/9] overflow-hidden bg-stone-100">
+          <Picture src={d.image} alt={`The ${d.name} workshop at ${site.name}, Babhulgaon`} widths={[640, 1024]} sizes="(max-width: 896px) 100vw, 896px" priority={true} class="absolute inset-0 h-full w-full object-cover" width={1024} height={768} />
+        </div>
+        <figcaption class="mt-2 text-xs text-stone-500">The {d.name} workshop at Dekson ITI, Babhulgaon.</figcaption>
+      </figure>
+    )}
+
+    <!-- Key facts. Unknowns say "Please call" — never a plausible guess. -->
+    <dl class="mt-10 grid grid-cols-2 gap-px border border-stone-200 bg-stone-200 sm:grid-cols-4">
+      {facts.map((f) => (
+        <div class="bg-stone-50 p-5">
+          <dt class="text-xs font-semibold tracking-wide text-stone-400 uppercase">{f.label}</dt>
+          <dd class="mt-1.5 font-semibold text-stone-900">
+            {f.value ?? <span class="text-sm font-normal text-stone-400">Please call</span>}
+          </dd>
+          {f.sub && <dd class="mr text-xs text-stone-500">{f.sub}</dd>}
+        </div>
+      ))}
+    </dl>
+
+    <div class="prose prose-stone mt-12 max-w-[65ch] prose-headings:font-serif prose-a:text-navy-700 prose-strong:text-stone-900">
+      <Content />
+    </div>
+
+    {d.jobs.length > 0 && (
+      <section class="mt-16">
+        <div class="hangs">
+          <p class="kicker">After the course</p>
+          <h2 class="mt-2 font-serif text-2xl font-bold text-stone-900">Work you can do</h2>
+        </div>
+        <ul class="mt-6 grid gap-px border border-stone-200 bg-stone-200 sm:grid-cols-2">
+          {d.jobs.map((j) => (
+            <li class="flex items-start gap-3 bg-white p-4 text-stone-700">
+              <Icon name="arrowRight" size={16} class="mt-1 shrink-0 text-navy-700" />
+              {j}
+            </li>
+          ))}
+        </ul>
+        <p class="mt-6 border-l-4 border-stone-300 bg-stone-50 p-4 text-sm leading-relaxed text-stone-600">
+          These are the roles this course prepares you for. For a realistic picture of the job outlook
+          and starting pay in this trade, call us and we will explain it honestly.
+          <a href="/about" class="font-semibold text-navy-700 underline">See the support we provide.</a>
+        </p>
+      </section>
+    )}
+
+    <!-- Invite a visit — the real workshop is shown above. -->
+    <section class="mt-16 border-l-4 border-navy-700 bg-stone-50 p-6">
+      <h2 class="font-serif text-xl font-bold text-stone-900">See it for yourself</h2>
+      <p class="mt-2 leading-relaxed text-stone-600">
+        You are welcome to visit the campus and see the {d.shortName} workshop before you decide.
+        Call <a href={`tel:${site.phonePrimary}`} class="font-semibold text-navy-700 underline">{site.phonePrimary}</a> to arrange a time.
+      </p>
+    </section>
+
+    <section class="mt-16 border-2 border-navy-700 p-8 text-center">
+      <p class="kicker">Apply</p>
+      <h2 class="mt-2 font-serif text-2xl font-bold text-stone-900">Choose {d.shortName} at Dekson ITI</h2>
+      <p class="mt-4 text-sm text-stone-600">Enter this Institute Code in your option form</p>
+      <p class="notranslate tnum mt-2 font-serif text-3xl font-bold break-all text-navy-700" translate="no">
+        <Fact value={site.instituteCode} />
+      </p>
+      <p class="mt-2 text-sm text-stone-500">
+        at <a href={dvet.portal} rel="noopener" class="font-semibold text-navy-700 underline">admission.dvet.gov.in</a>
+      </p>
+      <div class="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
+        <a href="/admissions" class="bg-navy-700 px-6 py-3.5 font-semibold text-white hover:bg-navy-800">
+          How to apply
+        </a>
+        <a href={`https://wa.me/91${site.whatsapp}`} rel="noopener" class="inline-flex items-center justify-center gap-2 border-2 border-stone-300 px-6 py-3.5 font-semibold text-stone-800 hover:border-navy-700 hover:text-navy-700">
+          <Icon name="whatsapp" size={17} /> Ask on WhatsApp
+        </a>
+      </div>
+    </section>
+  </div>
+</Base>

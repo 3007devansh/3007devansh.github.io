@@ -1,0 +1,223 @@
+---
+import Base from '../layouts/Base.astro';
+import Picture from '../components/Picture.astro';
+import { site } from '../config/site';
+
+const stats = [
+  { n: '1967', l: 'Trust serving Akola since' },
+  { n: '4', l: 'Government-recognised courses' },
+  { n: '148', l: 'Sanctioned seats' },
+  { n: 'DGT / NCVT', l: 'Approved & affiliated' },
+];
+
+const trustRuns = [
+  'G.S. Convent & Smt. L.D. Patel High School, Akola',
+  'Smt. Maherbanu College of Science & Commerce, Akola',
+  'Dekson Private Industrial Training Institute, Akola',
+];
+const f = site.founder;
+---
+
+<Base
+  title={`About | ${site.name}, Akola`}
+  description={`About Dekson ITI, Akola — a DGT/NCVT approved institute run by ${site.runBy}, serving Akola since 1967. Founded on the vision of ${f.name}. The name honours donor ${site.nameOrigin}.`}
+>
+  <div class="mx-auto max-w-5xl px-4 py-12 md:py-16">
+    <!-- Header -->
+    <div class="hangs">
+      <p class="kicker">About us</p>
+      <h1 class="mt-2 font-serif text-4xl font-bold text-stone-900 md:text-5xl">About {site.name}</h1>
+      <p class="mr mt-2 text-lg text-stone-500">{site.nameMr}</p>
+    </div>
+
+    <!-- Intro: short text left, small image right -->
+    <section class="mt-8 grid items-start gap-8 md:grid-cols-12">
+      <div class="space-y-4 leading-relaxed text-stone-700 md:col-span-7">
+        <p>
+          {site.nameFull} is a <strong class="text-stone-900">{site.approval}</strong> Industrial
+          Training Institute located at Babhulgaon, Akola, and is managed by the
+          <strong class="text-stone-900">{site.runBy}</strong>.
+        </p>
+        <p>
+          The institute offers four government-recognised trades on a modern campus featuring
+          well-equipped workshops, qualified instructors, and industry-oriented training facilities.
+          With a strong focus on practical skills, discipline, and employability, Dekson ITI is
+          committed to preparing students for successful careers in the industrial and technical
+          sectors.
+        </p>
+        <p>
+          <strong class="text-stone-900">Dekson</strong> is named in recognition of
+          <strong class="text-stone-900">{site.nameOrigin}</strong>, acknowledging their valuable
+          contribution and support towards the establishment of the institute.
+        </p>
+      </div>
+      <div class="md:col-span-5">
+        <Picture
+          src="campus-building"
+          zoom
+          alt="The Dekson ITI campus at Babhulgaon, Akola"
+          widths={[640, 1024]}
+          sizes="(max-width: 768px) 100vw, 40vw"
+          class="h-48 w-full object-cover sm:h-56"
+          width={1024}
+          height={640}
+        />
+      </div>
+    </section>
+
+    <!-- Stat row -->
+    <dl class="mt-10 grid grid-cols-2 gap-px border border-stone-200 bg-stone-200 md:grid-cols-4">
+      {stats.map((s) => (
+        <div class="bg-white p-5 text-center">
+          <dt class="font-serif text-2xl font-bold text-navy-700">{s.n}</dt>
+          <dd class="mt-1 text-xs leading-snug text-stone-500">{s.l}</dd>
+        </div>
+      ))}
+    </dl>
+
+    <!-- THE VISIONARY — portrait (left) + statue (right), belief in the middle. -->
+    <section class="mt-14">
+      <div class="hangs">
+        <p class="kicker">Our vision</p>
+        <h2 class="mt-2 font-serif text-2xl font-bold text-stone-900">The visionary behind Dekson</h2>
+      </div>
+
+      <div class="mt-6 grid items-stretch gap-6 md:grid-cols-12">
+        <!-- Portrait (left) -->
+        <figure class="md:col-span-3">
+          <Picture
+            src={f.portrait}
+            zoom
+            alt={`Portrait of ${f.name}`}
+            widths={[480]}
+            sizes="(max-width: 768px) 60vw, 25vw"
+            class="w-full object-cover"
+            width={800}
+            height={1000}
+          />
+        </figure>
+
+        <!-- Belief + name (centre) -->
+        <div class="flex flex-col justify-center md:col-span-6">
+          <p class="leading-relaxed text-stone-700">
+            Dekson ITI grew out of the vision of <strong class="text-stone-900">{f.name}</strong>, who
+            believed that education is the foundation of a prosperous life.
+          </p>
+          <blockquote class="mt-5 border-l-4 border-gold-500 bg-stone-50 p-5">
+            <p class="mr font-serif text-lg leading-relaxed text-stone-900">“{f.belief}”</p>
+            <p class="mt-2 text-sm text-stone-500">“{f.beliefEn}”</p>
+          </blockquote>
+          <p class="mt-4 font-semibold text-stone-900">{f.name}</p>
+          <p class="text-sm text-stone-500">{f.title}</p>
+        </div>
+
+        <!-- Statue (right) -->
+        <figure class="md:col-span-3">
+          <Picture
+            src={f.statue}
+            zoom
+            alt={`Statue of ${f.name} at Dekson ITI`}
+            widths={[480]}
+            sizes="(max-width: 768px) 60vw, 25vw"
+            class="w-full object-cover"
+            width={800}
+            height={1000}
+          />
+        </figure>
+      </div>
+
+      <!-- Mission & Vision -->
+      <div class="mt-6 flex flex-col items-center justify-center gap-2 border border-navy-700 bg-navy-800 p-6 text-center sm:flex-row sm:gap-6">
+        <p class="text-xs font-semibold tracking-[0.14em] text-gold-300 uppercase">Our mission &amp; vision</p>
+        <p class="font-serif text-2xl font-bold text-white">{f.mission}</p>
+      </div>
+    </section>
+
+    <!-- OUR FOUNDATION — refined: heading, lead, two cards (story + institutions). -->
+    <section class="mt-14">
+      <div class="hangs">
+        <p class="kicker">Our foundation</p>
+        <h2 class="mt-2 font-serif text-2xl font-bold text-stone-900">Backed by {site.runBy}</h2>
+      </div>
+      <div class="mt-6 grid gap-6 md:grid-cols-12">
+        <div class="border-t-4 border-navy-700 bg-stone-50 p-6 md:col-span-7">
+          <p class="leading-relaxed text-stone-700">
+            The Trust has served Akola since <strong class="text-stone-900">1967</strong> — over five
+            decades of social and educational work. With Dekson ITI it extends that mission into
+            skill training for the district's young people.
+          </p>
+        </div>
+        <div class="border-t-4 border-gold-500 bg-stone-50 p-6 md:col-span-5">
+          <p class="text-sm font-semibold text-stone-900">Institutions run by the Trust</p>
+          <ul class="mt-3 space-y-2">
+            {trustRuns.map((t) => (
+              <li class="flex items-start gap-3 text-sm text-stone-700">
+                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 bg-navy-700" aria-hidden="true"></span>{t}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRINCIPAL'S MESSAGE — refined card with an initial monogram. -->
+    <section class="mt-14">
+      <div class="hangs">
+        <p class="kicker">From the Principal</p>
+        <h2 class="mt-2 font-serif text-2xl font-bold text-stone-900">Principal's Message</h2>
+      </div>
+      <figure class="mt-6 grid gap-6 border border-stone-200 sm:grid-cols-12">
+        <div class="flex flex-col items-center justify-center bg-navy-800 p-8 text-center sm:col-span-4">
+          <span class="flex h-20 w-20 items-center justify-center rounded-full border-2 border-gold-400 font-serif text-3xl font-bold text-white" aria-hidden="true">
+            {site.principalName.replace('Mr. ', '').charAt(0)}
+          </span>
+          <p class="mt-4 font-semibold text-white">{site.principalName}</p>
+          <p class="text-sm text-clay-200">{site.principalTitle}</p>
+        </div>
+        <blockquote class="flex items-center bg-white p-6 leading-relaxed text-stone-700 sm:col-span-8 sm:p-8">
+          <p class="font-serif text-lg">“{site.principalMessage}”</p>
+        </blockquote>
+      </figure>
+    </section>
+
+    <!-- Career support -->
+    <section class="mt-14">
+      <div class="hangs">
+        <p class="kicker">After the course</p>
+        <h2 class="mt-2 font-serif text-2xl font-bold text-stone-900">Career support</h2>
+      </div>
+      <p class="mt-4 max-w-3xl leading-relaxed text-stone-700">
+        We are committed to helping every student move from training into real work. What we provide:
+      </p>
+      <ul class="mt-4 grid gap-px border border-stone-200 bg-stone-200 sm:grid-cols-2">
+        {[
+          'Practical, hands-on training in well-equipped workshops',
+          'Help with apprenticeship registration, including under NAPS',
+          'Guidance on further study after ITI',
+          'Support in approaching local industry for work',
+        ].map((item) => (
+          <li class="flex items-start gap-3 bg-white p-4 text-stone-700">
+            <span class="mt-1.5 h-1.5 w-1.5 shrink-0 bg-navy-700" aria-hidden="true"></span>{item}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- CTA -->
+    <section class="mt-14 bg-navy-800 p-8 text-center">
+      <h2 class="font-serif text-2xl font-bold text-white">Come and see for yourself</h2>
+      <p class="mx-auto mt-3 max-w-xl leading-relaxed text-clay-100">
+        Our approval is genuine and you can verify it on the NCVT MIS portal. Better still, visit the
+        campus, meet us, and see the workshops before you decide.
+      </p>
+      <div class="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+        <a href={`tel:${site.phonePrimary}`} class="bg-white px-6 py-3 font-semibold text-navy-800 hover:bg-clay-50">
+          Call <span class="tnum notranslate ml-1" translate="no">{site.phonePrimary}</span>
+        </a>
+        <a href="/facilities" class="border border-white/40 px-6 py-3 font-semibold text-white hover:bg-navy-700">
+          See our facilities
+        </a>
+      </div>
+    </section>
+  </div>
+</Base>
