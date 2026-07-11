@@ -3,11 +3,13 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 /**
- * ⚠️ Replace `site` with the real domain once confirmed (priority answer Q18).
- * Canonical URLs, hreflang, sitemap and OG image URLs all derive from it.
+ * `site` drives canonical URLs, the sitemap and OG image URLs.
+ * Currently the free preview at https://3007devansh.github.io (user GitHub
+ * Pages site — serves at the domain root, so no `base` is needed).
+ * ⚠️ Change this to the real domain the moment it is purchased, then redeploy.
  */
 export default defineConfig({
-  site: 'https://deksoniti.in',
+  site: 'https://3007devansh.github.io',
   integrations: [sitemap()],
   vite: { plugins: [tailwindcss()] },
   build: { inlineStylesheets: 'auto' },
