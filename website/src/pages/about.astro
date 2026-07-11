@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Fact from '../components/Fact.astro';
+import Picture from '../components/Picture.astro';
 import { site, isTodo } from '../config/site';
 
 const stats = [
@@ -15,11 +16,13 @@ const trustRuns = [
   'Smt. Maherbanu College of Science & Commerce, Akola',
   'Dekson Private Industrial Training Institute, Akola',
 ];
+
+const showFounder = !isTodo(site.founder.photo);
 ---
 
 <Base
   title={`About | ${site.name}, Akola`}
-  description={`About Dekson ITI, Akola — a DGT/NCVT approved industrial training institute run by ${site.runBy}, serving Akola since 1967. The name honours donor Devkaran Keshavji Shah & Sons.`}
+  description={`About Dekson ITI, Akola — a DGT/NCVT approved industrial training institute run by ${site.runBy}, serving Akola since 1967. The name honours donor ${site.nameOrigin}.`}
 >
   <div class="mx-auto max-w-5xl px-4 py-12">
     <div class="hangs">
@@ -28,15 +31,37 @@ const trustRuns = [
       <p class="mr mt-2 text-lg text-stone-500">{site.nameMr}</p>
     </div>
 
-    <p class="mt-6 max-w-3xl text-lg leading-relaxed text-stone-700">
-      {site.nameFull} is a <strong class="text-stone-900">{site.approval}</strong> Industrial Training
-      Institute at Babhulgaon, near Shivaji Engineering College, Akola, run by
-      <strong class="text-stone-900">{site.runBy}</strong>. It offers four government-recognised
-      courses on a newly built campus with well-equipped workshops.
-    </p>
+    <div class="mt-6 max-w-3xl space-y-4 text-lg leading-relaxed text-stone-700">
+      <p>
+        {site.nameFull} is a <strong class="text-stone-900">{site.approval}</strong> Industrial Training
+        Institute at Babhulgaon, near Shivaji Engineering College, Akola, run by
+        <strong class="text-stone-900">{site.runBy}</strong>. It offers four government-recognised
+        courses on a newly built campus with well-equipped workshops.
+      </p>
+      <p>
+        The name <strong class="text-stone-900">DEKSON</strong> honours the institute's principal donor,
+        <strong class="text-stone-900">{site.nameOrigin}</strong> — <strong class="text-stone-900">DE</strong>vkaran
+        <strong class="text-stone-900"> K</strong>eshavji <strong class="text-stone-900">S</strong>hah &amp;
+        <strong class="text-stone-900"> Son</strong>s — whose generosity made it possible, and is carried
+        as a lasting mark of gratitude.
+      </p>
+    </div>
+
+    <!-- Campus image -->
+    <div class="mt-8 overflow-hidden">
+      <Picture
+        src="campus-building"
+        alt="The Dekson ITI campus at Babhulgaon, Akola"
+        widths={[640, 1024]}
+        sizes="(max-width: 1024px) 100vw, 1024px"
+        class="h-56 w-full object-cover sm:h-72 md:h-80"
+        width={1024}
+        height={640}
+      />
+    </div>
 
     <!-- Stat row -->
-    <dl class="mt-10 grid grid-cols-2 gap-px border border-stone-200 bg-stone-200 md:grid-cols-4">
+    <dl class="mt-8 grid grid-cols-2 gap-px border border-stone-200 bg-stone-200 md:grid-cols-4">
       {stats.map((s) => (
         <div class="bg-white p-5 text-center">
           <dt class="font-serif text-2xl font-bold text-navy-700">{s.n}</dt>
@@ -45,27 +70,37 @@ const trustRuns = [
       ))}
     </dl>
 
-    <!-- Name origin — highlighted -->
-    <section class="mt-12 grid gap-px border border-stone-200 bg-stone-200 md:grid-cols-5">
-      <div class="flex items-center justify-center bg-navy-800 p-8 md:col-span-2">
-        <p class="text-center font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
-          DEKSON
-        </p>
-      </div>
-      <div class="bg-white p-8 md:col-span-3">
-        <p class="kicker">What the name means</p>
-        <h2 class="mt-2 font-serif text-2xl font-bold text-stone-900">
-          In honour of <span class="text-navy-700">Devkaran Keshavji Shah &amp; Sons</span>
-        </h2>
-        <p class="mt-3 leading-relaxed text-stone-600">
-          The name <strong class="text-stone-900">DEKSON</strong> is drawn from
-          <strong class="text-stone-900">De</strong>vkaran <strong class="text-stone-900">K</strong>eshavji
-          <strong class="text-stone-900"> S</strong>hah &amp; <strong class="text-stone-900">Son</strong>s —
-          the principal donor whose generosity made the institute possible. The institute carries the
-          name as a lasting mark of gratitude.
-        </p>
-      </div>
-    </section>
+    {/* Founder / visionary — shown once a photo is supplied (see config: site.founder). */}
+    {showFounder && (
+      <section class="mt-12">
+        <div class="hangs">
+          <p class="kicker">Our vision</p>
+          <h2 class="mt-2 font-serif text-2xl font-bold text-stone-900">The vision behind Dekson</h2>
+        </div>
+        <div class="mt-6 grid gap-8 sm:grid-cols-3">
+          <div class="sm:col-span-1">
+            <Picture
+              src={site.founder.photo}
+              alt={isTodo(site.founder.name) ? 'Founder of Dekson ITI' : site.founder.name}
+              widths={[640]}
+              sizes="(max-width: 640px) 100vw, 320px"
+              class="w-full object-cover"
+              width={640}
+              height={800}
+            />
+          </div>
+          <div class="sm:col-span-2">
+            {!isTodo(site.founder.message) && (
+              <blockquote class="font-serif text-lg leading-relaxed text-stone-800">
+                “<Fact value={site.founder.message} />”
+              </blockquote>
+            )}
+            <p class="mt-4 font-semibold text-stone-900"><Fact value={site.founder.name} /></p>
+            <p class="text-sm text-stone-500"><Fact value={site.founder.title} /></p>
+          </div>
+        </div>
+      </section>
+    )}
 
     <!-- Founding Trust -->
     <section class="mt-12">
@@ -74,21 +109,34 @@ const trustRuns = [
         <h2 class="mt-2 font-serif text-2xl font-bold text-stone-900">Backed by {site.runBy}</h2>
       </div>
       <div class="mt-6 grid gap-8 md:grid-cols-2">
-        <p class="leading-relaxed text-stone-700">
-          Shri Akola Gujarati Samaj Trust has served the Akola community since
-          <strong class="text-stone-900">1967</strong> — more than five decades of social and
-          educational work. With Dekson ITI, the Trust extends that work into skill training, helping
-          young people in and around Akola learn a trade and earn a living.
-        </p>
-        <div class="border-l-4 border-navy-700 bg-stone-50 p-6">
-          <p class="text-sm font-semibold text-stone-900">Institutions run by the Trust</p>
-          <ul class="mt-3 space-y-2.5">
-            {trustRuns.map((t) => (
-              <li class="flex items-start gap-3 text-sm text-stone-700">
-                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 bg-navy-700" aria-hidden="true"></span>{t}
-              </li>
-            ))}
-          </ul>
+        <div>
+          <p class="leading-relaxed text-stone-700">
+            Shri Akola Gujarati Samaj Trust has served the Akola community since
+            <strong class="text-stone-900">1967</strong> — more than five decades of social and
+            educational work. With Dekson ITI, the Trust extends that work into skill training, helping
+            young people in and around Akola learn a trade and earn a living.
+          </p>
+          <div class="mt-6 border-l-4 border-navy-700 bg-stone-50 p-6">
+            <p class="text-sm font-semibold text-stone-900">Institutions run by the Trust</p>
+            <ul class="mt-3 space-y-2.5">
+              {trustRuns.map((t) => (
+                <li class="flex items-start gap-3 text-sm text-stone-700">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 bg-navy-700" aria-hidden="true"></span>{t}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div class="overflow-hidden">
+          <Picture
+            src="gallery-arch"
+            alt="The ITI workshop entrance at Dekson ITI, Babhulgaon"
+            widths={[640, 1024]}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            class="h-full min-h-56 w-full object-cover"
+            width={1024}
+            height={768}
+          />
         </div>
       </div>
     </section>
@@ -131,9 +179,7 @@ const trustRuns = [
         <h2 class="mt-2 font-serif text-2xl font-bold text-stone-900">Career support</h2>
       </div>
       <p class="mt-4 max-w-3xl leading-relaxed text-stone-700">
-        No institute can honestly guarantee a job, and we will not claim to. Dekson ITI is a new
-        institute, so we have no placement record yet and publish no placement figures. What we do
-        commit to:
+        We are committed to helping every student move from training into real work. What we provide:
       </p>
       <ul class="mt-4 grid gap-px border border-stone-200 bg-stone-200 sm:grid-cols-2">
         {[
@@ -151,10 +197,10 @@ const trustRuns = [
 
     <!-- Verify / visit -->
     <section class="mt-12 bg-navy-800 p-8 text-center">
-      <h2 class="font-serif text-2xl font-bold text-white">Don't just take our word for it</h2>
+      <h2 class="font-serif text-2xl font-bold text-white">Come and see for yourself</h2>
       <p class="mx-auto mt-3 max-w-xl leading-relaxed text-clay-100">
-        Our approval is real and you can check it yourself on the NCVT MIS portal. Better still, visit
-        the campus, meet us, and ask anything you like before you decide.
+        Our approval is genuine and you can verify it on the NCVT MIS portal. Better still, visit the
+        campus, meet us, and see the workshops before you decide.
       </p>
       <div class="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
         <a href={`tel:${site.phonePrimary}`} class="bg-white px-6 py-3 font-semibold text-navy-800 hover:bg-clay-50">

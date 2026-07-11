@@ -68,6 +68,21 @@ export const site = {
   chairmanName: TODO('Chairman / Trust President name'),
   chairmanMessage: TODO('Chairman message, 4-6 sentences'),
 
+  /** The name honours the principal donor. Woven into the About story inline. */
+  nameOrigin: 'Devkaran Keshavji Shah & Sons',
+
+  /**
+   * The person whose vision established the institute. The About page renders
+   * this section only once a photo is supplied: save the image at
+   * /public/images/founder.jpg, then set photo to 'founder' and fill the name.
+   */
+  founder: {
+    name: TODO('Founder / visionary — full name'),
+    title: TODO('Founder title, e.g. "Founder" or "President, Shri Akola Gujarati Samaj Trust"'),
+    photo: TODO('Founder photo — save as /public/images/founder.jpg, then set to "founder"'),
+    message: TODO('Founder message / vision, 3-5 sentences (optional)'),
+  },
+
   samajFounded: '1967',
   samajOtherInstitutions:
     'Under its management the Trust runs G.S. Convent & Smt. L.D. Patel High School, Akola, and Smt. Maherbanu College of Science & Commerce, Akola.',
