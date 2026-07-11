@@ -51,7 +51,7 @@ export const site = {
   addressShort: 'Babhulgaon, Near Shivaji Engg. College, Akola, Maharashtra',
   addressMr: 'बाभुळगांव, शिवाजी अभियांत्रिकी महाविद्यालयाजवळ, ता.जि. अकोला',
   addressFull:
-    'Dekson Private Industrial Training Institute, Babhulgaon, Near Shivaji Engineering College, Akola, Maharashtra 444104',
+    'Dekson Private Industrial Training Institute, Babhulgaon, Near College of Engineering and Technology, Akola, Maharashtra 444104',
   pincode: '444104',
   mapsUrl: TODO('Google Maps link — create/claim the Business Profile, then paste the link'),
 
