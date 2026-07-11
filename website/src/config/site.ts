@@ -68,21 +68,25 @@ export const site = {
   chairmanName: TODO('Chairman / Trust President name'),
   chairmanMessage: TODO('Chairman message, 4-6 sentences'),
 
-  /** The name honours the principal donor. Woven into the About story inline. */
-  nameOrigin: 'Devkaran Keshavji Shah & Sons',
+  /** The name honours the principal donor family. Woven into the About story. */
+  nameOrigin: 'Deokaran Keshavji Shah & Sons',
 
-  /**
-   * The visionary behind the institute. Shown on the About page now, with
-   * placeholders until the assets arrive:
-   *   photo   — a photo of his statue; save as /public/images/founder.jpg,
-   *             then set `photo` to 'founder'.
-   *   message — his thought / vision, in his words.
-   */
+  /** The visionary behind the institute — painted portrait + statue on About. */
   founder: {
-    name: 'Suresh Devkaran Shah',
+    name: 'Shri Sureshkumar Deokaran Shah',
     title: 'The visionary behind Dekson ITI',
-    photo: TODO('Statue photo of Suresh Devkaran Shah — save as /public/images/founder.jpg, then set to "founder"'),
-    message: TODO('Suresh Devkaran Shah — his vision / thought, 3-5 sentences'),
+    portrait: 'founder-portrait',
+    statue: 'founder-statue',
+    /** His belief, in his own words (Hindi). */
+    belief: 'जहाँ सरस्वती का वास होता है, वहीं लक्ष्मी का निवास होता है।',
+    beliefEn: 'Where the goddess of knowledge dwells, prosperity comes to reside.',
+    mission: 'Education to all',
+  },
+
+  /** Site developer — credited in the footer. */
+  developer: {
+    name: 'DEVANSH SHAH',
+    phone: '6353338281',
   },
 
   samajFounded: '1967',
@@ -132,12 +136,28 @@ export const site = {
  */
 export const dvet = {
   portal: 'https://admission.dvet.gov.in',
-  /** §3.2 — bring these to the institute */
-  documentsAtAdmission: [
-    'All original documents',
-    'One set of self-attested photocopies',
-    '2 recent colour passport-size photographs',
-    'Prescribed training fee',
+  /** ITI Admission 2026-27 — required from every student (from the notice). */
+  documentsAll: [
+    '10th (SSC) marksheet',
+    'School Leaving Certificate (LC / TC)',
+    'Aadhaar card',
+    'Domicile / Nationality certificate',
+    'Income certificate',
+    'Bank passbook (copy of the first page)',
+    '2 passport-size photographs',
+  ],
+  /** Category-specific documents (from the notice). */
+  documentsByCategory: [
+    { cat: 'Open (General)', items: ['EWS certificate (if applicable)'] },
+    { cat: 'SC / ST', items: ['Caste certificate'] },
+    { cat: 'OBC / VJ / DT(A) / NT-B / NT-C / NT-D / SBC', items: ['Caste certificate', 'Non-Creamy Layer certificate'] },
+    { cat: 'Minority', items: ['Minority certificate (Muslim, Christian, Sikh, Buddhist, Jain or Parsi)'] },
+  ] as { cat: string; items: string[] }[],
+  /** Notes on the admission notice. */
+  documentNotes: [
+    'All original documents must be submitted to the institute at the time of admission.',
+    'Keep two photocopies of every original document.',
+    'The income certificate and bank passbook are required for scholarship schemes.',
   ],
   /** §3.9 */
   documentsRetained:

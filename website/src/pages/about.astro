@@ -1,8 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
-import Fact from '../components/Fact.astro';
 import Picture from '../components/Picture.astro';
-import { site, isTodo } from '../config/site';
+import { site } from '../config/site';
 
 const stats = [
   { n: '1967', l: 'Trust serving Akola since' },
@@ -16,14 +15,12 @@ const trustRuns = [
   'Smt. Maherbanu College of Science & Commerce, Akola',
   'Dekson Private Industrial Training Institute, Akola',
 ];
-
-const hasFounderPhoto = !isTodo(site.founder.photo);
-const hasFounderMessage = !isTodo(site.founder.message);
+const f = site.founder;
 ---
 
 <Base
   title={`About | ${site.name}, Akola`}
-  description={`About Dekson ITI, Akola — a DGT/NCVT approved industrial training institute run by ${site.runBy}, serving Akola since 1967. The name honours donor ${site.nameOrigin}.`}
+  description={`About Dekson ITI, Akola — a DGT/NCVT approved institute run by ${site.runBy}, serving Akola since 1967. Founded on the vision of ${f.name}. The name honours donor ${site.nameOrigin}.`}
 >
   <div class="mx-auto max-w-5xl px-4 py-12 md:py-16">
     <!-- Header -->
@@ -43,10 +40,9 @@ const hasFounderMessage = !isTodo(site.founder.message);
           courses on a newly built campus with well-equipped workshops.
         </p>
         <p>
-          The name <strong class="text-stone-900">DEKSON</strong> honours the institute's principal
-          donor, <strong class="text-stone-900">{site.nameOrigin}</strong> —
-          <strong class="text-stone-900">DE</strong>vkaran <strong class="text-stone-900">K</strong>eshavji
-          <strong class="text-stone-900"> S</strong>hah &amp; <strong class="text-stone-900">Son</strong>s.
+          The name <strong class="text-stone-900">DEKSON</strong>
+          <span class="text-stone-500">({site.nameOrigin})</span> honours the institute's principal
+          donor family, whose generosity made it possible.
         </p>
       </div>
       <div class="md:col-span-5">
@@ -73,111 +69,108 @@ const hasFounderMessage = !isTodo(site.founder.message);
       ))}
     </dl>
 
-    <!-- The Visionary — Suresh Devkaran Shah. Text left, statue image right. -->
+    <!-- THE VISIONARY — portrait (left) + statue (right), belief in the middle. -->
     <section class="mt-14">
       <div class="hangs">
         <p class="kicker">Our vision</p>
         <h2 class="mt-2 font-serif text-2xl font-bold text-stone-900">The visionary behind Dekson</h2>
       </div>
-      <div class="mt-6 grid items-start gap-8 md:grid-cols-12">
-        <div class="space-y-4 leading-relaxed text-stone-700 md:col-span-7">
-          <p>
-            Dekson ITI grew out of the vision of
-            <strong class="text-stone-900">{site.founder.name}</strong>, who believed that practical,
-            skill-based education is the surest path to a secure livelihood for the young people of
-            Akola.
+
+      <div class="mt-6 grid items-stretch gap-6 md:grid-cols-12">
+        <!-- Portrait (left) -->
+        <figure class="md:col-span-3">
+          <Picture
+            src={f.portrait}
+            zoom
+            alt={`Portrait of ${f.name}`}
+            widths={[480]}
+            sizes="(max-width: 768px) 60vw, 25vw"
+            class="w-full object-cover"
+            width={800}
+            height={1000}
+          />
+        </figure>
+
+        <!-- Belief + name (centre) -->
+        <div class="flex flex-col justify-center md:col-span-6">
+          <p class="leading-relaxed text-stone-700">
+            Dekson ITI grew out of the vision of <strong class="text-stone-900">{f.name}</strong>, who
+            believed that education is the foundation of a prosperous life.
           </p>
-          {hasFounderMessage ? (
-            <blockquote class="border-l-4 border-gold-500 bg-stone-50 p-5 font-serif text-lg leading-relaxed text-stone-800">
-              “<Fact value={site.founder.message} />”
-            </blockquote>
-          ) : (
-            <p class="border-l-4 border-stone-300 bg-stone-50 p-4 text-sm text-stone-500">
-              His words and vision will be added here shortly.
-            </p>
-          )}
-          <p class="font-semibold text-stone-900">{site.founder.name}</p>
-          <p class="-mt-3 text-sm text-stone-500">{site.founder.title}</p>
+          <blockquote class="mt-5 border-l-4 border-gold-500 bg-stone-50 p-5">
+            <p class="mr font-serif text-lg leading-relaxed text-stone-900">“{f.belief}”</p>
+            <p class="mt-2 text-sm text-stone-500">“{f.beliefEn}”</p>
+          </blockquote>
+          <p class="mt-4 font-semibold text-stone-900">{f.name}</p>
+          <p class="text-sm text-stone-500">{f.title}</p>
         </div>
 
-        <div class="md:col-span-5">
-          {hasFounderPhoto ? (
-            <figure>
-              <Picture
-                src={site.founder.photo}
-                zoom
-                alt={`${site.founder.name} — ${site.founder.title}`}
-                widths={[640]}
-                sizes="(max-width: 768px) 100vw, 40vw"
-                class="mx-auto w-full max-w-xs object-cover"
-                width={640}
-                height={800}
-              />
-            </figure>
-          ) : (
-            <div class="mx-auto flex aspect-[4/5] w-full max-w-xs flex-col items-center justify-center border border-dashed border-stone-300 bg-stone-50 p-6 text-center">
-              <span class="text-3xl text-stone-300" aria-hidden="true">◫</span>
-              <p class="mt-3 text-sm font-medium text-stone-500">Statue photograph</p>
-              <p class="text-xs text-stone-400">to be added</p>
-            </div>
-          )}
-        </div>
+        <!-- Statue (right) -->
+        <figure class="md:col-span-3">
+          <Picture
+            src={f.statue}
+            zoom
+            alt={`Statue of ${f.name} at Dekson ITI`}
+            widths={[480]}
+            sizes="(max-width: 768px) 60vw, 25vw"
+            class="w-full object-cover"
+            width={800}
+            height={1000}
+          />
+        </figure>
+      </div>
+
+      <!-- Mission & Vision -->
+      <div class="mt-6 flex flex-col items-center justify-center gap-2 border border-navy-700 bg-navy-800 p-6 text-center sm:flex-row sm:gap-6">
+        <p class="text-xs font-semibold tracking-[0.14em] text-gold-300 uppercase">Our mission &amp; vision</p>
+        <p class="font-serif text-2xl font-bold text-white">{f.mission}</p>
       </div>
     </section>
 
-    <!-- Founding Trust — text left, image right -->
+    <!-- OUR FOUNDATION — refined: heading, lead, two cards (story + institutions). -->
     <section class="mt-14">
       <div class="hangs">
         <p class="kicker">Our foundation</p>
         <h2 class="mt-2 font-serif text-2xl font-bold text-stone-900">Backed by {site.runBy}</h2>
       </div>
-      <div class="mt-6 grid items-start gap-8 md:grid-cols-12">
-        <div class="md:col-span-7">
+      <div class="mt-6 grid gap-6 md:grid-cols-12">
+        <div class="border-t-4 border-navy-700 bg-stone-50 p-6 md:col-span-7">
           <p class="leading-relaxed text-stone-700">
             The Trust has served Akola since <strong class="text-stone-900">1967</strong> — over five
-            decades of social and educational work. With Dekson ITI it extends that work into skill
-            training for the district's young people.
+            decades of social and educational work. With Dekson ITI it extends that mission into
+            skill training for the district's young people.
           </p>
-          <div class="mt-5 border-l-4 border-navy-700 bg-stone-50 p-5">
-            <p class="text-sm font-semibold text-stone-900">Institutions run by the Trust</p>
-            <ul class="mt-3 space-y-2">
-              {trustRuns.map((t) => (
-                <li class="flex items-start gap-3 text-sm text-stone-700">
-                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 bg-navy-700" aria-hidden="true"></span>{t}
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
-        <div class="md:col-span-5">
-          <Picture
-            src="gallery-arch"
-            zoom
-            alt="The ITI workshop entrance at Dekson ITI, Babhulgaon"
-            widths={[640, 1024]}
-            sizes="(max-width: 768px) 100vw, 40vw"
-            class="h-48 w-full object-cover sm:h-56"
-            width={1024}
-            height={768}
-          />
+        <div class="border-t-4 border-gold-500 bg-stone-50 p-6 md:col-span-5">
+          <p class="text-sm font-semibold text-stone-900">Institutions run by the Trust</p>
+          <ul class="mt-3 space-y-2">
+            {trustRuns.map((t) => (
+              <li class="flex items-start gap-3 text-sm text-stone-700">
+                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 bg-navy-700" aria-hidden="true"></span>{t}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
 
-    <!-- Principal's message -->
+    <!-- PRINCIPAL'S MESSAGE — refined card with an initial monogram. -->
     <section class="mt-14">
       <div class="hangs">
         <p class="kicker">From the Principal</p>
         <h2 class="mt-2 font-serif text-2xl font-bold text-stone-900">Principal's Message</h2>
       </div>
-      <figure class="mt-6 border-l-4 border-gold-500 bg-stone-50 p-6 md:p-8">
-        <blockquote class="font-serif text-lg leading-relaxed text-stone-800">
-          “{site.principalMessage}”
+      <figure class="mt-6 grid gap-6 border border-stone-200 sm:grid-cols-12">
+        <div class="flex flex-col items-center justify-center bg-navy-800 p-8 text-center sm:col-span-4">
+          <span class="flex h-20 w-20 items-center justify-center rounded-full border-2 border-gold-400 font-serif text-3xl font-bold text-white" aria-hidden="true">
+            {site.principalName.replace('Mr. ', '').charAt(0)}
+          </span>
+          <p class="mt-4 font-semibold text-white">{site.principalName}</p>
+          <p class="text-sm text-clay-200">{site.principalTitle}</p>
+        </div>
+        <blockquote class="flex items-center bg-white p-6 leading-relaxed text-stone-700 sm:col-span-8 sm:p-8">
+          <p class="font-serif text-lg">“{site.principalMessage}”</p>
         </blockquote>
-        <figcaption class="mt-5 border-t border-stone-200 pt-4">
-          <span class="font-semibold text-stone-900">{site.principalName}</span>
-          <span class="text-stone-500"> · {site.principalTitle}, {site.name}</span>
-        </figcaption>
       </figure>
     </section>
 
