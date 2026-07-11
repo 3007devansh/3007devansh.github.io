@@ -16,3 +16,7 @@ Thumbs.db
 /edit/
 /pamphlet.jpeg
 /document.pdf
+
+# New infrastructure source photos (originals live on Drive; web-optimised
+# derivatives + extracted logos are committed under website/public/images/)
+/new_images/

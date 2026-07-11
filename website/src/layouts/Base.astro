@@ -2,7 +2,6 @@
 import '../styles/global.css';
 import Seo from '../components/Seo.astro';
 import Icon from '../components/Icon.astro';
-import Crest from '../components/Crest.astro';
 import LanguageToggle from '../components/LanguageToggle.astro';
 import { site } from '../config/site';
 
@@ -19,6 +18,7 @@ const nav = [
   { href: '/courses', label: 'Courses' },
   { href: '/admissions', label: 'Admissions' },
   { href: '/about', label: 'About' },
+  { href: '/gallery', label: 'Gallery' },
   { href: '/faq', label: 'FAQ' },
   { href: '/contact', label: 'Contact' },
 ];
@@ -31,7 +31,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/images/logo-deksons-64.png" type="image/png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -53,7 +53,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 
     <!-- Utility strip. Recognition and phone, gazette-style: this audience is
          verifying we are real before they read anything else. -->
-    <div class="bg-maroon-900 text-white">
+    <div class="bg-navy-900 text-white">
       <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-1.5">
         <p class="flex items-center gap-2 text-xs">
           <span class="h-3 w-0.5 shrink-0 bg-gold-300" aria-hidden="true"></span>
@@ -70,14 +70,14 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
       </div>
     </div>
 
-    <!-- Masthead. Solid, opaque, 3px maroon top rule. No backdrop-blur:
+    <!-- Masthead. Solid, opaque, 3px navy top rule. No backdrop-blur:
          frosted glass is an app signature, not an institutional one. -->
-    <header class="sticky top-0 z-30 border-t-[3px] border-maroon-700 bg-white shadow-[0_1px_0_var(--color-stone-200)]">
+    <header class="sticky top-0 z-30 border-t-[3px] border-navy-700 bg-white shadow-[0_1px_0_var(--color-stone-200)]">
       <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <a href="/" class="flex items-center gap-3">
-          <Crest size={42} class="shrink-0" />
+          <img src="/images/logo-deksons-128.png" alt="Deksons Institute logo" width="46" height="46" class="h-11 w-11 shrink-0 object-contain" />
           <span class="flex flex-col leading-tight">
-            <span class="font-serif text-xl font-bold text-maroon-800">{site.name}</span>
+            <span class="font-serif text-xl font-bold text-navy-800">{site.name}</span>
             <!-- Bilingual masthead: real Indian institutions name themselves in
                  both scripts. This is authenticity, not decoration. -->
             <span class="mr text-xs leading-snug text-stone-600">{site.nameMr}</span>
@@ -93,8 +93,8 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
                 class:list={[
                   'border-b-2 px-3.5 py-2 text-sm font-semibold transition-colors',
                   isActive(i.href)
-                    ? 'border-maroon-700 text-maroon-800'
-                    : 'border-transparent text-stone-600 hover:border-stone-300 hover:text-maroon-700',
+                    ? 'border-navy-700 text-navy-800'
+                    : 'border-transparent text-stone-600 hover:border-stone-300 hover:text-navy-700',
                 ]}
               >
                 {i.label}
@@ -103,7 +103,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
           }
           <a
             href={`tel:${site.phonePrimary}`}
-            class="ml-4 inline-flex items-center gap-2 bg-maroon-700 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-maroon-800"
+            class="ml-4 inline-flex items-center gap-2 bg-navy-700 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-navy-800"
           >
             Call Now
           </a>
@@ -118,7 +118,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
               aria-current={isActive(i.href) ? 'page' : undefined}
               class:list={[
                 'shrink-0 border-b-2 px-3 py-2.5 text-sm font-semibold whitespace-nowrap transition-colors',
-                isActive(i.href) ? 'border-maroon-700 text-maroon-800' : 'border-transparent text-stone-600',
+                isActive(i.href) ? 'border-navy-700 text-navy-800' : 'border-transparent text-stone-600',
               ]}
             >
               {i.label}
@@ -130,19 +130,19 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 
     <main id="main"><slot /></main>
 
-    <footer class="mt-24 border-t-[3px] border-maroon-700 bg-stone-50">
+    <footer class="mt-24 border-t-[3px] border-navy-700 bg-stone-50">
       <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div class="sm:col-span-2 lg:col-span-1">
           <div class="flex items-center gap-3">
-            <Crest size={38} />
+            <img src="/images/logo-deksons-128.png" alt="Deksons Institute logo" width="40" height="40" class="h-10 w-10 shrink-0 object-contain" />
             <div>
-              <p class="font-serif text-lg font-bold text-maroon-800">{site.name}</p>
+              <p class="font-serif text-lg font-bold text-navy-800">{site.name}</p>
               <p class="mr text-xs text-stone-600">{site.nameMr}</p>
             </div>
           </div>
           <p class="mt-4 text-sm text-stone-600">Run by {site.runBy}</p>
-          <p class="mt-4 inline-flex items-center gap-2 border border-maroon-700 px-3 py-1.5 text-xs font-semibold tracking-wide text-maroon-800">
-            <span class="h-3 w-0.5 bg-maroon-700" aria-hidden="true"></span>{site.approval}
+          <p class="mt-4 inline-flex items-center gap-2 border border-navy-700 px-3 py-1.5 text-xs font-semibold tracking-wide text-navy-800">
+            <span class="h-3 w-0.5 bg-navy-700" aria-hidden="true"></span>{site.approval}
           </p>
         </div>
 
@@ -150,8 +150,8 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
           <p class="kicker">Contact</p>
           <address class="mt-4 space-y-2 text-stone-600 not-italic">
             <p>{site.addressShort}</p>
-            <p><a href={`tel:${site.phonePrimary}`} class="tnum notranslate font-semibold text-maroon-700 hover:underline" translate="no">{site.phonePrimary}</a></p>
-            <p><a href={`tel:${site.phoneSecondary}`} class="tnum notranslate font-semibold text-maroon-700 hover:underline" translate="no">{site.phoneSecondary}</a></p>
+            <p><a href={`tel:${site.phonePrimary}`} class="tnum notranslate font-semibold text-navy-700 hover:underline" translate="no">{site.phonePrimary}</a></p>
+            <p><a href={`tel:${site.phoneSecondary}`} class="tnum notranslate font-semibold text-navy-700 hover:underline" translate="no">{site.phoneSecondary}</a></p>
           </address>
         </div>
 
@@ -159,7 +159,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
           <p class="kicker">Pages</p>
           <ul class="mt-4 space-y-2">
             {nav.slice(1).map((i) => (
-              <li><a href={i.href} class="text-stone-600 hover:text-maroon-700 hover:underline">{i.label}</a></li>
+              <li><a href={i.href} class="text-stone-600 hover:text-navy-700 hover:underline">{i.label}</a></li>
             ))}
           </ul>
         </div>
@@ -167,10 +167,10 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
         <div class="text-sm">
           <p class="kicker">Information</p>
           <ul class="mt-4 space-y-2">
-            <li><a href="/privacy" class="text-stone-600 hover:text-maroon-700 hover:underline">Privacy Policy</a></li>
-            <li><a href="/credits" class="text-stone-600 hover:text-maroon-700 hover:underline">Photo Credits</a></li>
-            <li><a href="/contact#grievance" class="text-stone-600 hover:text-maroon-700 hover:underline">Grievance & Anti-Ragging</a></li>
-            <li><a href={site.admission.portal} rel="noopener" class="text-stone-600 hover:text-maroon-700 hover:underline">DVET Admission Portal ↗</a></li>
+            <li><a href="/privacy" class="text-stone-600 hover:text-navy-700 hover:underline">Privacy Policy</a></li>
+            <li><a href="/credits" class="text-stone-600 hover:text-navy-700 hover:underline">Photo Credits</a></li>
+            <li><a href="/contact#grievance" class="text-stone-600 hover:text-navy-700 hover:underline">Grievance & Anti-Ragging</a></li>
+            <li><a href={site.admission.portal} rel="noopener" class="text-stone-600 hover:text-navy-700 hover:underline">DVET Admission Portal ↗</a></li>
           </ul>
           <!-- Required whenever machine translation is offered. -->
           <p class="mt-6 border-l-2 border-stone-300 pl-3 text-xs leading-relaxed text-stone-500">
@@ -187,8 +187,8 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 
     <!-- Sticky Call + WhatsApp. Inbound calls convert ~10-15x better than forms
          for this audience; typing on a low-end Android is a real barrier. -->
-    <div class="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 border-t border-maroon-900 md:hidden">
-      <a href={`tel:${site.phonePrimary}`} class="flex min-h-[3.5rem] items-center justify-center gap-2 bg-maroon-700 text-base font-semibold text-white">
+    <div class="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 border-t border-navy-900 md:hidden">
+      <a href={`tel:${site.phonePrimary}`} class="flex min-h-[3.5rem] items-center justify-center gap-2 bg-navy-700 text-base font-semibold text-white">
         <Icon name="phone" size={18} /> Call Now
       </a>
       <a href={`https://wa.me/91${site.whatsapp}`} rel="noopener" class="flex min-h-[3.5rem] items-center justify-center gap-2 bg-whatsapp text-base font-semibold text-white">

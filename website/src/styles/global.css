@@ -1,60 +1,61 @@
 @import 'tailwindcss';
 
 /*
- * Dekson ITI — design tokens.
+ * DEKSON ITI — design tokens.
  *
- * Reference is not a SaaS landing page. It is a university prospectus, a
- * government gazette, an enamel building sign: warm, weighty, official,
- * squared-off. Density and borders over whitespace and floating cards.
+ * Palette derived from the official logo: deep navy/indigo primary, an amber
+ * gear accent, a magenta tertiary, on warm neutrals. Reference is a university
+ * prospectus / government gazette — weighty, official, squared-off.
  */
 @theme {
-  /* ── Brand: maroon, sampled from the building signage ─────────── */
-  --color-maroon-50: #fdf4f5;
-  --color-maroon-100: #fbe5e8;
-  --color-maroon-200: #f5c9cf;
-  --color-maroon-600: #a8213a;
-  --color-maroon-700: #8e1b2e; /* primary */
-  --color-maroon-800: #741626;
-  --color-maroon-900: #5c1220;
+  /* ── Brand: navy / indigo (logo primary #2E2C6B) ─────────────
+     Class names stay "navy-*". */
+  --color-navy-50: #eef0f8;
+  --color-navy-100: #dcdff0;
+  --color-navy-200: #b7bce0;
+  --color-navy-300: #8b91cb;
+  --color-navy-600: #3a3782;
+  --color-navy-700: #2e2c6b; /* primary */
+  --color-navy-800: #24234f;
+  --color-navy-900: #191838;
 
-  /* ── Clay: the dusty-pink facade. Used sparingly, for tinted panels ── */
-  --color-clay-50: #faf1ef;
-  --color-clay-100: #f4e6e4;
-  --color-clay-300: #d9a9ab;
-  --color-clay-500: #b57e80;
+  /* ── Amber: the logo gear (#F5A623). Credentials, highlights,
+        "open now". Reads as a seal, not a chat notification. ── */
+  --color-gold-50: #fff8ec;
+  --color-gold-100: #fdeecb;
+  --color-gold-300: #f6c552;
+  --color-gold-500: #f5a623;
+  --color-gold-700: #8a5e12;
+  --color-gold-800: #6f4b0f;
 
-  /* ── Stone: WARM neutrals. Replaces Tailwind slate entirely.
-        Blue-grey slate fights maroon and reads as default-template. ── */
+  /* ── Magenta: logo hands. Used rarely, as a tertiary accent. ── */
+  --color-magenta-500: #b0459a;
+  --color-magenta-600: #97397f;
+
+  /* ── Warm neutrals (sand/taupe). Pair classically with navy. ── */
+  --color-clay-50: #faf7f0;
+  --color-clay-100: #f3ecdd;
+  --color-clay-300: #ddc9a8;
+  --color-clay-500: #b39b74;
+
   --color-stone-50: #faf8f6;
   --color-stone-100: #f3efec;
-  --color-stone-200: #e5ded8; /* borders */
+  --color-stone-200: #e5ded8;
   --color-stone-300: #d3c9c1;
-  --color-stone-400: #a89e96; /* muted labels */
-  --color-stone-600: #6b625b; /* secondary text */
+  --color-stone-400: #a89e96;
+  --color-stone-600: #6b625b;
   --color-stone-700: #514a44;
-  --color-stone-800: #3a342f; /* body text */
-  --color-stone-900: #241f1b; /* headings */
+  --color-stone-800: #3a342f;
+  --color-stone-900: #241f1b;
 
-  /* ── Gold: credentials and highlights. Reads as a seal, not a
-        Slack notification (which is what default green reads as). ── */
-  --color-gold-50: #fdf9f0;
-  --color-gold-100: #f6ecd6;
-  --color-gold-300: #e0c185;
-  --color-gold-700: #9a6b1f;
-  --color-gold-800: #7a5318;
-
-  /* ── Deep green: reserved STRICTLY for "verified / government
-        recognised". Never decorative, so that green means something. ── */
+  /* Deep green — reserved for "verified / government recognised". */
   --color-verified-50: #f0f7f3;
   --color-verified-700: #1f5f3f;
   --color-verified-800: #174a31;
 
-  /* WhatsApp brand green — used only for the WhatsApp action, nowhere else */
+  /* WhatsApp brand green — only for the WhatsApp action. */
   --color-whatsapp: #25d366;
 
-  /* ── Type ──────────────────────────────────────────────────────
-     Serif headings carry institutional gravitas. Inter at weight 900
-     doing everything was the tell. */
   --font-serif: 'Source Serif 4', 'Georgia', 'Times New Roman', serif;
   --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
   --font-deva: 'Mukta', 'Noto Sans Devanagari', 'Nirmala UI', sans-serif;
@@ -82,10 +83,7 @@ body {
   body { padding-bottom: 0; }
 }
 
-/*
- * Devanagari. Matras sit above and below the baseline and clip at Latin
- * leading — 1.75 is a correctness requirement, not a preference.
- */
+/* Devanagari: matras clip at Latin leading — larger size and looser leading. */
 .mr,
 [lang='mr'] {
   font-family: var(--font-deva);
@@ -93,42 +91,37 @@ body {
   line-height: 1.75;
 }
 
-/*
- * The kicker: tracked small-caps above a serif heading. This is the single
- * most "designed by a person" typographic move on the page.
- */
+/* Tracked small-caps kicker above a serif heading — the site signature. */
 .kicker {
   font-family: var(--font-sans);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-maroon-700);
+  color: var(--color-navy-700);
 }
 
-/* Section heading that hangs a maroon rule into the left gutter. Site signature. */
+/* Section heading that hangs a rule into the left gutter. */
 .hangs {
-  border-left: 4px solid var(--color-maroon-700);
+  border-left: 4px solid var(--color-navy-700);
   padding-left: 1rem;
 }
 
-/* Full-bleed band that escapes a max-width container */
+/* Full-bleed band that escapes a max-width container. */
 .bleed {
   width: 100vw;
   margin-left: 50%;
   transform: translateX(-50%);
 }
 
-/* Numerals that line up in tables, notice dates, and the institute code */
 .tnum { font-variant-numeric: tabular-nums; }
 
-/* High-contrast, always-visible focus ring (WCAG 2.2 AA) */
 :focus-visible {
-  outline: 3px solid var(--color-maroon-700);
+  outline: 3px solid var(--color-navy-700);
   outline-offset: 2px;
 }
 
-/* Unfilled facts render loudly so they can never ship silently */
+/* Unfilled facts render loudly so they can never ship silently. */
 .todo {
   background: #fee2e2;
   color: #991b1b;
@@ -138,17 +131,12 @@ body {
   font-weight: 600;
 }
 
-/* Minimum tap target on touch devices */
 @media (pointer: coarse) {
   a[href^='tel:'], a[href*='wa.me'], button { min-height: 48px; }
 }
 
 /*
- * Google Translate widget suppression.
- * The widget injects a banner iframe and forces `body { top: 40px }`, which
- * shifts the layout and breaks the sticky masthead. Google renames these
- * classes periodically, so LanguageToggle.astro also runs a MutationObserver
- * to re-zero body.top. Belt and braces.
+ * Google Translate widget suppression (see LanguageToggle.astro).
  */
 .goog-te-banner-frame,
 .skiptranslate iframe,
@@ -160,5 +148,4 @@ body { top: 0 !important; position: static !important; }
 
 .goog-te-gadget { font-size: 0 !important; }
 
-/* Google wraps translated text in <font> tags — keep them inheriting our type */
 font { font: inherit !important; color: inherit !important; background: none !important; }

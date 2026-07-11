@@ -36,7 +36,7 @@ const steps = [
   title={`Admissions ${site.admission.year} — Open Now | ${site.name}, Akola`}
   description={`Admissions are open at ${site.name}, Akola. CAP Round 2 and Management Quota seats available. Institute Code ${site.instituteCode}. Call ${site.phonePrimary} or visit the campus.`}
 >
-  <div class="bg-maroon-700 px-4 py-3 text-center text-sm font-semibold text-white">
+  <div class="bg-navy-700 px-4 py-3 text-center text-sm font-semibold text-white">
     <Fact value={site.admission.statusLine} fallback="Admissions are open now." />
   </div>
 
@@ -52,10 +52,10 @@ const steps = [
     </div>
 
     <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-      <a href={`tel:${site.phonePrimary}`} class="inline-flex items-center justify-center bg-maroon-700 px-6 py-3.5 font-semibold text-white hover:bg-maroon-800">
+      <a href={`tel:${site.phonePrimary}`} class="inline-flex items-center justify-center bg-navy-700 px-6 py-3.5 font-semibold text-white hover:bg-navy-800">
         Call <span class="tnum notranslate ml-1.5" translate="no">{site.phonePrimary}</span>
       </a>
-      <a href={`https://wa.me/91${site.whatsapp}`} rel="noopener" class="inline-flex items-center justify-center border-2 border-stone-300 px-6 py-3.5 font-semibold text-stone-800 hover:border-maroon-700 hover:text-maroon-700">
+      <a href={`https://wa.me/91${site.whatsapp}`} rel="noopener" class="inline-flex items-center justify-center border-2 border-stone-300 px-6 py-3.5 font-semibold text-stone-800 hover:border-navy-700 hover:text-navy-700">
         Message on WhatsApp
       </a>
     </div>
@@ -68,11 +68,11 @@ const steps = [
         <h3 class="mt-2 font-serif text-xl font-bold text-stone-900">Visit us or call</h3>
         <p class="mt-3 leading-relaxed text-stone-600">
           Come to the campus, or call
-          <a href={`tel:${site.phonePrimary}`} class="font-semibold text-maroon-700 underline">{site.phonePrimary}</a>.
+          <a href={`tel:${site.phonePrimary}`} class="font-semibold text-navy-700 underline">{site.phonePrimary}</a>.
           We will tell you which courses have seats, help you with the Management Quota, and guide you
           through the online steps if you need them. This is the quickest way to understand where you stand.
         </p>
-        <a href="/contact" class="mt-4 inline-block text-sm font-semibold text-maroon-700 hover:underline">Campus address &amp; hours &rarr;</a>
+        <a href="/contact" class="mt-4 inline-block text-sm font-semibold text-navy-700 hover:underline">Campus address &amp; hours &rarr;</a>
       </div>
       <div class="bg-white p-6">
         <p class="kicker">Online</p>
@@ -81,14 +81,14 @@ const steps = [
           Register at admission.dvet.gov.in, fill your option form, and enter our Institute Code to
           choose {site.name}. The steps are below. Call us anytime and we will walk you through it.
         </p>
-        <a href={dvet.portal} rel="noopener" class="mt-4 inline-block text-sm font-semibold text-maroon-700 hover:underline">Open the DVET portal &rarr;</a>
+        <a href={dvet.portal} rel="noopener" class="mt-4 inline-block text-sm font-semibold text-navy-700 hover:underline">Open the DVET portal &rarr;</a>
       </div>
     </div>
 
     <!-- Institute code: serif display, not font-mono. -->
-    <div class="mt-10 border-2 border-maroon-700 bg-maroon-50 p-6 text-center">
+    <div class="mt-10 border-2 border-navy-700 bg-navy-50 p-6 text-center">
       <p class="kicker">Enter this code in your option form</p>
-      <p class="notranslate tnum mt-3 font-serif text-4xl font-bold break-all text-maroon-700" translate="no">
+      <p class="notranslate tnum mt-3 font-serif text-4xl font-bold break-all text-navy-700" translate="no">
         <Fact value={site.instituteCode} />
       </p>
       <p class="mt-2 text-sm text-stone-600">Institute Code · {site.nameFull}</p>
@@ -99,7 +99,7 @@ const steps = [
     <ol class="mt-6 space-y-5">
       {steps.map((s, i) => (
         <li class="flex gap-4">
-          <span class="tnum flex h-9 w-9 shrink-0 items-center justify-center bg-maroon-700 font-bold text-white">
+          <span class="tnum flex h-9 w-9 shrink-0 items-center justify-center bg-navy-700 font-bold text-white">
             {i + 1}
           </span>
           <div>
@@ -115,7 +115,7 @@ const steps = [
     <ul class="mt-5 grid gap-px border border-stone-200 bg-stone-200 sm:grid-cols-2">
       {dvet.documentsAtAdmission.map((d) => (
         <li class="flex items-start gap-3 bg-white p-4 text-stone-700">
-          <span class="mt-1.5 h-1.5 w-1.5 shrink-0 bg-maroon-700" aria-hidden="true"></span>{d}
+          <span class="mt-1.5 h-1.5 w-1.5 shrink-0 bg-navy-700" aria-hidden="true"></span>{d}
         </li>
       ))}
     </ul>
@@ -132,12 +132,12 @@ const steps = [
     <p class="mt-3 leading-relaxed text-stone-700">
       Fees are charged <strong class="text-stone-900">as per Government norms</strong>. {dvet.instalmentsAllowed}
       For the exact fee for your course, please
-      <a href={`tel:${site.phonePrimary}`} class="font-semibold text-maroon-700 underline">call {site.phonePrimary}</a>
+      <a href={`tel:${site.phonePrimary}`} class="font-semibold text-navy-700 underline">call {site.phonePrimary}</a>
       or visit the campus — we will give you the full break-up.
     </p>
 
     <!-- Anti-fraud warning -->
-    <div class="mt-12 border-l-4 border-maroon-700 bg-stone-50 p-5">
+    <div class="mt-12 border-l-4 border-navy-700 bg-stone-50 p-5">
       <h3 class="font-serif text-lg font-bold text-stone-900">Beware of agents</h3>
       <p class="mt-2 text-sm leading-relaxed text-stone-600">
         {site.name} does not work through any admission agent or middleman. Nobody is authorised to
@@ -147,17 +147,17 @@ const steps = [
     </div>
 
     <!-- Help -->
-    <div class="mt-12 bg-maroon-800 p-8 text-center">
+    <div class="mt-12 bg-navy-800 p-8 text-center">
       <p class="kicker text-gold-300">We will help you</p>
       <h3 class="mt-2 font-serif text-2xl font-bold text-white">Not sure where to start?</h3>
       <p class="mt-3 leading-relaxed text-clay-100">
         Call us and we will take you through everything — in Marathi — step by step.
       </p>
       <div class="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
-        <a href={`tel:${site.phonePrimary}`} class="bg-white px-6 py-3 font-semibold text-maroon-800 hover:bg-maroon-50">
+        <a href={`tel:${site.phonePrimary}`} class="bg-white px-6 py-3 font-semibold text-navy-800 hover:bg-navy-50">
           {site.phonePrimaryName} — <span class="tnum notranslate" translate="no">{site.phonePrimary}</span>
         </a>
-        <a href={`tel:${site.phoneSecondary}`} class="border border-white/40 px-6 py-3 font-semibold text-white hover:bg-maroon-700">
+        <a href={`tel:${site.phoneSecondary}`} class="border border-white/40 px-6 py-3 font-semibold text-white hover:bg-navy-700">
           {site.phoneSecondaryName} — <span class="tnum notranslate" translate="no">{site.phoneSecondary}</span>
         </a>
       </div>

@@ -101,9 +101,9 @@ export const site = {
 
   // ── Brand (sampled from the campus building) ────────────────
   colors: {
-    maroon: '#8E1B2E',
-    pink: '#D08A94',
-    stone: '#B9BCB6',
+    navy: '#2E2C6B',
+    amber: '#F5A623',
+    magenta: '#B0459A',
   },
 } as const;
 

@@ -1,0 +1,112 @@
+---
+import Base from '../layouts/Base.astro';
+import Picture from '../components/Picture.astro';
+import { site } from '../config/site';
+
+/** Real photographs of Dekson ITI, Babhulgaon. */
+const groups = [
+  {
+    title: 'Workshops & Labs',
+    kicker: 'Where you will learn',
+    items: [
+      { src: 'gallery-electrical-1', cap: 'Electrical machines lab — motor generator sets' },
+      { src: 'gallery-electrical-2', cap: 'AC/DC motors and control panels' },
+      { src: 'gallery-electrical-3', cap: 'Electrical wiring and trainer panels' },
+      { src: 'gallery-solar-1', cap: 'Solar PV panels and trainer' },
+      { src: 'gallery-solar-2', cap: 'Solar panel practical setup' },
+      { src: 'gallery-computer-1', cap: 'Computer lab for the COPA course' },
+      { src: 'gallery-computer-2', cap: 'Computer lab and classroom' },
+      { src: 'gallery-welding-1', cap: 'Welding workshop' },
+      { src: 'gallery-welding-2', cap: 'Fabrication and welding benches' },
+      { src: 'gallery-workshop-hall', cap: 'Main workshop hall' },
+    ],
+  },
+  {
+    title: 'Campus & Facilities',
+    kicker: 'Newly built and ready',
+    items: [
+      { src: 'gallery-arch', cap: 'ITI workshop entrance' },
+      { src: 'gallery-workshop-ext', cap: 'Workshop building' },
+      { src: 'gallery-auditorium-1', cap: 'Auditorium' },
+      { src: 'gallery-auditorium-2', cap: 'Assembly hall and stage' },
+      { src: 'gallery-hall', cap: 'Seminar hall' },
+      { src: 'gallery-safety', cap: 'Fire safety equipment' },
+    ],
+  },
+];
+
+const schema = [
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', Astro.site).href },
+      { '@type': 'ListItem', position: 2, name: 'Gallery', item: new URL('/gallery', Astro.site).href },
+    ],
+  },
+];
+---
+
+<Base
+  title={`Campus Gallery | ${site.name}, Akola`}
+  description="Photographs of the workshops, labs, computer lab, auditorium and campus at Dekson ITI, Babhulgaon, Akola."
+  schema={schema}
+>
+  <div class="mx-auto max-w-6xl px-4 py-12 md:py-16">
+    <nav aria-label="Breadcrumb" class="text-sm text-stone-500">
+      <a href="/" class="hover:text-navy-700 hover:underline">Home</a>
+      <span class="mx-2 text-stone-300">/</span><span class="text-stone-700">Gallery</span>
+    </nav>
+
+    <div class="hangs mt-8">
+      <p class="kicker">Our campus</p>
+      <h1 class="mt-2 font-serif text-4xl font-bold text-stone-900 md:text-5xl">Gallery</h1>
+      <p class="mt-3 max-w-2xl text-lg leading-relaxed text-stone-700">
+        Real photographs of the workshops, labs and campus at Dekson ITI, Babhulgaon. Every picture
+        here is our own — come and see it in person any working day.
+      </p>
+    </div>
+
+    {groups.map((g) => (
+      <section class="mt-14">
+        <div class="hangs">
+          <p class="kicker">{g.kicker}</p>
+          <h2 class="mt-2 font-serif text-2xl font-bold text-stone-900">{g.title}</h2>
+        </div>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {g.items.map((it) => (
+            <figure class="group">
+              <div class="relative aspect-[4/3] overflow-hidden bg-stone-100">
+                <Picture
+                  src={it.src}
+                  alt={`${it.cap} — Dekson ITI, Babhulgaon`}
+                  widths={[640, 1024]}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  width={1024}
+                  height={768}
+                />
+              </div>
+              <figcaption class="mt-2 text-sm text-stone-600">{it.cap}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+    ))}
+
+    <div class="mt-16 border-2 border-navy-700 p-8 text-center">
+      <h2 class="font-serif text-2xl font-bold text-stone-900">Come and see it for yourself</h2>
+      <p class="mx-auto mt-3 max-w-xl leading-relaxed text-stone-600">
+        Photographs tell you only so much. Visit the campus, meet the staff, and walk through the
+        workshops before you decide.
+      </p>
+      <div class="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+        <a href={`tel:${site.phonePrimary}`} class="bg-navy-700 px-6 py-3 font-semibold text-white hover:bg-navy-800">
+          Call <span class="tnum notranslate ml-1" translate="no">{site.phonePrimary}</span>
+        </a>
+        <a href="/contact" class="border-2 border-stone-300 px-6 py-3 font-semibold text-stone-800 hover:border-navy-700 hover:text-navy-700">
+          Campus address &amp; hours
+        </a>
+      </div>
+    </div>
+  </div>
+</Base>

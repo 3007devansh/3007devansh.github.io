@@ -16,8 +16,8 @@ jobs:
   - Structural steel worker
   - Workshop welder
   - Start your own welding workshop
-image: null
-illustration: true
+image: course-welder
+illustration: false
 highlight: Only 8th pass needed
 ---
 

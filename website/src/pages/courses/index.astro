@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
-import Illustration from '../../components/Illustration.astro';
+import Picture from '../../components/Picture.astro';
 import { site } from '../../config/site';
 import { getCollection } from 'astro:content';
 
@@ -39,7 +39,7 @@ const schema = [
 >
   <div class="mx-auto max-w-6xl px-4 py-12 md:py-16">
     <nav aria-label="Breadcrumb" class="text-sm text-stone-500">
-      <a href="/" class="hover:text-maroon-700 hover:underline">Home</a>
+      <a href="/" class="hover:text-navy-700 hover:underline">Home</a>
       <span class="mx-2 text-stone-300">/</span><span class="text-stone-700">Courses</span>
     </nav>
 
@@ -58,13 +58,15 @@ const schema = [
     <div class="mt-12 grid gap-px border border-stone-200 bg-stone-200 md:grid-cols-2">
       {courses.map((c) => (
         <a href={`/courses/${c.id}`} class="group flex flex-col bg-white transition-colors hover:bg-clay-50">
-          {c.data.illustration && (
-            <Illustration course={c.id} ratio="aspect-[16/9]" class="block" sizes="(max-width: 768px) 100vw, 50vw" />
+          {c.data.image && (
+            <div class="relative aspect-[16/9] overflow-hidden bg-stone-100">
+              <Picture src={c.data.image} alt={`${c.data.name} workshop at Dekson ITI`} widths={[640, 1024]} sizes="(max-width: 768px) 100vw, 50vw" class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" width={1024} height={768} />
+            </div>
           )}
 
           <div class="flex flex-col p-8">
           <div class="flex items-start justify-between gap-4">
-            <span class="flex h-14 w-14 items-center justify-center border border-stone-300 text-maroon-700 transition-colors group-hover:border-maroon-700">
+            <span class="flex h-14 w-14 items-center justify-center border border-stone-300 text-navy-700 transition-colors group-hover:border-navy-700">
               <Icon name={c.data.icon as any} size={24} />
             </span>
             {c.data.highlight && (
@@ -72,8 +74,8 @@ const schema = [
             )}
           </div>
 
-          <h2 class="mt-6 font-serif text-2xl font-bold text-stone-900 group-hover:text-maroon-700">
-            Become a {c.data.shortName}
+          <h2 class="mt-6 font-serif text-2xl font-bold text-stone-900 group-hover:text-navy-700">
+            Become a{/^[aeiouAEIOU]/.test(c.data.shortName) ? "n" : ""} {c.data.shortName}
           </h2>
           <p class="mt-1 text-sm font-medium text-stone-500">{c.data.name}</p>
           <p class="mr mt-1 text-sm text-stone-500">{c.data.nameMr}</p>
@@ -95,7 +97,7 @@ const schema = [
             </div>
           </dl>
 
-          <span class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-maroon-700">
+          <span class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-navy-700">
             Details and careers <Icon name="arrowRight" size={15} class="transition-transform group-hover:translate-x-1" />
           </span>
           </div>
@@ -103,18 +105,18 @@ const schema = [
       ))}
     </div>
 
-    <div class="mt-14 border-l-4 border-maroon-700 bg-stone-50 p-8">
+    <div class="mt-14 border-l-4 border-navy-700 bg-stone-50 p-8">
       <h2 class="font-serif text-2xl font-bold text-stone-900">Not sure which course to choose?</h2>
       <p class="mt-3 max-w-xl leading-relaxed text-stone-600">
         Call us. We will explain what each course teaches, the work it leads to, and which one fits
         your schooling.
       </p>
       <div class="mt-6 flex flex-col gap-3 sm:flex-row">
-        <a href={`tel:${site.phonePrimary}`} class="inline-flex items-center justify-center gap-2 bg-maroon-700 px-6 py-3.5 font-semibold text-white hover:bg-maroon-800">
+        <a href={`tel:${site.phonePrimary}`} class="inline-flex items-center justify-center gap-2 bg-navy-700 px-6 py-3.5 font-semibold text-white hover:bg-navy-800">
           <Icon name="phone" size={17} />
           <span class="tnum notranslate" translate="no">{site.phonePrimary}</span>
         </a>
-        <a href={`https://wa.me/91${site.whatsapp}`} rel="noopener" class="inline-flex items-center justify-center gap-2 border-2 border-stone-300 px-6 py-3.5 font-semibold text-stone-800 hover:border-maroon-700 hover:text-maroon-700">
+        <a href={`https://wa.me/91${site.whatsapp}`} rel="noopener" class="inline-flex items-center justify-center gap-2 border-2 border-stone-300 px-6 py-3.5 font-semibold text-stone-800 hover:border-navy-700 hover:text-navy-700">
           <Icon name="whatsapp" size={17} /> Ask on WhatsApp
         </a>
       </div>

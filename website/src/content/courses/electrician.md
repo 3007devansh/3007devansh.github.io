@@ -16,8 +16,8 @@ jobs:
   - Maintenance technician
   - Electrical contractor
   - Start your own wiring and repair business
-image: null
-illustration: true
+image: course-electrician
+illustration: false
 ---
 
 Learn to install, maintain and repair electrical systems in homes, factories and industry. This is one of the most widely recognised ITI courses in India, with steady demand in construction, manufacturing and maintenance work.

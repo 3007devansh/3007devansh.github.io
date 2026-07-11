@@ -16,8 +16,8 @@ jobs:
   - Rooftop solar installer
   - Solar service engineer assistant
   - Start your own solar installation and servicing business
-image: null
-illustration: true
+image: course-solar-technician
+illustration: false
 highlight: A fast-growing field
 ---
 
