@@ -36,7 +36,7 @@ export const site = {
 
   /** ⭐ The most important number on this website.
    *  Students type this into their DVET option form. */
-  instituteCode: 'PR270001081',
+  instituteCode: 'PR27001081',
 
   // ── Contact ─────────────────────────────────────────────────
   phonePrimary: '9503264747',
