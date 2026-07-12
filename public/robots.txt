@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# Update host once the real domain is confirmed (priority answer Q18)
-Sitemap: https://deksoniti.in/sitemap-index.xml
+Sitemap: https://deksons.in/sitemap-index.xml

@@ -1,0 +1,33 @@
+---
+/**
+ * Analytics loader. Injects Google Analytics 4 and Microsoft Clarity ONLY when
+ * their IDs are set in config (site.analytics). Empty IDs = no scripts load, so
+ * there is nothing to slow the site or to consent-gate until you opt in.
+ *
+ * To enable: put the IDs in src/config/site.ts and redeploy.
+ */
+import { site } from '../config/site';
+const { ga4, clarity } = site.analytics;
+---
+
+{ga4 && (
+  <>
+    <script is:inline src={`https://www.googletagmanager.com/gtag/js?id=${ga4}`} async></script>
+    <script is:inline define:vars={{ ga4 }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', ga4);
+    </script>
+  </>
+)}
+
+{clarity && (
+  <script is:inline define:vars={{ clarity }}>
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+      t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, 'clarity', 'script', clarity);
+  </script>
+)}

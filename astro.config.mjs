@@ -4,12 +4,10 @@ import sitemap from '@astrojs/sitemap';
 
 /**
  * `site` drives canonical URLs, the sitemap and OG image URLs.
- * Currently the free preview at https://3007devansh.github.io (user GitHub
- * Pages site — serves at the domain root, so no `base` is needed).
- * ⚠️ Change this to the real domain the moment it is purchased, then redeploy.
+ * Production domain (purchased from Hostinger), served via Cloudflare Pages.
  */
 export default defineConfig({
-  site: 'https://3007devansh.github.io',
+  site: 'https://deksons.in',
   integrations: [sitemap()],
   vite: { plugins: [tailwindcss()] },
   build: { inlineStylesheets: 'auto' },

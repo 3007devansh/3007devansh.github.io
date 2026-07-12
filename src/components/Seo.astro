@@ -42,20 +42,35 @@ const organization = {
   name: site.nameFull,
   alternateName: [
     'Dekson ITI',
-    'Dekson ITI Akola',
-    'Deksons Institute',
+    'Deksons ITI',
     'Deksons ITI Akola',
+    'Deksons Institute Akola',
+    'Dekson ITI Akola',
     site.nameMr,
   ],
   description: `${site.approval} Industrial Training Institute in Babhulgaon, Akola, offering Electrician, Welder, COPA and Solar Technician courses. Run by ${site.runBy}. Institute Code ${site.instituteCode}.`,
   url: origin,
+  logo: new URL('/images/logo-deksons-512.png', origin).href,
+  image: ogImageAbs,
   telephone: `+91${site.phonePrimary}`,
   email: site.email,
   address,
+  // Regional reach — helps "ITI near <town>" across Akola district & neighbours.
   areaServed: [
     { '@type': 'City', name: 'Akola' },
     { '@type': 'AdministrativeArea', name: 'Akola District' },
+    ...['Akot', 'Balapur', 'Murtizapur', 'Telhara', 'Patur', 'Barshitakli', 'Hivarkhed'].map(
+      (n) => ({ '@type': 'City', name: n }),
+    ),
     { '@type': 'AdministrativeArea', name: 'Vidarbha' },
+  ],
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      opens: '10:00',
+      closes: '17:00',
+    },
   ],
   founder: { '@type': 'Organization', name: site.runBy },
   ...(isTodo(site.email) ? {} : { email: site.email }),

@@ -89,6 +89,17 @@ export const site = {
     phone: '6353338281',
   },
 
+  /**
+   * Analytics — paste the IDs once you create them, then redeploy. Empty =
+   * nothing loads (no third-party scripts, no cookie banner needed).
+   *   ga4     — Google Analytics 4 Measurement ID, e.g. 'G-XXXXXXXXXX'
+   *   clarity — Microsoft Clarity project ID (free session recordings)
+   */
+  analytics: {
+    ga4: '',
+    clarity: '',
+  },
+
   samajFounded: '1967',
   samajOtherInstitutions:
     'Under its management the Trust runs G.S. Convent & Smt. L.D. Patel High School, Akola, and Smt. Maherbanu College of Science & Commerce, Akola.',
