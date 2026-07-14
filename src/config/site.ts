@@ -53,7 +53,15 @@ export const site = {
   addressFull:
     'Dekson Private Industrial Training Institute, Babhulgaon, Near College of Engineering and Technology, Akola, Maharashtra 444104',
   pincode: '444104',
-  mapsUrl: TODO('Google Maps link — create/claim the Business Profile, then paste the link'),
+
+  /** Exact campus coordinates (supplied by the college). */
+  geo: { lat: 20.707502, lng: 77.094792 },
+  /** View the campus on Google Maps. */
+  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=20.707502,77.094792',
+  /** One-tap turn-by-turn navigation to the campus. */
+  directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=20.707502,77.094792',
+  /** Keyless embed (no API key, no tracking cookies until the user interacts). */
+  mapEmbedUrl: 'https://www.google.com/maps?q=20.707502,77.094792&z=16&output=embed',
 
   officeHours:
     'Monday to Saturday, 10:00 am – 5:00 pm. During the admission season the office is also open on Sundays.',

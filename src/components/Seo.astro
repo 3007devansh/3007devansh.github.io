@@ -55,16 +55,13 @@ const organization = {
   telephone: `+91${site.phonePrimary}`,
   email: site.email,
   address,
-  /**
-   * Village-level coordinates for Babhulgaon, Akola (OpenStreetMap). Good enough
-   * for "near me" intent. Replace with the exact campus pin from the Google
-   * Business Profile once it is approved.
-   */
+  /** Exact campus coordinates, supplied by the college. */
   geo: {
     '@type': 'GeoCoordinates',
-    latitude: 20.7040,
-    longitude: 77.0846,
+    latitude: site.geo.lat,
+    longitude: site.geo.lng,
   },
+  hasMap: site.mapsUrl,
   // Regional reach — helps "ITI near <town>" across Akola district & neighbours.
   areaServed: [
     { '@type': 'City', name: 'Akola' },
@@ -83,8 +80,6 @@ const organization = {
     },
   ],
   founder: { '@type': 'Organization', name: site.runBy },
-  ...(isTodo(site.email) ? {} : { email: site.email }),
-  ...(isTodo(site.mapsUrl) ? {} : { hasMap: site.mapsUrl }),
 };
 
 const graph = [organization, ...schema];
