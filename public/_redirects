@@ -1,0 +1,2 @@
+# Any bot/tool that guesses the conventional /sitemap.xml gets the real one.
+/sitemap.xml   /sitemap-index.xml   301
