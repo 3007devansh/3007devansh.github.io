@@ -18,3 +18,9 @@ Thumbs.db
 /other-information/enhanced-photos/
 /other-information/college-shared/
 .indexnow-key
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
