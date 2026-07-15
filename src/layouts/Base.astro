@@ -20,6 +20,7 @@ const nav = [
   { href: '/courses', label: 'Courses' },
   { href: '/admissions', label: 'Admissions' },
   { href: '/facilities', label: 'Facilities' },
+  { href: '/guides', label: 'Guides' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
 ];
@@ -34,6 +35,8 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#2e2c6b" />
     <link rel="icon" href="/images/logo-deksons-64.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/images/logo-deksons-128.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <Analytics />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -173,6 +176,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
             ))}
             <li><a href="/faq" class="text-stone-600 hover:text-navy-700 hover:underline">FAQ</a></li>
             <li><a href="/gallery" class="text-stone-600 hover:text-navy-700 hover:underline">Gallery</a></li>
+            <li><a href="/guides" class="text-stone-600 hover:text-navy-700 hover:underline">Admission Guides</a></li>
           </ul>
         </div>
 

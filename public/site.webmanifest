@@ -1,0 +1,13 @@
+{
+  "name": "Dekson ITI, Akola",
+  "short_name": "Dekson ITI",
+  "description": "DGT/NCVT approved ITI in Babhulgaon, Akola. Admissions 2026-27 open.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2e2c6b",
+  "icons": [
+    { "src": "/images/logo-deksons-128.png", "sizes": "128x128", "type": "image/png" },
+    { "src": "/images/logo-deksons-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

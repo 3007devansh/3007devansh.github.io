@@ -33,4 +33,20 @@ const courses = defineCollection({
   }),
 });
 
-export const collections = { courses };
+/**
+ * Guides — SEO articles targeting the real queries candidates search
+ * ("iti admission akola", "which iti course is best", "options after 10th").
+ * They double as shareable content for WhatsApp / social.
+ */
+const guides = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/guides' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    order: z.number(),
+    published: z.string(), // YYYY-MM-DD
+    updated: z.string().optional(),
+  }),
+});
+
+export const collections = { courses, guides };

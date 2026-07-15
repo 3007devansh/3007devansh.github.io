@@ -82,7 +82,18 @@ const organization = {
   founder: { '@type': 'Organization', name: site.runBy },
 };
 
-const graph = [organization, ...schema];
+/** Helps Google settle on the site name (and sitelinks) in results. */
+const website = {
+  '@type': 'WebSite',
+  '@id': `${origin}/#website`,
+  url: origin,
+  name: site.name,
+  alternateName: 'Deksons ITI Akola',
+  publisher: { '@id': orgId },
+  inLanguage: 'en-IN',
+};
+
+const graph = [organization, website, ...schema];
 const jsonld = { '@context': 'https://schema.org', '@graph': graph };
 ---
 
